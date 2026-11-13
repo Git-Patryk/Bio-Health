@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g transform="rotate(-35 32 32)">
+    <path d="M32 6a12 12 0 0 1 12 12v14H20V18A12 12 0 0 1 32 6z" fill="#2f6b4f"/>
+    <path d="M20 32h24v14a12 12 0 0 1-24 0z" fill="#e9dfc8" stroke="#2f6b4f" stroke-width="2"/>
+  </g>
+</svg>
