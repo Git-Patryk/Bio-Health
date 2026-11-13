@@ -356,17 +356,24 @@ const OPINIE = [
   { gw: 4, tytul: 'Karmel bardzo smaczny', tekst: 'Mój ulubiony smak. Odejmuję gwiazdkę za to, że miarka mogłaby być większa.', autor: 'Paweł', smak: 'karmel', kiedy: '4 miesiące temu' },
 ];
 let filtrOpinii = 'wszystkie';
+let wszystkieOpinie = false; // na start 4 opinie, żeby cała sekcja mieściła się na ekranie
+const NA_START = 4;
 function renderOpinie() {
-  const lista = OPINIE.filter((o) => (filtrOpinii === 'smak' ? o.smak === stan.smak.id : filtrOpinii === 'krytyczne' ? o.gw <= 2 : true));
+  const pasujace = OPINIE.filter((o) => (filtrOpinii === 'smak' ? o.smak === stan.smak.id : filtrOpinii === 'krytyczne' ? o.gw <= 2 : true));
+  const lista = wszystkieOpinie ? pasujace : pasujace.slice(0, NA_START);
+  const przycisk = $('#wiecej-opinii');
+  przycisk.hidden = pasujace.length <= NA_START;
+  przycisk.textContent = wszystkieOpinie ? 'Pokaż mniej opinii' : `Pokaż wszystkie opinie (${pasujace.length})`;
+  przycisk.setAttribute('aria-expanded', wszystkieOpinie);
   const nazwa = (id) => SMAKI.find((s) => s.id === id).nazwa;
   $('#lista-opinii').innerHTML = lista.length
     ? lista.map((o) => `
       <li class="opinia">
-        <div class="opinia-gora"><span class="gw" aria-label="${o.gw} na 5">${'★'.repeat(o.gw)}${'☆'.repeat(5 - o.gw)}</span><span class="szary maly">${o.kiedy}</span></div>
+        <div class="opinia-gora"><span class="gw" aria-label="${o.gw} na 5">${'★'.repeat(o.gw)}${'☆'.repeat(5 - o.gw)}</span><span class="szary maly">${nazwa(o.smak).toLowerCase()}, ${o.kiedy}</span></div>
         <h3>${o.tytul}</h3>
         <p>${o.tekst}</p>
-        ${o.odp ? `<p class="odpowiedz"><b>Odpowiedź sklepu:</b> ${o.odp}</p>` : ''}
-        <div class="opinia-dol"><span>${o.autor}, zweryfikowany zakup</span><span>Smak: ${nazwa(o.smak).toLowerCase()}</span><button type="button" data-modal="zglos">Zgłoś opinię</button></div>
+        ${o.odp ? `<details class="odp-sklepu"><summary>Odpowiedź sklepu</summary><p class="odpowiedz">${o.odp}</p></details>` : ''}
+        <div class="opinia-dol"><span>${o.autor}, zweryfikowany zakup</span><button type="button" data-modal="zglos">Zgłoś opinię</button></div>
       </li>`).join('')
     : `<li class="pusto">Nie ma jeszcze opinii o smaku ${stan.smak.nazwa.toLowerCase()}. Kupisz go jako pierwszy?</li>`;
 }
@@ -376,6 +383,15 @@ $('.filtry').addEventListener('click', (e) => {
   filtrOpinii = b.dataset.filtr;
   $$('[data-filtr]').forEach((x) => x.setAttribute('aria-pressed', x === b));
   renderOpinie();
+});
+$('#wiecej-opinii').addEventListener('click', () => {
+  wszystkieOpinie = !wszystkieOpinie;
+  renderOpinie();
+  // po zwinięciu wróć na początek sekcji opinii, żeby nie zostać w pustym miejscu niżej
+  if (!wszystkieOpinie) {
+    const y = $('#opinie').getBoundingClientRect().top + window.scrollY - wysokoscPaskow();
+    if (lenis) lenis.scrollTo(y); else window.scrollTo({ top: y });
+  }
 });
 $$('.rozklad .pasek').forEach((p) => p.style.setProperty('--w', `${p.dataset.proc}%`));
 

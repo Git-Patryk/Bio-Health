@@ -275,10 +275,10 @@ h1 { font-size: clamp(34px, 3.4vw, 46px); text-wrap: balance; line-height: 1.02;
 .podpis-foto { position: absolute; z-index: 1; right: var(--gutter); bottom: 14px; font-size: 12px; color: rgba(255,255,255,.7); }
 
 /* ---------- sekcje ---------- */
-.sekcja { max-width: var(--szer); margin: 0 auto; padding: clamp(64px, 9vw, 120px) var(--gutter) 0; }
-.sekcja > h2 { font-size: clamp(30px, 3.2vw, 44px); letter-spacing: -.03em; font-weight: 650; line-height: 1.1; margin-bottom: 32px; }
-.haslo { font-size: clamp(36px, 5.4vw, 76px) !important; line-height: 1.0 !important; letter-spacing: -.045em !important; font-weight: 650; max-width: 18ch; }
-.opis-siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 48px; }
+.sekcja { max-width: var(--szer); margin: 0 auto; padding: clamp(36px, 6vh, 60px) var(--gutter) clamp(36px, 6vh, 60px); }
+.sekcja > h2 { font-size: clamp(30px, 3.2vw, 44px); letter-spacing: -.03em; font-weight: 650; line-height: 1.1; margin-bottom: clamp(18px, 3vh, 30px); }
+.haslo { font-size: clamp(36px, min(5.4vw, 8vh), 76px) !important; line-height: 1.0 !important; letter-spacing: -.045em !important; font-weight: 650; max-width: 18ch; }
+.opis-siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: clamp(24px, 4vh, 48px); }
 .opis-tekst { display: grid; gap: 16px; max-width: 58ch; font-size: 18px; }
 .liczby { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--linia); border-radius: var(--r-foto); overflow: hidden; }
 .liczby div { background: var(--biel); padding: 26px 24px; display: flex; flex-direction: column-reverse; gap: 4px; }
@@ -289,7 +289,7 @@ h1 { font-size: clamp(34px, 3.4vw, 46px); text-wrap: balance; line-height: 1.02;
 .tabela-w { background: var(--mgla); border-radius: var(--r-foto); padding: 10px 24px; overflow-x: auto; }
 @media (max-width: 480px) { .tabela-w { padding: 6px 14px; } table { font-size: 13.5px; } }
 table { width: 100%; border-collapse: collapse; font-size: 15.5px; font-variant-numeric: tabular-nums; }
-th, td { text-align: left; padding: 13px 0; border-bottom: 1px solid var(--linia); font-weight: 400; }
+th, td { text-align: left; padding: clamp(9px, 1.4vh, 13px) 0; border-bottom: 1px solid var(--linia); font-weight: 400; }
 td { white-space: nowrap; }
 tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
 thead th { color: var(--granat-2); font-size: 13.5px; font-weight: 500; }
@@ -300,9 +300,10 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 .ostrzezenia { margin: 22px 0 14px; padding: 18px 20px; border-radius: 18px; background: #fff7e6; display: grid; gap: 8px; font-size: 15px; }
 
 /* ---------- rytm ---------- */
-.rytm { background: var(--granat); color: #fff; margin-top: clamp(64px, 9vw, 120px); padding: clamp(72px, 9vw, 128px) 0; overflow: hidden; }
+.rytm { background: var(--granat); color: #fff; margin-top: clamp(24px, 4vh, 48px); padding: clamp(36px, 6vh, 64px) 0; overflow: hidden; }
+.rytm .haslo { max-width: 26ch; }
 .rytm-w { max-width: var(--szer); margin: 0 auto; padding: 0 var(--gutter); }
-.rytm-sterowanie { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 44px 0 28px; }
+.rytm-sterowanie { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: clamp(22px, 4vh, 44px) 0 clamp(16px, 2.6vh, 28px); }
 .segment { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,.1); }
 .segment button { border: 0; background: none; color: #c9cde0; min-height: 42px; padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: background-color .25s, color .25s; }
 .segment button[aria-checked='true'] { background: #fff; color: var(--granat); }
@@ -313,11 +314,13 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 .tydzien.dostawa .slot::after { content: ''; width: 38%; height: 46%; border-radius: 4px 4px 6px 6px; background: rgba(255,255,255,.88); }
 .tydzien.pauza .slot { background: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 6px, rgba(255,255,255,.12) 6px 12px); }
 .tydzien.dzis { color: #fff; font-weight: 600; }
-.os-opis { margin-top: 18px; color: #c9cde0; font-size: 16px; min-height: 1.5em; }
-.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: 32px; }
+.os-opis { margin-top: 12px; color: #c9cde0; font-size: 16px; min-height: 1.5em; }
+.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: clamp(24px, 4vh, 48px); counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: clamp(20px, 3vh, 32px); }
+.kroki li { display: grid; grid-template-columns: 34px 1fr; column-gap: 14px; align-content: start; }
+.kroki li > * { grid-column: 2; }
 .kroki li { counter-increment: krok; }
-.kroki li::before { content: counter(krok); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.12); font-weight: 650; margin-bottom: 16px; }
-.kroki h3 { font-size: 21px; font-weight: 650; letter-spacing: -.02em; margin-bottom: 6px; }
+.kroki li::before { content: counter(krok); grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.12); font-weight: 650; }
+.kroki h3 { font-size: 21px; font-weight: 650; letter-spacing: -.02em; margin: 3px 0 6px; }
 .kroki p { color: #c9cde0; max-width: 34ch; }
 
 /* ---------- razem ---------- */
@@ -334,20 +337,27 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 
 /* ---------- opinie ---------- */
 .opinie-siatka { display: grid; grid-template-columns: 320px 1fr; gap: 64px; }
-.ocena-duza { font-size: 72px; font-weight: 650; letter-spacing: -.05em; line-height: 1; }
+.ocena-duza { font-size: clamp(54px, 8vh, 72px); font-weight: 650; letter-spacing: -.05em; line-height: 1; }
 .ocena-duza small { font-size: 24px; color: var(--granat-2); letter-spacing: 0; margin-left: 4px; }
-.rozklad { margin: 20px 0; display: grid; gap: 8px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.rozklad { margin: 16px 0; display: grid; gap: 8px; font-size: 14px; font-variant-numeric: tabular-nums; }
 .rozklad li { display: grid; grid-template-columns: 14px 1fr 34px; gap: 10px; align-items: center; }
 .rozklad li span:last-child { text-align: right; color: var(--granat-2); }
 .rozklad .pasek { height: 8px; border-radius: 999px; background: var(--mgla); position: relative; overflow: hidden; }
 .rozklad .pasek::after { content: ''; position: absolute; inset: 0; width: var(--w, 0%); background: var(--granat); border-radius: 999px; }
 .filtry { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-.opinia { padding: 24px 0; border-bottom: 1px solid var(--linia); }
+.lista-opinii { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; align-items: start; }
+.opinia { padding: 18px 20px; border-radius: 18px; background: var(--mgla); }
+.lista-opinii .pusto { grid-column: 1 / -1; }
+.wiecej-opinii { margin-left: auto; align-self: center; font-size: 15px; }
+.opinia-dol { justify-content: space-between; }
+.odp-sklepu { margin-top: 10px; font-size: 14px; }
+.odp-sklepu summary { cursor: pointer; color: var(--granat-2); text-decoration: underline; text-underline-offset: .2em; width: fit-content; }
+.odp-sklepu .odpowiedz { background: #fff; }
 .opinia-gora { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; }
 .opinia .gw { color: #e8a317; letter-spacing: 1px; }
-.opinia h3 { font-size: 18px; font-weight: 650; margin: 6px 0; }
-.opinia p { max-width: 64ch; }
-.opinia-dol { margin-top: 10px; font-size: 14px; color: var(--granat-2); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.opinia h3 { font-size: 17px; font-weight: 650; margin: 4px 0; }
+.opinia p { max-width: 64ch; font-size: 15px; line-height: 1.45; }
+.opinia-dol { margin-top: 8px; font-size: 14px; color: var(--granat-2); display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .opinia-dol button { border: 0; background: none; padding: 0; color: inherit; text-decoration: underline; text-underline-offset: .2em; font-size: 14px; }
 .odpowiedz { margin-top: 12px; padding: 14px 16px; border-radius: 14px; background: var(--mgla); font-size: 15px; }
 .pusto { padding: 24px 0; color: var(--granat-2); }
@@ -355,7 +365,7 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 /* ---------- pytania ---------- */
 .akordeon { max-width: 860px; }
 .akordeon details { border-bottom: 1px solid var(--linia); }
-.akordeon summary { list-style: none; cursor: pointer; padding: 22px 48px 22px 0; font-size: 19px; font-weight: 550; position: relative; }
+.akordeon summary { list-style: none; cursor: pointer; padding: clamp(14px, 2.4vh, 22px) 48px clamp(14px, 2.4vh, 22px) 0; font-size: 19px; font-weight: 550; position: relative; }
 .akordeon summary::-webkit-details-marker { display: none; }
 .akordeon summary::after { content: '+'; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 26px; font-weight: 300; transition: transform .25s; }
 .akordeon details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
@@ -364,7 +374,7 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 /* ---------- polecane ---------- */
 .polecane-lista { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .polecany a { display: grid; gap: 10px; text-decoration: none; }
-.polecany .razem-obraz { height: 220px; transition: transform .35s; }
+.polecany .razem-obraz { height: clamp(150px, 26vh, 220px); transition: transform .35s; }
 .polecany a:hover .razem-obraz { transform: translateY(-4px); }
 .polecany b { font-weight: 600; }
 
@@ -526,6 +536,7 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
   .pasek-sekcji .mini-zakup { display: none; }
   .opis-siatka, .sklad-siatka, .opinie-siatka, .razem-siatka, .newsletter { grid-template-columns: 1fr; gap: 32px; }
   .razem-lista { grid-template-columns: 1fr; }
+  .lista-opinii { grid-template-columns: 1fr; }
   .razem-karta label { grid-template-columns: 96px 1fr; align-items: center; }
   .razem-obraz { height: 96px; }
   .os { grid-template-columns: repeat(8, 1fr); }
