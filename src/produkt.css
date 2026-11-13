@@ -45,7 +45,7 @@ a { color: inherit; }
 h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 :focus-visible { outline: 3px solid var(--sygnal); outline-offset: 3px; border-radius: 6px; }
-section[id] { scroll-margin-top: 140px; }
+section[id] { scroll-margin-top: calc(var(--naglowek-h) + 60px); } /* nagłówek + pasek sekcji */
 .ukryte { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .szary { color: var(--granat-2); }
 .maly { font-size: 14px; line-height: 1.5; }

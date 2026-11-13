@@ -1,4 +1,6 @@
-/* Prezentacja BC5 — ten sam system wizualny co strona (docs/DESIGN.md) */
+/* Prezentacja „Makieta strony produktu” — wersja skupiona na makietach.
+   System wizualny strony (docs/DESIGN.md): Onest, granat, kolory smaków.
+   Zasada: każdy blok prezentacji ma swój kolor smaku, a jedyny duży „efekt” to przemiana lo-fi → hi-fi. */
 @import '@fontsource-variable/onest';
 
 :root {
@@ -8,153 +10,286 @@
   --linia: #d9dce5;
   --sygnal: #3d5afe;
   --ok: #1e7a4f;
-  --czek-pole: #e9dcd3;
-  --czek: #5b3a2a;
+  --nie: #c2364b;
+  --czek-pole: #e9dcd3; --czek: #5b3a2a;
+  --wan-pole: #f3e8c9;  --wan: #d9b65e;  --wan-ciemny: #8a6a1c;
+  --kar-pole: #f1dcc2;  --kar: #c27a36;  --kar-ciemny: #8c4f17;
+  --trus-pole: #f7d9dd; --trus: #d2475d; --trus-ciemny: #a3263b;
+  --niebo-pole: #e2e7ff; --niebo-ciemny: #2c3fc0;
+  --mieta-pole: #dcefe3; --mieta-ciemny: #1f6a45;
+  --akcent: var(--granat);
   --font: 'Onest Variable', ui-sans-serif, system-ui, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { margin: 0; height: 100%; background: #0d1024; overflow: hidden; }
 body { font-family: var(--font); color: var(--granat); -webkit-font-smoothing: antialiased; }
-h1, h2, h3, p, ul, ol, figure { margin: 0; }
+h1, h2, h3, p, ul, ol, figure, figcaption, cite { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 img { display: block; max-width: 100%; }
+cite { font-style: normal; }
 :focus-visible { outline: 3px solid var(--sygnal); outline-offset: 4px; }
 
 .okno-pokazu { position: fixed; inset: 0; }
 .scena {
   position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
-  transform: translate(-50%, -50%);
-  transform-origin: center center; background: #fff; overflow: hidden;
+  transform: translate(-50%, -50%); transform-origin: center center; background: #fff; overflow: hidden;
 }
 .slajd {
-  position: absolute; inset: 0; padding: 110px 130px 100px; background: #fff;
-  visibility: hidden; opacity: 0;
+  position: absolute; inset: 0; padding: 100px 130px 96px; background: #fff;
+  visibility: hidden; opacity: 0; overflow: hidden;
 }
 .slajd.aktywny { visibility: visible; opacity: 1; }
 .slajd.ciemny { background: var(--granat); color: #fff; }
+.tlo-wanilia { background: var(--wan-pole); --akcent: var(--wan-ciemny); }
+.tlo-truskawka { background: var(--trus-pole); --akcent: var(--trus-ciemny); }
+.tlo-karmel { background: var(--kar-pole); --akcent: var(--kar-ciemny); }
+.tlo-niebo { background: var(--niebo-pole); --akcent: var(--niebo-ciemny); }
+.tlo-mieta { background: var(--mieta-pole); --akcent: var(--mieta-ciemny); }
 
 /* typografia */
-.metka { font-size: 26px; color: var(--granat-2); margin-bottom: 18px; font-weight: 500; }
+.metka { font-size: 26px; color: var(--akcent); margin-bottom: 16px; font-weight: 600; }
 .ciemny .metka { color: #a9aecb; }
-.wielki { font-size: 168px; line-height: .92; letter-spacing: -.055em; font-weight: 680; }
-.duzy { font-size: 84px; line-height: 1; letter-spacing: -.045em; font-weight: 650; max-width: 17ch; }
-.sredni { font-size: 64px; line-height: 1.02; letter-spacing: -.04em; font-weight: 650; max-width: 20ch; }
-.podtytul { font-size: 40px; margin-top: 28px; color: #d6d9ea; letter-spacing: -.02em; max-width: 22ch; line-height: 1.2; }
-.meta { margin-top: 64px; font-size: 26px; line-height: 1.5; color: #a9aecb; }
-.lead { font-size: 34px; line-height: 1.35; margin-top: 36px; max-width: 30ch; letter-spacing: -.01em; }
-.szary { color: var(--granat-2); }
-.szary-jasny { color: #a9aecb; font-size: 24px; margin-top: 22px; max-width: 34ch; line-height: 1.4; }
-.przypis { position: absolute; left: 130px; bottom: 90px; font-size: 26px; color: var(--granat-2); max-width: 70ch; }
+.wielki { font-size: 150px; line-height: .92; letter-spacing: -.055em; font-weight: 700; max-width: 9ch; }
+.duzy { font-size: 80px; line-height: 1; letter-spacing: -.045em; font-weight: 680; max-width: 20ch; }
+.sredni { font-size: 62px; line-height: 1.02; letter-spacing: -.04em; font-weight: 680; max-width: 18ch; }
+.podtytul { font-size: 38px; margin-top: 30px; color: #d6d9ea; letter-spacing: -.02em; max-width: 22ch; line-height: 1.2; }
+.meta { margin-top: 60px; font-size: 26px; line-height: 1.5; color: #a9aecb; }
+.lead { font-size: 32px; line-height: 1.35; margin-top: 32px; max-width: 30ch; letter-spacing: -.01em; }
+.szary-jasny { color: #a9aecb; font-size: 24px; margin-top: 26px; max-width: 36ch; line-height: 1.4; }
+cite { display: block; font-size: 21px; color: var(--akcent); font-weight: 600; margin-top: 14px; }
+.wniosek {
+  position: absolute; left: 130px; right: 130px; bottom: 80px; font-size: 34px; line-height: 1.3; font-weight: 620;
+  letter-spacing: -.015em; background: var(--granat); color: #fff; padding: 30px 44px; border-radius: 28px;
+}
 
-/* 1 tytuł */
-.tytul-uklad { display: grid; grid-template-columns: 1fr 820px; gap: 40px; align-items: center; height: 100%; }
-.stos { position: relative; height: 640px; }
-.stos img { position: absolute; width: 760px; border-radius: 22px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
-.stos-a { top: 0; left: 0; transform: rotate(-5deg); opacity: .85; }
-.stos-b { top: 150px; left: 60px; transform: rotate(3deg); }
+/* 1. tytuł: trzy plamy w kolorach smaków powoli dryfują */
+.tytul-uklad { position: relative; display: grid; grid-template-columns: 1fr 860px; gap: 40px; align-items: center; height: 100%; }
+.plama { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .55; animation: dryf 18s ease-in-out infinite alternate; }
+.plama-1 { width: 620px; height: 620px; background: var(--trus); right: 120px; top: -160px; }
+.plama-2 { width: 520px; height: 520px; background: var(--wan); right: -120px; bottom: -140px; animation-delay: -6s; }
+.plama-3 { width: 420px; height: 420px; background: var(--kar); left: 640px; bottom: -220px; animation-delay: -12s; opacity: .4; }
+@keyframes dryf { from { transform: translate(0, 0) scale(1); } to { transform: translate(-90px, 60px) scale(1.12); } }
+.stos { position: relative; height: 660px; }
+.stos img { position: absolute; width: 780px; border-radius: 22px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.stos-a { top: 0; left: 0; transform: rotate(-5deg); }
+.stos-b { top: 170px; left: 70px; transform: rotate(3deg); }
 
-/* 2 zadanie */
-.dwie { display: grid; grid-template-columns: 1.1fr 1fr; gap: 100px; align-items: center; height: 100%; }
-.persona { background: var(--czek-pole); border-radius: 36px; padding: 56px 60px; }
-.persona h3 { font-size: 56px; letter-spacing: -.035em; font-weight: 650; }
-.persona > .szary { font-size: 28px; margin-top: 6px; }
-.lista-kropki { margin-top: 34px; display: grid; gap: 18px; font-size: 30px; line-height: 1.3; }
-.lista-kropki li { padding-left: 34px; position: relative; }
-.lista-kropki li::before { content: ''; position: absolute; left: 0; top: 14px; width: 12px; height: 12px; border-radius: 50%; background: var(--czek); }
+/* 2. teoria lo-fi */
+.teoria-uklad { display: grid; grid-template-columns: 640px 1fr; gap: 90px; margin-top: 64px; }
+.wierności { display: grid; gap: 28px; }
+.wiernosc { display: grid; grid-template-columns: 210px 1fr; gap: 6px 30px; align-items: center; background: #fff; border-radius: 28px; padding: 26px; }
+.wiernosc h3 { font-size: 40px; letter-spacing: -.03em; font-weight: 680; align-self: end; }
+.wiernosc p { font-size: 25px; line-height: 1.35; color: var(--granat-2); align-self: start; }
+.wiernosc > div { grid-row: span 2; }
+.mini-lofi, .mini-hifi { position: relative; height: 150px; border-radius: 16px; overflow: hidden; }
+.mini-lofi { background: #fff; border: 2px solid #b9b9b9; }
+.mini-lofi i, .mini-hifi i { position: absolute; display: block; border-radius: 4px; }
+.mini-lofi i { background: #dedede; border: 1.5px solid #a9a9a9; }
+.mini-lofi i:nth-child(1), .mini-hifi i:nth-child(1) { left: 8%; top: 12%; width: 38%; height: 72%; }
+.mini-lofi i:nth-child(2), .mini-hifi i:nth-child(2) { left: 54%; top: 14%; width: 38%; height: 12%; }
+.mini-lofi i:nth-child(3), .mini-hifi i:nth-child(3) { left: 54%; top: 34%; width: 22%; height: 10%; }
+.mini-lofi i:nth-child(4), .mini-hifi i:nth-child(4) { left: 54%; top: 52%; width: 38%; height: 10%; }
+.mini-lofi i:nth-child(5), .mini-hifi i:nth-child(5) { left: 54%; top: 70%; width: 38%; height: 14%; border-radius: 99px; }
+.mini-hifi { background: var(--czek-pole); }
+.mini-hifi i:nth-child(1) { background: var(--czek); border-radius: 10px; }
+.mini-hifi i:nth-child(2) { background: var(--granat); }
+.mini-hifi i:nth-child(3) { background: var(--trus); }
+.mini-hifi i:nth-child(4) { background: #fff; }
+.mini-hifi i:nth-child(5) { background: var(--granat); }
+.fakty { display: grid; gap: 40px; align-content: start; }
+.fakty li { display: grid; grid-template-columns: 330px 1fr; column-gap: 34px; align-items: baseline; }
+.fakty .liczba { grid-row: span 2; }
+.fakty p { font-size: 28px; line-height: 1.33; }
+.fakty cite { grid-column: 2; }
+.liczba { font-size: 104px; line-height: .95; letter-spacing: -.05em; font-weight: 720; color: var(--akcent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fakty .liczba:not(:has(.licz)) { font-size: 72px; }
 
-/* 3 proces */
-.os-etapow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 110px; position: relative; }
-.os-etapow::before { content: ''; position: absolute; left: 40px; right: 40px; top: 40px; height: 4px; background: var(--mgla); }
-.os-etapow li { position: relative; display: grid; gap: 10px; padding-right: 30px; }
-.os-etapow .nr { width: 84px; height: 84px; border-radius: 50%; background: var(--granat); color: #fff; display: grid; place-items: center; font-size: 36px; font-weight: 650; margin-bottom: 18px; position: relative; }
-.os-etapow b { font-size: 38px; letter-spacing: -.02em; font-weight: 650; }
-.os-etapow span:last-child { font-size: 26px; color: var(--granat-2); }
+/* 3. koszyki */
+.koszyki-uklad { display: grid; grid-template-columns: 700px 1fr; gap: 110px; margin-top: 10px; }
+.mega { font-size: 176px; line-height: .9; letter-spacing: -.06em; font-weight: 740; color: var(--trus-ciemny); font-variant-numeric: tabular-nums; margin-left: -10px; }
+.koszyki-uklad .sredni { margin-top: 26px; font-size: 56px; }
+.cite-duzy { font-size: 23px; margin-top: 22px; }
+.naglowek-wykresu { font-size: 34px; letter-spacing: -.02em; font-weight: 650; margin: 40px 0 34px; }
+.slupki { display: grid; gap: 22px; }
+.slupki li { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; font-size: 26px; }
+.slupki b { font-size: 30px; font-weight: 700; color: var(--trus-ciemny); font-variant-numeric: tabular-nums; }
+.tor { grid-column: 1 / -1; display: block; height: 20px; border-radius: 99px; background: rgba(255,255,255,.7); overflow: hidden; }
+.wypelnienie { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--trus); }
+.podpis-wykresu { font-size: 20px; color: var(--granat-2); margin-top: 22px; max-width: 60ch; line-height: 1.35; }
 
-/* 4 konkurencja */
-.trzy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 70px; }
-.kolumna { border-top: 4px solid var(--granat); padding-top: 28px; display: grid; gap: 20px; align-content: start; }
-.kolumna h3 { font-size: 44px; letter-spacing: -.03em; font-weight: 650; }
-.plus, .minus { font-size: 28px; line-height: 1.35; padding-left: 44px; position: relative; }
-.plus::before, .minus::before { position: absolute; left: 0; top: 0; font-weight: 700; font-size: 30px; }
-.plus::before { content: '+'; color: var(--ok); }
-.minus::before { content: '−'; color: #c2364b; }
-.wniosek { position: absolute; left: 130px; right: 130px; bottom: 96px; font-size: 36px; line-height: 1.3; font-weight: 600; letter-spacing: -.015em; background: var(--czek-pole); padding: 30px 40px; border-radius: 26px; }
-.wniosek--czerwony { background: #fde8eb; }
+/* 4–5. trzy fakty */
+.trzy-fakty { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-top: 70px; }
+.trzy-fakty > div { display: grid; gap: 18px; align-content: start; border-top: 6px solid var(--akcent); padding-top: 32px; }
+.trzy-fakty p { font-size: 28px; line-height: 1.35; }
+.trzy-fakty cite { margin-top: 0; }
+.liczba--slowo { font-size: 78px; }
 
-/* 5, 6, 9 lo-fi / hi-fi z objaśnieniami */
-.lofi-uklad { display: grid; grid-template-columns: 1120px 1fr; gap: 70px; align-items: center; height: 100%; }
-.lofi-uklad--odwrotny { grid-template-columns: 1fr 760px; }
-.ramka-przegladarki { position: relative; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px var(--linia); padding-top: 34px; background: #f3f4f7; }
-.ramka-przegladarki::before { content: ''; position: absolute; top: 12px; left: 18px; width: 10px; height: 10px; border-radius: 50%; background: #c9ccd8; box-shadow: 18px 0 0 #c9ccd8, 36px 0 0 #c9ccd8; }
-.ramka-przegladarki img { width: 100%; }
-.ramka-przegladarki .warstwa, .kurtyna-gora { position: absolute; left: 0; top: 34px; width: 100%; }
+/* 6–8. konkurencja: opis po lewej, kolaż wycinków po prawej */
+.konk-uklad { display: grid; grid-template-columns: 460px 1fr; gap: 60px; height: 100%; }
+.konk-opis { align-self: center; }
+.konk-produkt { font-size: 24px; color: var(--granat-2); margin-top: 16px; line-height: 1.35; }
+.konk-wniosek { margin-top: 44px; font-size: 32px; line-height: 1.3; font-weight: 620; letter-spacing: -.015em; padding-left: 26px; border-left: 6px solid var(--akcent); }
+.kolaz { position: relative; margin: -40px -60px -40px 0; }
+.kadr { position: absolute; display: grid; gap: 14px; }
+.kadr img, .kadr .z-obrysami, .lista-smakow, .kadr-tekst p {
+  border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 24px 60px rgba(22,26,51,.18), 0 0 0 1px rgba(22,26,51,.06);
+}
+.z-obrysami { position: relative; }
+.z-obrysami img { border-radius: 0; box-shadow: none; }
+figcaption { font-size: 23px; line-height: 1.3; font-weight: 560; display: flex; gap: 12px; align-items: baseline; }
+.stempel {
+  display: inline-block; font-style: normal; font-size: 19px; font-weight: 750; letter-spacing: .02em; color: #fff;
+  padding: 6px 14px; border-radius: 10px; transform: rotate(-4deg); flex: none;
+}
+.stempel--tak { background: var(--ok); }
+.stempel--nie { background: var(--nie); }
+.obrys {
+  position: absolute; border: 3px solid var(--ok); border-radius: 10px;
+  box-shadow: 0 0 0 2px rgba(30,122,79,.15);
+}
+.obrys--nie { border-color: var(--nie); box-shadow: 0 0 0 2px rgba(194,54,75,.15); }
+.obrys--jasny { border-color: #ffd36b; box-shadow: 0 0 0 4px rgba(255,211,107,.25); }
+
+/* Myprotein */
+.kadr-mp-licznik { left: 0; top: 0; width: 1180px; }
+.kadr-mp-smaki { left: 0; top: 190px; width: 560px; }
+.lista-smakow { columns: 2; column-gap: 18px; padding: 18px 22px; font-size: 14.5px; line-height: 1.38; color: var(--granat-2); }
+.lista-smakow li { break-inside: avoid; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kadr-mp-cookies { left: 610px; top: 190px; width: 570px; }
+.kadr-mp-razem { left: 610px; top: 520px; width: 570px; }
+
+/* KFD */
+.kadr-kfd-info { left: 0; top: 30px; width: 640px; }
+.kadr-kfd-razem { left: 690px; top: 30px; width: 490px; }
+.kadr-tekst p { padding: 28px 30px; font-size: 27px; line-height: 1.35; }
+.kadr-kfd-brak { left: 690px; top: 470px; width: 490px; }
+
+/* Huel */
+.kadr-huel-sub { left: 0; top: 10px; width: 520px; }
+.kadr-huel-smaki { left: 570px; top: 10px; width: 610px; }
+.kadr-huel-quiz { left: 570px; top: 395px; width: 610px; }
+.kadr-huel-korzysci { left: 570px; top: 535px; width: 470px; }
+
+/* 9. bilans */
+.bilans { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; }
+.bilans-kol { border-radius: 32px; padding: 40px 44px; }
+.bilans-kol--tak { background: #dcefe3; }
+.bilans-kol--nie { background: #fbe1e5; }
+.bilans-kol h3 { font-size: 44px; letter-spacing: -.03em; font-weight: 700; margin-bottom: 22px; }
+.bilans-kol--tak h3 { color: var(--ok); }
+.bilans-kol--nie h3 { color: var(--nie); }
+.bilans-kol ul { display: grid; gap: 14px; font-size: 27px; line-height: 1.3; }
+.zrodlo {
+  display: inline-block; font-size: 17px; font-weight: 650; padding: 3px 11px; border-radius: 99px; margin-left: 4px;
+  vertical-align: 3px; background: rgba(22,26,51,.08); color: var(--granat-2); white-space: nowrap;
+}
+.zr-kfd { background: #2a3fd0; color: #fff; }
+.zr-huel { background: #161a33; color: #fff; }
+.zr-mp { background: #d63a2f; color: #fff; }
+.wniosek--granat { background: var(--granat); }
+.slajd:has(.bilans) .wniosek { bottom: 70px; }
+
+/* 10. makieta lo-fi → hi-fi */
+.slajd--makieta { padding: 72px 110px 60px; background: #f4f4f2; }
+.slajd--makieta::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(#cfcfca 1.4px, transparent 1.6px); background-size: 26px 26px;
+}
+.tlo-czekolada-warstwa { position: absolute; inset: 0; background: var(--czek-pole); }
+.makieta-uklad { position: relative; display: grid; grid-template-columns: 1040px 1fr; gap: 64px; height: 100%; align-items: center; }
+.ramka-przegladarki { position: relative; border-radius: 20px; overflow: hidden; padding-top: 34px; background: #e6e6e3; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px rgba(22,26,51,.08); }
+.ramka-przegladarki::before { content: ''; position: absolute; top: 12px; left: 18px; width: 10px; height: 10px; border-radius: 50%; background: #bdbdb8; box-shadow: 18px 0 0 #bdbdb8, 36px 0 0 #bdbdb8; }
+.makieta { position: relative; aspect-ratio: 1440 / 1240; background: #fff; overflow: hidden; }
+
+/* elementy lo-fi (pozycje w % liczy skrypt z siatki 1440 × 1240) */
+.lf {
+  position: absolute; display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 11px; line-height: 1.15; color: #6c6c6c; font-weight: 500; padding: 0 4px; overflow: hidden; white-space: nowrap;
+}
+.lf-pasek { background: #cfcfcf; color: #555; justify-content: center; }
+.lf-ramka { border: 1.5px solid #8f8f8f; border-radius: 4px; }
+.lf-ikona { border: 1.5px solid #8f8f8f; border-radius: 50%; }
+.lf-tekst { background: #e9e9e9; border-radius: 3px; justify-content: flex-start; text-align: left; padding: 0 8px; }
+.lf-link { background: #e9e9e9; border-radius: 3px; justify-content: flex-start; padding: 0 8px; text-decoration: underline; }
+.lf-naglowek { background: #dcdcdc; border-radius: 4px; justify-content: flex-start; font-size: 26px; font-weight: 650; color: #707070; padding: 0 14px; }
+.lf-cena { background: #dcdcdc; border-radius: 4px; font-size: 16px; font-weight: 650; color: #6c6c6c; }
+.lf-pigulka { border: 1.5px solid #8f8f8f; border-radius: 99px; background: #fff; }
+.lf-pigulka.wybrany { background: #8a8a8a; color: #fff; border-color: #8a8a8a; }
+.lf-pigulka.brak { border-style: dashed; color: #a9a9a9; }
+.lf-karta { border: 1.5px solid #8f8f8f; border-radius: 10px; background: #f7f7f7; flex-direction: column; justify-content: flex-start; align-items: flex-start; text-align: left; padding: 10px 12px; gap: 6px; white-space: pre-line; line-height: 1.45; }
+.lf-karta.wybrany { border-width: 2.5px; border-color: #5a5a5a; }
+.lf-plakietka { border: 1.5px solid #8f8f8f; border-radius: 12px; background: #fff; }
+.lf-panel { border: 1.5px dashed #b4b4b4; border-radius: 22px; }
+.lf-przycisk { background: #6e6e6e; color: #fff; border-radius: 99px; font-weight: 650; font-size: 13px; }
+.lf-zdjecie { border: 1.5px solid #9a9a9a; background: #ededed; border-radius: 6px; align-items: flex-end; padding-bottom: 8px; }
+.lf-zdjecie svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lf-zdjecie span { position: relative; background: #ededed; padding: 0 6px; }
+
 .znacznik {
-  position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%;
-  background: var(--sygnal); color: #fff; font-size: 24px; font-weight: 700; display: grid; place-items: center;
+  position: absolute; z-index: 5; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%;
+  background: var(--sygnal); color: #fff; font-size: 22px; font-weight: 700; display: grid; place-items: center;
   box-shadow: 0 0 0 6px rgba(61,90,254,.25), 0 8px 20px rgba(61,90,254,.4);
 }
-.objasnienia { margin-top: 40px; display: grid; gap: 20px; font-size: 28px; line-height: 1.3; counter-reset: o; }
-.objasnienia li { counter-increment: o; padding-left: 56px; position: relative; }
-.objasnienia li::before { content: counter(o); position: absolute; left: 0; top: -2px; width: 38px; height: 38px; border-radius: 50%; background: var(--sygnal); color: #fff; font-size: 20px; font-weight: 700; display: grid; place-items: center; }
-.okno-przewijane { height: 860px; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px var(--linia); background: #e9e9e9; }
-.okno-przewijane img { width: 100%; will-change: transform; }
-.checklista { margin-top: 44px; display: grid; gap: 22px; font-size: 32px; }
-.checklista li { padding-left: 58px; position: relative; }
-.checklista li::before { content: '✓'; position: absolute; left: 0; top: -4px; width: 40px; height: 40px; border-radius: 50%; background: var(--ok); color: #fff; font-size: 22px; font-weight: 700; display: grid; place-items: center; }
+.przemiana { position: absolute; inset: 0; z-index: 4; }
+.kawalek { position: absolute; overflow: hidden; }
+.kawalek img { position: absolute; max-width: none; }
+.hifi-pelna { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* 7 test */
-.test-uklad { display: grid; grid-template-columns: 380px 1fr 380px; gap: 56px; margin-top: 56px; align-items: start; }
-.metoda { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--linia); font-size: 22px; line-height: 1.4; color: var(--granat-2); }
-.panel-v { border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px var(--linia), 0 20px 50px rgba(22,26,51,.12); }
-.panel-v figcaption { font-size: 22px; padding: 12px 18px; background: var(--mgla); font-weight: 600; }
-.wyniki { display: grid; gap: 26px; font-size: 28px; line-height: 1.32; }
-.wyniki li { padding-left: 60px; position: relative; }
-.wyniki li::before { position: absolute; left: 0; top: -2px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 22px; }
-.wyniki .ok::before { content: '✓'; background: var(--ok); }
-.wyniki .uwaga::before { content: '!'; background: #d98e04; }
-.wyniki .blad::before { content: '✕'; background: #c2364b; }
+.makieta-opis { position: relative; align-self: stretch; display: grid; align-content: center; }
+.makieta-opis .sredni { font-size: 54px; }
+.makieta-opis .metka { color: var(--czek); }
+.adnotacje { margin-top: 30px; display: grid; gap: 15px; font-size: 24px; line-height: 1.3; counter-reset: a; }
+.adnotacje li { counter-increment: a; padding-left: 52px; position: relative; }
+.adnotacje li::before {
+  content: counter(a); position: absolute; left: 0; top: -1px; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--sygnal); color: #fff; font-size: 18px; font-weight: 700; display: grid; place-items: center;
+}
+.adnotacje .zrodlo { font-size: 15px; vertical-align: 2px; }
+.nizej { margin-top: 22px; font-size: 21px; line-height: 1.35; color: var(--granat-2); padding-top: 16px; border-top: 1px solid #cfcfca; }
+.po-przemianie { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+.po-przemianie .lead { font-size: 30px; }
 
-/* 8 kurtyna */
-.przejscie-uklad { height: 100%; display: grid; place-items: center; align-content: center; gap: 40px; }
-.ramka-przegladarki--duza { width: 1300px; }
-.slajd:has(.przejscie-uklad) { padding-top: 60px; padding-bottom: 60px; }
-.podpis-jasny { font-size: 40px; letter-spacing: -.02em; color: #fff; font-weight: 600; }
-.podpis-jasny span { color: #a9aecb; font-weight: 400; }
+/* 11. kolor smaku */
+.slajd--smaki { background: var(--czek-pole); }
+.smaki-tlo { position: absolute; inset: 0; background: var(--czek-pole); }
+.smaki-uklad { position: relative; display: grid; grid-template-columns: 1fr 1060px; gap: 70px; height: 100%; align-items: center; }
+.smaki-uklad .duzy { font-size: 76px; }
+.smaki-stos { position: relative; aspect-ratio: 1440 / 900; }
+.smak-kadr { position: absolute; inset: 0; width: 100%; height: 100%; }
+.kropki-smakow { display: flex; gap: 14px; margin-top: 40px; }
+.kropki-smakow li { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; padding: 10px 20px 10px 10px; border-radius: 99px; background: rgba(255,255,255,.7); }
+.kropki-smakow li::before { content: ''; width: 30px; height: 30px; border-radius: 50%; background: var(--k); }
+.ks-czek { --k: var(--czek); } .ks-wan { --k: var(--wan); } .ks-trus { --k: var(--trus); }
 
-/* 9 tokeny */
-.tokeny { display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 22px; }
-.kolor { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; padding: 10px 20px 10px 10px; border-radius: 999px; background: var(--mgla); }
-.kolor::before { content: ''; width: 34px; height: 34px; border-radius: 50%; background: var(--k); box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }
-.k-granat { --k: #161a33; } .k-mgla { --k: #eef0f4; } .k-czek { --k: #5b3a2a; } .k-wan { --k: #d9b65e; } .k-trus { --k: #d2475d; }
-.lofi-uklad .szary { font-size: 26px; line-height: 1.4; max-width: 34ch; }
+/* 12. zasady subskrypcji */
+.zasady-uklad { display: grid; grid-template-columns: 560px 1fr; gap: 70px; height: 100%; align-items: center; }
+.lista-zasad { margin-top: 40px; display: grid; gap: 22px; font-size: 30px; line-height: 1.3; }
+.lista-zasad li { padding-left: 52px; position: relative; color: #e7e9f4; }
+.lista-zasad li::before { content: ''; position: absolute; left: 0; top: 6px; width: 28px; height: 28px; border-radius: 8px; border: 4px solid #ffd36b; }
+.ramka-ciemna { background: #2a2f4f; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.ramka-ciemna::before { background: #555b7d; box-shadow: 18px 0 0 #555b7d, 36px 0 0 #555b7d; }
 
-/* 10 mechanizmy */
-.mechanizmy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 64px; }
-.mechanizmy > div { display: grid; gap: 12px; align-content: start; }
-.przyklad { font-size: 30px; font-weight: 650; background: var(--mgla); border-radius: 18px; padding: 22px 24px; letter-spacing: -.01em; }
-.mechanizmy h3 { font-size: 34px; letter-spacing: -.02em; font-weight: 650; margin-top: 10px; }
-.mechanizmy .szary { font-size: 25px; line-height: 1.35; }
-
-/* 11 demo */
+/* 13. demo */
 .demo-uklad { display: grid; grid-template-columns: 1fr 980px; gap: 50px; align-items: center; height: 100%; }
 .kroki-demo { margin-top: 44px; display: grid; gap: 14px; font-size: 32px; counter-reset: d; }
 .kroki-demo li { counter-increment: d; color: #d6d9ea; }
 .kroki-demo li::before { content: counter(d) '. '; color: #a9aecb; }
-.przycisk-demo { display: inline-flex; margin-top: 48px; padding: 26px 44px; border-radius: 999px; background: #fff; color: var(--granat); font-size: 32px; font-weight: 650; text-decoration: none; }
-.przycisk-demo:hover { background: var(--czek-pole); }
+.przycisk-demo { display: inline-flex; margin-top: 48px; padding: 26px 44px; border-radius: 999px; background: var(--wan); color: var(--granat); font-size: 32px; font-weight: 680; text-decoration: none; }
+.przycisk-demo:hover { background: #fff; }
 .urzadzenia { position: relative; height: 720px; }
 .urz-komp { position: absolute; left: 0; top: 40px; width: 860px; border-radius: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
 .urz-tel { position: absolute; right: 0; bottom: 0; width: 280px; border-radius: 36px; border: 10px solid #000; box-shadow: 0 30px 70px rgba(0,0,0,.5); }
 
-/* 12 źródła */
-.zrodla { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 56px; font-size: 24px; line-height: 1.4; }
-.zrodla ul { display: grid; gap: 14px; align-content: start; }
-.ai { position: absolute; left: 130px; bottom: 90px; font-size: 26px; color: var(--granat-2); }
+/* 14. źródła */
+.slajd:has(.zrodla) { padding-top: 80px; }
+.zrodla { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; margin-top: 40px; font-size: 19px; line-height: 1.38; }
+.zrodla ul { display: grid; gap: 10px; align-content: start; }
+.ai { position: absolute; left: 130px; bottom: 70px; font-size: 22px; color: var(--granat-2); }
 
 /* obsługa */
-.pasek-postepu { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.08); }
-.pasek-postepu span { display: block; height: 100%; width: 0; background: var(--sygnal); transition: width .4s; }
+.pasek-postepu { position: fixed; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(255,255,255,.08); }
+.pasek-postepu span { display: block; height: 100%; width: 0; background: var(--sygnal); transition: width .4s, background-color .4s; }
 .nawigacja { position: fixed; right: 14px; bottom: 10px; display: flex; align-items: center; gap: 6px; }
 .licznik-slajdow { min-width: 54px; text-align: center; color: #6f7593; font-size: 14px; font-variant-numeric: tabular-nums; }
 .nawigacja-przycisk { width: 34px; height: 34px; border: 1px solid rgba(111,117,147,.35); border-radius: 999px; background: transparent; color: #6f7593; font: 600 17px/1 var(--font); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
@@ -165,6 +300,6 @@ img { display: block; max-width: 100%; }
 /* druk / zrzut: wszystko widoczne, bez animacji */
 html.druk .scena { left: 0; top: 0; }
 html.druk .pasek-postepu, html.druk .nawigacja, html.druk .pomoc { display: none; }
-html.druk * { transition: none !important; }
+html.druk *, html.druk *::before { transition: none !important; animation: none !important; }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before { transition: none !important; animation: none !important; } }

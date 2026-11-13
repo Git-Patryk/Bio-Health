@@ -9,7 +9,7 @@ zgody, dokumenty i działająca ankieta. Formularze działają jednak tylko w pr
 
 > Status (13.11.2026): **strona produktu + prezentacja BC5.** Działa strona startowa z kapsułką 3D,
 > „Informacje i prywatność”, klikalna strona produktu ([produkt.html](produkt.html)) i animowana prezentacja
-> makiet ([prezentacja.html](prezentacja.html)). Kierunek wyglądu: [docs/DESIGN.md](docs/DESIGN.md).
+> makiet ([prezentacja.html](prezentacja.html): teoria ze źródłami, analiza konkurencji, makieta lo-fi przechodząca w hi-fi). Kierunek wyglądu: [docs/DESIGN.md](docs/DESIGN.md).
 > Co dokładnie ma zawierać strona i dlaczego to legalne: **[ZGODNOSC-Z-PRAWEM.md](ZGODNOSC-Z-PRAWEM.md)**.
 
 ## Najważniejsze wnioski z researchu

@@ -500,7 +500,8 @@ if (!ruchOgraniczony) {
   gsap.ticker.lagSmoothing(0);
 }
 
-const odsuniecie = () => -(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--naglowek-h'), 10) + 68);
+// wysokość przyklejonych pasków (nagłówek + pasek sekcji), żeby sekcja zaczynała się tuż pod nimi
+const wysokoscPaskow = () => $('#naglowek').offsetHeight + ($('.pasek-sekcji')?.offsetHeight || 0);
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
   if (!a || a.dataset.modal) return;
@@ -510,8 +511,10 @@ document.addEventListener('click', (e) => {
   if (!cel) return;
   e.preventDefault();
   $('#menu').classList.remove('otwarte');
-  if (lenis) lenis.scrollTo(cel, { offset: odsuniecie() });
-  else window.scrollTo({ top: cel.getBoundingClientRect().top + window.scrollY + odsuniecie() });
+  // liczymy pozycję sami (Lenis przy elemencie dolicza jeszcze scroll-margin-top, co dawało podwójne odsunięcie)
+  const cel_y = cel.getBoundingClientRect().top + window.scrollY - wysokoscPaskow();
+  if (lenis) lenis.scrollTo(cel_y);
+  else window.scrollTo({ top: cel_y, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
 });
 
 // przycisk „na górę”: pojawia się po przewinięciu o ponad półtora ekranu
