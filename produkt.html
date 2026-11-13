@@ -429,13 +429,20 @@
     </aside>
 
     <!-- ============ okna informacyjne ============ -->
-    <dialog class="okno" id="okno">
+    <dialog class="okno" id="okno" aria-labelledby="okno-tytul">
+      <button class="ikona okno-zamknij" type="button" id="zamknij-okno" aria-label="Zamknij okno">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
       <form method="dialog" class="okno-w">
         <h2 id="okno-tytul"></h2>
         <div id="okno-tresc"></div>
         <button class="pigulka pigulka--glowna" value="ok">Rozumiem</button>
       </form>
     </dialog>
+
+    <button class="do-gory" type="button" id="do-gory" aria-label="Wróć na górę strony" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>

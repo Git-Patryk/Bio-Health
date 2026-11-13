@@ -424,10 +424,11 @@ const OKNA = {
   ankieta: ['Ankieta „Dobierz zestaw”', '<p>Ankietę przygotowujemy razem z grupą projektową. Zapyta o cel (redukcja, masa, regularny trening), rytm dnia i ulubione smaki. Nie zapyta o zdrowie.</p><p class="szary">W tym prototypie strony produktu ankiety jeszcze nie ma.</p>'],
   powiadom: ['Powiadomimy Cię, gdy wróci kawa', '<label class="pole">Adres e-mail<input type="email" id="powiadom-email" autocomplete="email" placeholder="np. jan@example.com"></label><p class="szary maly">Wyślemy jedną wiadomość, gdy smak wróci. To formularz pokazowy: nic nie zostanie wysłane.</p><p class="komunikat blad" id="powiadom-blad" role="alert"></p>', 'Powiadom mnie'],
   szukaj: ['Wyszukiwarka', '<p>Wyszukiwarka będzie na stronie głównej sklepu. Ten prototyp pokazuje stronę jednego produktu.</p>'],
-  konto: ['Konto', '<p>Logowanie, rejestracja i panel subskrypcji to kolejne ekrany ścieżki zakupowej (BC4). Tutaj pokazujemy stronę produktu.</p>'],
-  kasa: ['Kasa', '<p>Następne kroki to dane do zamówienia, wybór dostawy, płatność i podsumowanie z przyciskiem „Zamawiam z obowiązkiem zapłaty”.</p><p class="szary">Ten prototyp kończy się na koszyku. Ścieżkę zakupową opisaliśmy w BC4.</p>'],
+  konto: ['Konto', '<p>Logowanie, rejestracja i panel subskrypcji to kolejne ekrany ścieżki zakupowej. Ten prototyp pokazuje stronę produktu.</p>'],
+  kasa: ['Kasa', '<p>Następne kroki to dane do zamówienia, wybór dostawy, płatność i podsumowanie z przyciskiem „Zamawiam z obowiązkiem zapłaty”.</p><p class="szary">Ten prototyp kończy się na koszyku.</p>'],
   zglos: ['Zgłoś opinię', '<p>W prawdziwym sklepie formularz zapyta, co jest nie tak z opinią (np. obraźliwa treść, reklama). Zgłoszenie sprawdzi moderator.</p>'],
   'inny-produkt': ['Inne produkty', '<p>W prototypie działa jedna strona produktu: białko WPC 80.</p>'],
+  'w-przygotowaniu': ['Ta strona jest w przygotowaniu', '<p>W prototypie działa strona jednego produktu: białka WPC 80. Pozostałe podstrony sklepu powstaną w kolejnych etapach.</p>'],
 };
 const okno = $('#okno');
 let rodzajOkna = '';
@@ -439,6 +440,9 @@ function otworzOkno(rodzaj) {
   $('button[value="ok"]', okno).textContent = przycisk;
   okno.showModal();
 }
+// zamykanie okna: X w rogu, kliknięcie w tło obok okna albo Esc (Esc obsługuje sam <dialog>)
+$('#zamknij-okno').addEventListener('click', () => okno.close());
+okno.addEventListener('click', (e) => { if (e.target === okno) okno.close(); });
 $('button[value="ok"]', okno).addEventListener('click', (e) => {
   if (rodzajOkna !== 'powiadom') return;
   const pole = $('#powiadom-email');
@@ -499,13 +503,26 @@ if (!ruchOgraniczony) {
 const odsuniecie = () => -(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--naglowek-h'), 10) + 68);
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
-  if (!a || a.getAttribute('href') === '#' || a.dataset.modal) return;
+  if (!a || a.dataset.modal) return;
+  // linki do podstron, których prototyp jeszcze nie ma: zamiast skoku na górę strony krótka informacja
+  if (a.getAttribute('href') === '#') { e.preventDefault(); $('#menu').classList.remove('otwarte'); otworzOkno('w-przygotowaniu'); return; }
   const cel = $(a.getAttribute('href'));
   if (!cel) return;
   e.preventDefault();
   $('#menu').classList.remove('otwarte');
   if (lenis) lenis.scrollTo(cel, { offset: odsuniecie() });
   else window.scrollTo({ top: cel.getBoundingClientRect().top + window.scrollY + odsuniecie() });
+});
+
+// przycisk „na górę”: pojawia się po przewinięciu o ponad półtora ekranu
+const doGory = $('#do-gory');
+doGory.hidden = false;
+const pokazDoGory = () => doGory.classList.toggle('widoczny', window.scrollY > window.innerHeight * 1.5);
+window.addEventListener('scroll', pokazDoGory, { passive: true });
+pokazDoGory();
+doGory.addEventListener('click', () => {
+  if (lenis) lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
+  $('.logo').focus({ preventScroll: true });
 });
 
 // nagłówek: przezroczysty nad kolorem, biały po przewinięciu
