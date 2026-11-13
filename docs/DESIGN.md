@@ -35,7 +35,7 @@ Na laptopie (ok. 1440 × 800) wszystko od góry do „Dodaj do koszyka” mieśc
 [podmenu sekcji + mini pasek zakupu — przykleja się]
 [zdjęcie pełnej szerokości: ankieta „Dobierz zestaw”]
 [hasło dużą czcionką + 4 liczby]  [skład i etykieta]
-[ciemna sekcja: rytm dostaw — 3 karty najbliższych dostaw (data, dzień tygodnia, kwota) + kalendarz 4 miesięcy, pauza na styczeń]
+[ciemna sekcja: rytm dostaw — wybór rytmu i dnia tygodnia (pn–pt), 3 karty najbliższych dostaw (data, kwota) + kalendarz 4 miesięcy, pauza na styczeń; dostawy wypadające w święta przesuwane na najbliższy dzień roboczy]
 [często kupowane razem] [opinie: 4 karty + „Pokaż wszystkie”] [pytania] [newsletter] [stopka]
 ```
 Każda sekcja mieści się na jednym ekranie laptopa (odstępy i hasła zależne od wysokości okna).

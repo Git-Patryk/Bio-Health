@@ -300,12 +300,16 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 
 /* ---------- rytm ---------- */
 .rytm { background: var(--granat); color: #fff; margin-top: clamp(24px, 4vh, 48px); padding: clamp(36px, 6vh, 64px) 0; overflow: hidden; }
-.rytm .haslo { max-width: 26ch; font-size: clamp(32px, min(4.6vw, 6.6vh), 70px) !important; }
+.rytm .haslo { max-width: 26ch; font-size: clamp(32px, min(4.6vw, 5.6vh), 70px) !important; }
 .rytm-w { max-width: var(--szer); margin: 0 auto; padding: 0 var(--gutter); }
-.rytm-sterowanie { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: clamp(22px, 4vh, 44px) 0 clamp(16px, 2.6vh, 28px); }
+.rytm-sterowanie { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: clamp(18px, 3vh, 40px) 0 clamp(16px, 2.6vh, 28px); }
 .segment { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,.1); }
 .segment button { border: 0; background: none; color: #c9cde0; min-height: 42px; padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: background-color .25s, color .25s; }
 .segment button[aria-checked='true'] { background: #fff; color: var(--granat); }
+.segment--dni { align-items: center; }
+.segment--dni button { padding: 0 14px; }
+.segment-etykieta { padding: 0 8px 0 14px; font-size: 14px; color: #9aa0bd; }
+.plan-opis { margin: -6px 0 14px; color: #c9cde0; font-size: 15px; }
 /* plan dostaw: karty z datami + kalendarz 4 miesięcy */
 .plan-dostaw { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 44px; align-items: start; }
 .karty-dostaw { display: grid; gap: 8px; }
@@ -337,7 +341,7 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 .miesiac .podswietl { transform: scale(1.3); box-shadow: 0 0 0 3px #fff; }
 .miesiac.wstrzymany ol { border-radius: 12px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 6px, rgba(255,255,255,.1) 6px 12px); }
 .miesiac.wstrzymany li:not(.dn) { opacity: .4; }
-.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: clamp(18px, 3vh, 44px); counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: clamp(20px, 3vh, 32px); }
+.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: clamp(16px, 2.4vh, 40px); counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: clamp(20px, 3vh, 32px); }
 .kroki li { display: grid; grid-template-columns: 34px 1fr; column-gap: 14px; align-content: start; }
 .kroki li > * { grid-column: 2; }
 .kroki li { counter-increment: krok; }
@@ -585,6 +589,8 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
   .toast { bottom: 96px; }
 }
 @media (max-width: 480px) {
+  .segment button { white-space: nowrap; padding: 0 12px; font-size: 14px; }
+  .segment--dni button { padding: 0 11px; }
   h1 { font-size: 34px; }
   .cena { font-size: 30px; }
   .karta-plywajaca--bialko { display: none; }

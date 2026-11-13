@@ -32,7 +32,11 @@ const RABAT_SUB = 0.15;
 const DARMOWA_OD = 150;
 const RYTMY = [2, 4, 6, 8];
 
-const stan = { smak: SMAKI[0], wielkosc: WIELKOSCI[1], tryb: 'sub', rytm: 4, ilosc: 1, pauza: false };
+// dzień tygodnia dostawy: 0 = poniedziałek … 4 = piątek; domyślnie najbliższy dzień roboczy od jutra
+const DNI_DOSTAWY = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek'];
+const DNI_MNOGA = ['poniedziałki', 'wtorki', 'środy', 'czwartki', 'piątki'];
+const domyslnyDzien = () => { const j = (new Date().getDay() + 6) % 7 + 1; return j > 4 ? 0 : j; };
+const stan = { smak: SMAKI[0], wielkosc: WIELKOSCI[1], tryb: 'sub', rytm: 4, ilosc: 1, pauza: false, dzien: domyslnyDzien() };
 const koszyk = [];
 
 const nazwaWielkosci = (w) => (w.g >= 1000 ? `${w.g / 1000} kg` : `${w.g} g`);
@@ -41,6 +45,43 @@ const cenaTeraz = () => (stan.tryb === 'sub' ? cenaSub(stan.wielkosc) : stan.wie
 const tygodnie = (n) => (n === 2 || n === 4 ? `${n} tygodnie` : `${n} tygodni`);
 const dataPl = (d, opcje = { day: 'numeric', month: 'long' }) => d.toLocaleDateString('pl-PL', opcje);
 const dodajDni = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+// Święta ustawowo wolne w Polsce (kurierzy nie doręczają) — dostawa przesuwa się na najbliższy dzień roboczy.
+// Stałe daty (od 2025 r. także Wigilia) + Poniedziałek Wielkanocny i Boże Ciało liczone od Wielkanocy.
+function wielkanoc(r) { // algorytm Meeusa/Jonesa/Butchera
+  const a = r % 19, b = Math.floor(r / 100), c = r % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  return new Date(r, Math.floor((h + l - 7 * m + 114) / 31) - 1, ((h + l - 7 * m + 114) % 31) + 1);
+}
+const SWIETA_STALE = ['1-1', '6-1', '1-5', '3-5', '15-8', '1-11', '11-11', '24-12', '25-12', '26-12'];
+function swieto(d) {
+  if (SWIETA_STALE.includes(`${d.getDate()}-${d.getMonth() + 1}`)) return true;
+  const w = wielkanoc(d.getFullYear());
+  return [1, 60].some((n) => +dodajDni(w, n) === +d); // Poniedziałek Wielkanocny, Boże Ciało
+}
+const dzienRoboczy = (d) => { let x = d; while (swieto(x) || x.getDay() === 0 || x.getDay() === 6) x = dodajDni(x, 1); return x; };
+
+// najbliższy wybrany dzień tygodnia, licząc od daty `od` (włącznie)
+const najblizszyDzien = (od) => dodajDni(od, (stan.dzien - ((od.getDay() + 6) % 7) + 7) % 7);
+
+// Plan dostaw: pierwsza paczka w najbliższy wybrany dzień tygodnia (najwcześniej jutro), kolejne co X tygodni.
+// Pauza na styczeń przesuwa styczniową dostawę na pierwszy wybrany dzień lutego, a dalej rytm liczy się od niej.
+function planDostaw(ile, doDaty = null) {
+  const dzis = new Date(); dzis.setHours(0, 0, 0, 0);
+  const plan = [];
+  let d = najblizszyDzien(dodajDni(dzis, 1));
+  while (plan.length < ile || (doDaty && d <= doDaty)) {
+    let przesunieta = null;
+    let powod = null;
+    if (stan.pauza && d.getMonth() === 0) { przesunieta = d; powod = 'pauza'; d = najblizszyDzien(new Date(d.getFullYear(), 1, 1)); }
+    // w święto nie doręczamy: ta jedna paczka przyjdzie w najbliższy dzień roboczy, rytm się nie zmienia
+    const data = dzienRoboczy(d);
+    if (+data !== +d) { przesunieta = przesunieta || d; powod = powod || 'święto'; }
+    plan.push({ data, przesunieta, powod, dni: Math.round((data - dzis) / 864e5) });
+    d = dodajDni(d, stan.rytm * 7);
+  }
+  return plan;
+}
 
 // ------------------------------------------------- małe grafiki produktów
 function svgOpakowanie(kolor, napis = 'WPC 80') {
@@ -106,7 +147,7 @@ function renderCeny() {
 }
 
 function renderDostawa() {
-  const nast = dodajDni(new Date(), stan.rytm * 7);
+  const nast = planDostaw(2)[1].data; // „następna” = druga paczka, ta sama co na karcie „następna” niżej
   $('#nastepna').textContent = dataPl(nast);
   $('#karta-dzien').textContent = nast.getDate();
   $('#karta-mies').textContent = dataPl(nast, { month: 'short' }).replace('.', '');
@@ -397,7 +438,17 @@ $$('.rozklad .pasek').forEach((p) => p.style.setProperty('--w', `${p.dataset.pro
 // --------------------------------------------------- rytm dostaw (oś)
 function renderSegment() {
   $('#segment').innerHTML = RYTMY.map((n) => `<button type="button" role="radio" aria-checked="${n === stan.rytm}" data-rytm="${n}">co ${n} tyg.</button>`).join('');
+  $('#dni-dostawy').innerHTML = '<span class="segment-etykieta" aria-hidden="true">dzień</span>'
+    + DNI_DOSTAWY.map((n, i) => `<button type="button" role="radio" aria-checked="${i === stan.dzien}" aria-label="${n}" data-dzien-tyg="${i}">${['pn', 'wt', 'śr', 'cz', 'pt'][i]}</button>`).join('');
 }
+$('#dni-dostawy').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-dzien-tyg]');
+  if (!b) return;
+  stan.dzien = Number(b.dataset.dzienTyg);
+  renderSegment();
+  renderDostawa();
+  renderOs();
+});
 $('#segment').addEventListener('click', (e) => {
   const b = e.target.closest('[data-rytm]');
   if (b) ustawRytm(Number(b.dataset.rytm));
@@ -406,29 +457,18 @@ $('#pauza').addEventListener('click', (e) => {
   stan.pauza = !stan.pauza;
   e.currentTarget.setAttribute('aria-pressed', stan.pauza);
   e.currentTarget.textContent = stan.pauza ? 'Wznów w styczniu' : 'Wstrzymaj na styczeń';
+  renderDostawa();
   renderOs();
 });
 
-// Plan dostaw: karty z datami (odpowiedź na „kiedy przyjdzie paczka”) + kalendarz 4 miesięcy obok,
-// żeby było widać, gdzie te daty leżą w czasie. Pierwsza paczka wychodzi dziś, kolejne co X tygodni.
-// Pauza na styczeń przesuwa styczniową dostawę na 1 lutego, a dalej rytm liczy się od niej.
+// Karty z datami (odpowiedź na „kiedy przyjdzie paczka”) + kalendarz 4 miesięcy obok,
+// żeby było widać, gdzie te daty leżą w czasie. Plan liczy planDostaw() (na górze pliku).
 const KART = 3;
 const MIESIECY = 4;
 const klucz = (d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-function planDostaw(doDaty) {
-  const dzis = new Date(); dzis.setHours(0, 0, 0, 0);
-  const plan = [];
-  let d = new Date(dzis);
-  while (plan.length < KART || d <= doDaty) {
-    let przesunieta = null;
-    if (stan.pauza && d.getMonth() === 0) { przesunieta = d; d = new Date(d.getFullYear(), 1, 1); }
-    plan.push({ data: d, przesunieta, dni: Math.round((d - dzis) / 864e5) });
-    d = dodajDni(d, stan.rytm * 7);
-  }
-  return plan;
-}
 function kiedy(dni) {
-  if (dni === 0) return 'wysyłamy dziś';
+  if (dni <= 1) return 'jutro';
+  if (dni < 7) return `za ${dni} dni`;
   const t = Math.round(dni / 7);
   return t === 1 ? 'za tydzień' : `za ${t} ${t < 5 ? 'tygodnie' : 'tygodni'}`;
 }
@@ -436,7 +476,7 @@ function kiedy(dni) {
 function renderOs() {
   const dzis = new Date(); dzis.setHours(0, 0, 0, 0);
   const koniec = new Date(dzis.getFullYear(), dzis.getMonth() + MIESIECY, 0); // ostatni dzień 4. miesiąca
-  const plan = planDostaw(koniec);
+  const plan = planDostaw(KART, koniec);
   const kwota = zl.format(cenaSub(stan.wielkosc));
 
   $('#karty-dostaw').innerHTML = plan.slice(0, KART).map((p, i) => `
@@ -444,11 +484,12 @@ function renderOs() {
       <span class="kd-dzien"><b>${p.data.getDate()}</b><small>${dataPl(p.data, { month: 'short' }).replace('.', '')}</small></span>
       <span class="kd-tresc">
         <b>${dataPl(p.data, { weekday: 'long', day: 'numeric', month: 'long' })}</b>
-        <small>${p.przesunieta ? `przesunięta z ${dataPl(p.przesunieta)} (pauza)` : kiedy(p.dni)}, ${kwota}</small>
+        <small>${p.przesunieta ? `przesunięta z ${dataPl(p.przesunieta)} (${p.powod})` : `${i === 0 ? 'pierwsza paczka ' : ''}${kiedy(p.dni)}`}, ${kwota}</small>
       </span>
       ${i === 1 ? '<span class="kd-znacznik">następna</span>' : ''}
     </li>`).join('');
 
+  $('#plan-opis').textContent = `Dostawy w ${DNI_MNOGA[stan.dzien]} co ${tygodnie(stan.rytm)}.${stan.pauza ? ' Styczeń wstrzymany.' : ''} Płacisz ${kwota} przy każdej wysyłce.`;
   const dostawy = new Set(plan.map((p) => klucz(p.data)));
   const DNI = ['pn', 'wt', 'śr', 'cz', 'pt', 'so', 'nd'];
   $('#kalendarz').innerHTML = Array.from({ length: MIESIECY }, (_, m) => {
