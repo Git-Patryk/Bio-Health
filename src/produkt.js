@@ -517,6 +517,34 @@ document.addEventListener('click', (e) => {
   else window.scrollTo({ top: cel_y, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
 });
 
+// łagodne przyciąganie do początku sekcji (tylko kółko myszy i gładzik, nie dotyk i nie klawiatura).
+// Gdy ktoś przestaje przewijać, a początek sekcji jest blisko miejsca, w którym strona by stanęła
+// (do 1/5 ekranu), strona dosuwa się, tak że sekcja zaczyna się tuż pod paskiem menu.
+// Nie walczy z użytkownikiem: każdy kolejny ruch kółkiem przerywa dosuwanie, a w środku długiej
+// sekcji (daleko od jej początku) nic się nie dzieje.
+if (lenis) {
+  const SEKCJE = '.baner, #opis, #sklad, #rytm, .razem, #opinie, #pytania, .polecane, .newsletter';
+  const punktySekcji = () => [0, ...$$(SEKCJE).map((el) => el.getBoundingClientRect().top + window.scrollY - wysokoscPaskow())]
+    .filter((p) => p <= lenis.limit);
+  let zegar = null;
+  const przyciagnij = () => {
+    if (lenis.isStopped || $('dialog[open]')) return;
+    const cel = lenis.targetScroll; // miejsce, w którym zatrzymałoby się przewijanie
+    const prog = Math.min(window.innerHeight * 0.2, 200);
+    let najblizszy = null;
+    for (const p of punktySekcji()) {
+      if (Math.abs(p - cel) < prog && (najblizszy === null || Math.abs(p - cel) < Math.abs(najblizszy - cel))) najblizszy = p;
+    }
+    if (najblizszy === null || Math.abs(najblizszy - cel) < 2) return;
+    lenis.scrollTo(najblizszy, { duration: 0.7, easing: (t) => 1 - (1 - t) ** 3 });
+  };
+  lenis.on('virtual-scroll', ({ event }) => {
+    if (event.type.startsWith('touch')) return;
+    clearTimeout(zegar);
+    zegar = setTimeout(przyciagnij, 320);
+  });
+}
+
 // przycisk „na górę”: pojawia się po przewinięciu o ponad półtora ekranu
 const doGory = $('#do-gory');
 doGory.hidden = false;

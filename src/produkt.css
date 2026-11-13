@@ -456,6 +456,46 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 .toast.widoczny { transform: translate(-50%, 0); visibility: visible; }
 .pasek-mobilny { display: none; }
 
+/* ---------- komputer: wszystko do przycisku „Dodaj do koszyka” na pierwszym ekranie ----------
+   Cel: przy oknie ok. 1440 × 800 (laptop) widać nagłówek, zdjęcie i cały panel zakupu aż do przycisku.
+   Panel jest szerszy (smaki w jednym rzędzie, nazwa w jednej linii), ścieżka nawigacji stoi nad zdjęciem,
+   a odstępy są ciaśniejsze. Telefon i tablet bez zmian. */
+@media (min-width: 901px) {
+  .produkt-w { grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr); grid-template-rows: auto 1fr; column-gap: 40px; padding-top: 4px; }
+  .okruszki { grid-column: 1; grid-row: 1; margin: 6px 0 4px; font-size: 13px; }
+  .okruszki ol { gap: 6px; }
+  .okruszki li + li::before { margin-right: 6px; }
+  .galeria { grid-column: 1; grid-row: 2; }
+  .panel-zakupu { grid-column: 2; grid-row: 1 / span 2; padding: 24px 30px 22px; margin-top: 8px; }
+  .kategoria { margin-bottom: 4px; }
+  h1 { font-size: clamp(32px, 2.8vw, 40px); }
+  .ocena-linia { margin-top: 8px; }
+  .cena-blok { margin: 14px 0 0; }
+  .cena { font-size: 32px; }
+  .cena-info { margin-top: 4px; font-size: 13px; }
+  .wybor { margin-top: 14px; }
+  .wybor legend { margin-bottom: 7px; }
+  .pigulki { gap: 6px; }
+  .opcja { min-height: 38px; padding: 0 13px; font-size: 14.5px; gap: 7px; }
+  .opcja .kropka { width: 12px; height: 12px; }
+  .pod-wyborem { margin-top: 8px; font-size: 14px; }
+  .tryb { padding: 12px 14px 12px; gap: 6px; }
+  .tryb-tresc { gap: 3px; line-height: 1.35; }
+  .podpowiedz { margin-top: 6px; font-size: 13px; }
+  .kup-wiersz { margin-top: 12px; }
+  .ilosc, .ilosc button { height: 50px; }
+  .kup { min-height: 50px; }
+  .zaufanie { margin-top: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; font-size: 13.5px; line-height: 1.35; }
+  .zaufanie li { gap: 8px; }
+  .scena-produktu { aspect-ratio: 1 / 1.08; }
+  .karta-plywajaca--dostawa { right: -30px; }
+  .miniatury { margin-top: 0; }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .karta-plywajaca--dostawa { right: -24px; bottom: 2%; }
+}
+
 /* ---------- tablet i telefon ---------- */
 @media (max-width: 1100px) {
   .menu { gap: 18px; }
