@@ -191,21 +191,21 @@ figcaption { font-size: 23px; line-height: 1.3; font-weight: 560; display: flex;
 .slajd:has(.bilans) .wniosek { bottom: 70px; }
 
 /* 10. makieta lo-fi → hi-fi */
-.slajd--makieta { padding: 72px 110px 60px; background: #f4f4f2; }
+.slajd--makieta { padding: 72px 90px 60px; background: #f4f4f2; }
 .slajd--makieta::before {
   content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(#cfcfca 1.4px, transparent 1.6px); background-size: 26px 26px;
 }
 .tlo-czekolada-warstwa { position: absolute; inset: 0; background: var(--czek-pole); }
-.makieta-uklad { position: relative; display: grid; grid-template-columns: 1040px 1fr; gap: 64px; height: 100%; align-items: center; }
+.makieta-uklad { position: relative; display: grid; grid-template-columns: 1180px 1fr; gap: 52px; height: 100%; align-items: center; }
 .ramka-przegladarki { position: relative; border-radius: 20px; overflow: hidden; padding-top: 34px; background: #e6e6e3; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px rgba(22,26,51,.08); }
 .ramka-przegladarki::before { content: ''; position: absolute; top: 12px; left: 18px; width: 10px; height: 10px; border-radius: 50%; background: #bdbdb8; box-shadow: 18px 0 0 #bdbdb8, 36px 0 0 #bdbdb8; }
-.makieta { position: relative; aspect-ratio: 1440 / 1240; background: #fff; overflow: hidden; }
+.makieta { position: relative; aspect-ratio: 1440 / 870; background: #fff; overflow: hidden; }
 
 /* elementy lo-fi (pozycje w % liczy skrypt z siatki 1440 × 1240) */
 .lf {
   position: absolute; display: flex; align-items: center; justify-content: center; text-align: center;
-  font-size: 11px; line-height: 1.15; color: #6c6c6c; font-weight: 500; padding: 0 4px; overflow: hidden; white-space: nowrap;
+  font-size: 11.5px; line-height: 1.15; color: #6c6c6c; font-weight: 500; padding: 0 4px; overflow: hidden; white-space: nowrap;
 }
 .lf-pasek { background: #cfcfcf; color: #555; justify-content: center; }
 .lf-ramka { border: 1.5px solid #8f8f8f; border-radius: 4px; }
@@ -237,9 +237,9 @@ figcaption { font-size: 23px; line-height: 1.3; font-weight: 560; display: flex;
 .hifi-pelna { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 .makieta-opis { position: relative; align-self: stretch; display: grid; align-content: center; }
-.makieta-opis .sredni { font-size: 54px; }
+.makieta-opis .sredni { font-size: 50px; }
 .makieta-opis .metka { color: var(--czek); }
-.adnotacje { margin-top: 30px; display: grid; gap: 15px; font-size: 24px; line-height: 1.3; counter-reset: a; }
+.adnotacje { margin-top: 26px; display: grid; gap: 14px; font-size: 22.5px; line-height: 1.3; counter-reset: a; }
 .adnotacje li { counter-increment: a; padding-left: 52px; position: relative; }
 .adnotacje li::before {
   content: counter(a); position: absolute; left: 0; top: -1px; width: 36px; height: 36px; border-radius: 50%;
