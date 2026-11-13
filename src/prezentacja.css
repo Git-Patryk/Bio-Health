@@ -154,12 +154,16 @@ img { display: block; max-width: 100%; }
 /* obsługa */
 .pasek-postepu { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.08); }
 .pasek-postepu span { display: block; height: 100%; width: 0; background: var(--sygnal); transition: width .4s; }
-.licznik-slajdow { position: fixed; right: 18px; bottom: 12px; color: #6f7593; font-size: 14px; }
+.nawigacja { position: fixed; right: 14px; bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.licznik-slajdow { min-width: 54px; text-align: center; color: #6f7593; font-size: 14px; font-variant-numeric: tabular-nums; }
+.nawigacja-przycisk { width: 34px; height: 34px; border: 1px solid rgba(111,117,147,.35); border-radius: 999px; background: transparent; color: #6f7593; font: 600 17px/1 var(--font); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.nawigacja-przycisk:hover { background: var(--sygnal); border-color: var(--sygnal); color: #fff; }
+.nawigacja-przycisk:disabled { opacity: .3; cursor: default; background: transparent; border-color: rgba(111,117,147,.35); color: #6f7593; }
 .pomoc { position: fixed; left: 18px; bottom: 12px; color: #6f7593; font-size: 14px; transition: opacity .6s; }
 
 /* druk / zrzut: wszystko widoczne, bez animacji */
 html.druk .scena { left: 0; top: 0; }
-html.druk .pasek-postepu, html.druk .licznik-slajdow, html.druk .pomoc { display: none; }
+html.druk .pasek-postepu, html.druk .nawigacja, html.druk .pomoc { display: none; }
 html.druk * { transition: none !important; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

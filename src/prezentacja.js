@@ -77,7 +77,11 @@ function pokaz(i, k = 0, kierunek = 1) {
   if (poprzedni !== s) {
     if (poprzedni) {
       poprzedni.classList.remove('aktywny');
-      gsap.set(poprzedni, { autoAlpha: 0 });
+      // zatrzymaj trwające wejście poprzedniego slajdu, inaczej przy szybkim klikaniu
+      // jego animacja dokończyłaby się i slajd zostałby widoczny pod nowym
+      gsap.killTweensOf(poprzedni);
+      gsap.killTweensOf(poprzedni.querySelectorAll('*'));
+      gsap.set(poprzedni, { autoAlpha: 0, x: 0 });
     }
     $$('[data-krok]', s).forEach((el) => { delete el.dataset.pokazany; });
     s.classList.add('aktywny');
@@ -92,18 +96,29 @@ function pokaz(i, k = 0, kierunek = 1) {
   ustawKroki(s, krok, kierunek < 0 || druk);
   document.getElementById('postep').style.width = `${((nr + 1) / slajdy.length) * 100}%`;
   document.getElementById('licznik-slajdow').textContent = `${nr + 1} / ${slajdy.length}`;
-  document.title = `${nr + 1}. ${s.dataset.tytul} — BC5 Makiety`;
+  document.title = `${nr + 1}. ${s.dataset.tytul} — Bio & Health`;
+  odswiezPrzyciski();
   if (!druk) history.replaceState(null, '', `#${nr + 1}`);
 }
 
 function dalej() {
-  if (krok < maksKrok[nr]) { krok += 1; ustawKroki(slajdy[nr], krok, false); }
+  if (krok < maksKrok[nr]) { krok += 1; ustawKroki(slajdy[nr], krok, false); odswiezPrzyciski(); }
   else if (nr < slajdy.length - 1) pokaz(nr + 1, 0, 1);
 }
 function wstecz() {
-  if (krok > 0) { krok -= 1; ustawKroki(slajdy[nr], krok, true); }
+  if (krok > 0) { krok -= 1; ustawKroki(slajdy[nr], krok, true); odswiezPrzyciski(); }
   else if (nr > 0) pokaz(nr - 1, maksKrok[nr - 1], -1);
 }
+function odswiezPrzyciski() {
+  przyciskWstecz.disabled = nr === 0 && krok === 0;
+  przyciskDalej.disabled = nr === slajdy.length - 1 && krok === maksKrok[nr];
+}
+
+// klikalne strzałki w prawym dolnym rogu (blur: spacja/Enter nie „klika” przycisku drugi raz)
+const przyciskWstecz = document.getElementById('przycisk-wstecz');
+const przyciskDalej = document.getElementById('przycisk-dalej');
+przyciskWstecz.addEventListener('click', () => { wstecz(); przyciskWstecz.blur(); });
+przyciskDalej.addEventListener('click', () => { dalej(); przyciskDalej.blur(); });
 
 document.addEventListener('keydown', (e) => {
   if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); dalej(); }
