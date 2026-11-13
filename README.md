@@ -7,7 +7,7 @@ Wersja pokazowa jest dostępna pod adresem **https://git-patryk.github.io/Bio-He
 Ma wyglądać i działać jak kompletny, zgodny z prawem sklep: rejestracja, logowanie, zamówienie,
 zgody, dokumenty i działająca ankieta. Formularze działają jednak tylko w przeglądarce i niczego nie wysyłają.
 
-> Status (13.11.2026): **strona produktu + prezentacja BC5.** Działa strona startowa z kapsułką 3D,
+> Status (13.11.2026, koniec dnia): **strona produktu + prezentacja BC5.** Działa strona startowa z kapsułką 3D,
 > „Informacje i prywatność”, klikalna strona produktu ([produkt.html](produkt.html)) i animowana prezentacja
 > makiet ([prezentacja.html](prezentacja.html): teoria ze źródłami, analiza konkurencji, makieta lo-fi przechodząca w hi-fi). Kierunek wyglądu: [docs/DESIGN.md](docs/DESIGN.md).
 > Co dokładnie ma zawierać strona i dlaczego to legalne: **[ZGODNOSC-Z-PRAWEM.md](ZGODNOSC-Z-PRAWEM.md)**.
@@ -42,7 +42,7 @@ strona-bio-health/
 ├── index.html            strona główna
 ├── informacje.html       informacje i prywatność
 ├── produkt.html          przykładowa strona produktu (BC5)
-├── prezentacja.html      prezentacja makiet BC5 (strzałki / klik / spacja)
+├── prezentacja.html      prezentacja makiet BC5 (strzałki / klik / spacja; ?druk&s=N&k=K do PDF)
 ├── src/                  style i skrypty (scena 3D: src/scena-3d.js)
 ├── public/               pliki kopiowane bez zmian (favicon, zdjęcia, obrazy do prezentacji)
 ├── ZGODNOSC-Z-PRAWEM.md  co zawiera strona i dlaczego to legalne
@@ -89,9 +89,9 @@ Warto włączyć: **Settings → Code security:** Dependabot alerts, Secret scan
 | three.js | npm `three` | MIT |
 | GSAP | npm `gsap` | GSAP Standard License (darmowa, także komercyjnie) |
 | Kapsułka 3D, granulki | zbudowane w kodzie | własne |
-| Lenis (płynne przewijanie) | npm `lenis` | MIT |
 | Czcionka Onest | npm `@fontsource-variable/onest`, trzymana lokalnie | SIL Open Font License 1.1 |
 | Zdjęcia `public/img/` | Unsplash (Robert V. Ruggiero, Kelly Sikkema), podpisane na stronie | Unsplash License |
+| Wycinki stron konkurencji `public/prezentacja/konkurencja/` | zrzuty myprotein.pl, sklep.kfd.pl, pl.huel.com z 13.11.2026 | cytat w celu analizy, podpisany w prezentacji |
 | Opakowanie produktu (SVG), makiety | zbudowane w kodzie | własne |
 
 *Przygotowano z pomocą AI (Claude Code).*

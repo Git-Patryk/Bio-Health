@@ -1,6 +1,6 @@
 # DESIGN.md — kierunek wizualny Bio & Health
 
-Ustalone 13.11.2026 przy BC5 (makiety). Inspiracja: revolut.com — duża typografia, pełnoekranowe pola koloru i zdjęć, „pływające” karty interfejsu, pigułkowe przyciski, płynne przewijanie. Odcinamy się od polskich sklepów z suplementami (KFD, Myprotein): u nich kolorowe banery, liczniki promocji i 50 smaków na liście.
+Ustalone 13.11.2026 przy BC5 (makiety). Inspiracja: revolut.com — duża typografia, pełnoekranowe pola koloru i zdjęć, „pływające” karty interfejsu, pigułkowe przyciski. Odcinamy się od polskich sklepów z suplementami (KFD, Myprotein): u nich kolorowe banery, liczniki promocji i 50 smaków na liście.
 
 ## Jedna odważna rzecz: kolor smaku prowadzi stronę
 Wybór smaku przebarwia całe pole produktu (tło + opakowanie). Kupujący widzi swój wybór, zanim przeczyta etykietę. Reszta strony jest spokojna: biel, granat, dużo powietrza.
@@ -28,18 +28,22 @@ Promień według hierarchii: panele 28 px, zdjęcia 24 px, pola 14 px, przyciski
 [pasek pokazowy]
 [nagłówek przezroczysty → biały po przewinięciu]
 ┌──────────── pole koloru smaku (pełna szerokość) ────────────┐
-│  opakowanie + pływające karty      │  biały panel zakupu    │
+│  ścieżka + opakowanie i karty      │  biały panel zakupu    │
+│  (węższa kolumna)                  │  (szerszy, do przycisku)│
 └─────────────────────────────────────────────────────────────┘
+Na laptopie (ok. 1440 × 800) wszystko od góry do „Dodaj do koszyka” mieści się bez przewijania.
 [podmenu sekcji + mini pasek zakupu — przykleja się]
 [zdjęcie pełnej szerokości: ankieta „Dobierz zestaw”]
 [hasło dużą czcionką + 4 liczby]  [skład i etykieta]
-[ciemna sekcja: rytm dostaw — interaktywna oś tygodni]
-[często kupowane razem] [opinie] [pytania] [newsletter] [stopka]
+[ciemna sekcja: rytm dostaw — 3 karty najbliższych dostaw (data, dzień tygodnia, kwota) + kalendarz 4 miesięcy, pauza na styczeń]
+[często kupowane razem] [opinie: 4 karty + „Pokaż wszystkie”] [pytania] [newsletter] [stopka]
 ```
+Każda sekcja mieści się na jednym ekranie laptopa (odstępy i hasła zależne od wysokości okna).
 Tekst wyrównany do lewej. Na telefonie pole koloru nad panelem zakupu, a przycisk w przyklejonym pasku na dole.
 
 ## Ruch
-Jedno wejście strony (opakowanie i karty). Poza tym ruch tylko w odpowiedzi na działanie: zmiana smaku, rytmu dostaw, dodanie do koszyka. `prefers-reduced-motion` wyłącza animacje i płynne przewijanie.
+Jedno wejście strony (opakowanie i karty). Poza tym ruch tylko w odpowiedzi na działanie: zmiana smaku, rytmu dostaw, dodanie do koszyka.
+Przewijanie zwykłe, przeglądarkowe (bez bibliotek „wygładzających” — Lenis usunięty, bo opóźniał każdy ruch kółka). Łagodne przyciąganie do początku sekcji przy kółku/gładziku: tylko gdy przewijanie kończy się blisko początku sekcji, każdy ruch je przerywa. Płynny ruch tylko przy linkach do sekcji, przyciąganiu i „do góry”. `prefers-reduced-motion` wyłącza animacje i przyciąganie.
 
 ## Język
 Prosto, w drugiej osobie, bez obietnic zdrowotnych spoza rejestru UE. Liczby i daty zamiast przymiotników („Następna dostawa: 11 grudnia”).
