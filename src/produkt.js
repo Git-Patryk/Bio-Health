@@ -2,7 +2,6 @@
 // nic nie jest wysyłane. Koszyk żyje tylko w pamięci strony.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -274,7 +273,7 @@ function otworzKoszyk() {
   z.hidden = false;
   const pokaz = () => { k.classList.add('otwarty'); z.classList.add('widoczna'); };
   if (ruchOgraniczony) pokaz(); else requestAnimationFrame(pokaz);
-  lenis?.stop();
+  document.documentElement.classList.add('bez-przewijania'); // strona pod koszykiem stoi
   $('#zamknij-koszyk').focus();
 }
 function zamknijKoszyk() {
@@ -283,7 +282,7 @@ function zamknijKoszyk() {
   k.classList.remove('otwarty');
   z.classList.remove('widoczna');
   setTimeout(() => { k.hidden = true; z.hidden = true; }, ruchOgraniczony ? 0 : 450);
-  lenis?.start();
+  document.documentElement.classList.remove('bez-przewijania');
   ostatniFokus?.focus();
 }
 ['#dodaj', '#dodaj-mini', '#dodaj-mob'].forEach((s) => $(s).addEventListener('click', () => dodajDoKoszyka(pozycjaGlowna(), stan.ilosc)));
@@ -390,7 +389,7 @@ $('#wiecej-opinii').addEventListener('click', () => {
   // po zwinięciu wróć na początek sekcji opinii, żeby nie zostać w pustym miejscu niżej
   if (!wszystkieOpinie) {
     const y = $('#opinie').getBoundingClientRect().top + window.scrollY - wysokoscPaskow();
-    if (lenis) lenis.scrollTo(y); else window.scrollTo({ top: y });
+    przewinDo(y);
   }
 });
 $$('.rozklad .pasek').forEach((p) => p.style.setProperty('--w', `${p.dataset.proc}%`));
@@ -508,13 +507,9 @@ $('#przelacz-menu').addEventListener('click', (e) => {
 });
 
 // --------------------------------------------- przewijanie i animacje
-let lenis = null;
-if (!ruchOgraniczony) {
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
+// Zwykłe przewijanie przeglądarki (bez „wygładzania”, które opóźniało każdy ruch kółka).
+// Płynny ruch tylko wtedy, gdy strona sama przewija: link do sekcji, przyciąganie, „do góry”.
+const przewinDo = (y) => window.scrollTo({ top: y, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
 
 // wysokość przyklejonych pasków (nagłówek + pasek sekcji), żeby sekcja zaczynała się tuż pod nimi
 const wysokoscPaskow = () => $('#naglowek').offsetHeight + ($('.pasek-sekcji')?.offsetHeight || 0);
@@ -527,38 +522,38 @@ document.addEventListener('click', (e) => {
   if (!cel) return;
   e.preventDefault();
   $('#menu').classList.remove('otwarte');
-  // liczymy pozycję sami (Lenis przy elemencie dolicza jeszcze scroll-margin-top, co dawało podwójne odsunięcie)
-  const cel_y = cel.getBoundingClientRect().top + window.scrollY - wysokoscPaskow();
-  if (lenis) lenis.scrollTo(cel_y);
-  else window.scrollTo({ top: cel_y, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
+  // sekcja ma zacząć się tuż pod przyklejonymi paskami
+  przewinDo(cel.getBoundingClientRect().top + window.scrollY - wysokoscPaskow());
 });
 
 // łagodne przyciąganie do początku sekcji (tylko kółko myszy i gładzik, nie dotyk i nie klawiatura).
-// Gdy ktoś przestaje przewijać, a początek sekcji jest blisko miejsca, w którym strona by stanęła
-// (do 1/5 ekranu), strona dosuwa się, tak że sekcja zaczyna się tuż pod paskiem menu.
-// Nie walczy z użytkownikiem: każdy kolejny ruch kółkiem przerywa dosuwanie, a w środku długiej
-// sekcji (daleko od jej początku) nic się nie dzieje.
-if (lenis) {
+// Gdy ktoś przestaje przewijać, a początek sekcji jest blisko (do 1/5 ekranu), strona dosuwa się,
+// tak że sekcja zaczyna się tuż pod paskiem menu. Nie walczy z użytkownikiem: każdy kolejny ruch
+// kółkiem przerywa dosuwanie, a w środku długiej sekcji (daleko od jej początku) nic się nie dzieje.
+if (!ruchOgraniczony) {
   const SEKCJE = '.baner, #opis, #sklad, #rytm, .razem, #opinie, #pytania, .polecane, .newsletter';
-  const punktySekcji = () => [0, ...$$(SEKCJE).map((el) => el.getBoundingClientRect().top + window.scrollY - wysokoscPaskow())]
-    .filter((p) => p <= lenis.limit);
+  const punktySekcji = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    return [0, ...$$(SEKCJE).map((el) => el.getBoundingClientRect().top + window.scrollY - wysokoscPaskow())].filter((p) => p <= max);
+  };
   let zegar = null;
   const przyciagnij = () => {
-    if (lenis.isStopped || $('dialog[open]')) return;
-    const cel = lenis.targetScroll; // miejsce, w którym zatrzymałoby się przewijanie
+    if (document.documentElement.classList.contains('bez-przewijania') || $('dialog[open]')) return;
+    const teraz = window.scrollY;
     const prog = Math.min(window.innerHeight * 0.2, 200);
     let najblizszy = null;
     for (const p of punktySekcji()) {
-      if (Math.abs(p - cel) < prog && (najblizszy === null || Math.abs(p - cel) < Math.abs(najblizszy - cel))) najblizszy = p;
+      if (Math.abs(p - teraz) < prog && (najblizszy === null || Math.abs(p - teraz) < Math.abs(najblizszy - teraz))) najblizszy = p;
     }
-    if (najblizszy === null || Math.abs(najblizszy - cel) < 2) return;
-    lenis.scrollTo(najblizszy, { duration: 0.7, easing: (t) => 1 - (1 - t) ** 3 });
+    if (najblizszy !== null && Math.abs(najblizszy - teraz) > 2) przewinDo(najblizszy);
   };
-  lenis.on('virtual-scroll', ({ event }) => {
-    if (event.type.startsWith('touch')) return;
+  window.addEventListener('wheel', (e) => {
     clearTimeout(zegar);
-    zegar = setTimeout(przyciagnij, 320);
-  });
+    // przewijanie w bok (pasek sekcji) i wewnątrz koszyka czy okienka nie przyciąga strony
+    if (Math.abs(e.deltaY) < Math.abs(e.deltaX) || e.target.closest?.('.koszyk, dialog')) return;
+    // gładzik po puszczeniu jeszcze chwilę „dojeżdża” — czekamy, aż skończy
+    zegar = setTimeout(przyciagnij, 220);
+  }, { passive: true });
 }
 
 // przycisk „na górę”: pojawia się po przewinięciu o ponad półtora ekranu
@@ -568,7 +563,7 @@ const pokazDoGory = () => doGory.classList.toggle('widoczny', window.scrollY > w
 window.addEventListener('scroll', pokazDoGory, { passive: true });
 pokazDoGory();
 doGory.addEventListener('click', () => {
-  if (lenis) lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
+  przewinDo(0);
   $('.logo').focus({ preventScroll: true });
 });
 
