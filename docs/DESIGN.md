@@ -43,7 +43,7 @@ Tekst wyrównany do lewej. Na telefonie pole koloru nad panelem zakupu, a przyci
 
 ## Ruch
 Jedno wejście strony (opakowanie i karty). Poza tym ruch tylko w odpowiedzi na działanie: zmiana smaku, rytmu dostaw, dodanie do koszyka.
-Przewijanie zwykłe, przeglądarkowe (bez bibliotek „wygładzających” — Lenis usunięty, bo opóźniał każdy ruch kółka). Łagodne przyciąganie do początku sekcji przy kółku/gładziku: tylko gdy przewijanie kończy się blisko początku sekcji, każdy ruch je przerywa. Płynny ruch tylko przy linkach do sekcji, przyciąganiu i „do góry”. `prefers-reduced-motion` wyłącza animacje i przyciąganie.
+Przewijanie zwykłe, przeglądarkowe (bez bibliotek „wygładzających” — Lenis usunięty, bo opóźniał każdy ruch kółka). Bez automatycznego przyciągania do sekcji (było, Patryk zrezygnował — wystarczyło szybkie przewijanie). Płynny ruch tylko przy linkach do sekcji i „do góry”. `prefers-reduced-motion` wyłącza animacje.
 
 ## Język
 Prosto, w drugiej osobie, bez obietnic zdrowotnych spoza rejestru UE. Liczby i daty zamiast przymiotników („Następna dostawa: 11 grudnia”).

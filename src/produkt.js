@@ -554,7 +554,7 @@ $('#przelacz-menu').addEventListener('click', (e) => {
 
 // --------------------------------------------- przewijanie i animacje
 // Zwykłe przewijanie przeglądarki (bez „wygładzania”, które opóźniało każdy ruch kółka).
-// Płynny ruch tylko wtedy, gdy strona sama przewija: link do sekcji, przyciąganie, „do góry”.
+// Płynny ruch tylko wtedy, gdy strona sama przewija: link do sekcji i „do góry”.
 const przewinDo = (y) => window.scrollTo({ top: y, behavior: ruchOgraniczony ? 'auto' : 'smooth' });
 
 // wysokość przyklejonych pasków (nagłówek + pasek sekcji), żeby sekcja zaczynała się tuż pod nimi
@@ -571,36 +571,6 @@ document.addEventListener('click', (e) => {
   // sekcja ma zacząć się tuż pod przyklejonymi paskami
   przewinDo(cel.getBoundingClientRect().top + window.scrollY - wysokoscPaskow());
 });
-
-// łagodne przyciąganie do początku sekcji (tylko kółko myszy i gładzik, nie dotyk i nie klawiatura).
-// Gdy ktoś przestaje przewijać, a początek sekcji jest blisko (do 1/5 ekranu), strona dosuwa się,
-// tak że sekcja zaczyna się tuż pod paskiem menu. Nie walczy z użytkownikiem: każdy kolejny ruch
-// kółkiem przerywa dosuwanie, a w środku długiej sekcji (daleko od jej początku) nic się nie dzieje.
-if (!ruchOgraniczony) {
-  const SEKCJE = '.baner, #opis, #sklad, #rytm, .razem, #opinie, #pytania, .polecane, .newsletter';
-  const punktySekcji = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    return [0, ...$$(SEKCJE).map((el) => el.getBoundingClientRect().top + window.scrollY - wysokoscPaskow())].filter((p) => p <= max);
-  };
-  let zegar = null;
-  const przyciagnij = () => {
-    if (document.documentElement.classList.contains('bez-przewijania') || $('dialog[open]')) return;
-    const teraz = window.scrollY;
-    const prog = Math.min(window.innerHeight * 0.2, 200);
-    let najblizszy = null;
-    for (const p of punktySekcji()) {
-      if (Math.abs(p - teraz) < prog && (najblizszy === null || Math.abs(p - teraz) < Math.abs(najblizszy - teraz))) najblizszy = p;
-    }
-    if (najblizszy !== null && Math.abs(najblizszy - teraz) > 2) przewinDo(najblizszy);
-  };
-  window.addEventListener('wheel', (e) => {
-    clearTimeout(zegar);
-    // przewijanie w bok (pasek sekcji) i wewnątrz koszyka czy okienka nie przyciąga strony
-    if (Math.abs(e.deltaY) < Math.abs(e.deltaX) || e.target.closest?.('.koszyk, dialog')) return;
-    // gładzik po puszczeniu jeszcze chwilę „dojeżdża” — czekamy, aż skończy
-    zegar = setTimeout(przyciagnij, 220);
-  }, { passive: true });
-}
 
 // przycisk „na górę”: pojawia się po przewinięciu o ponad półtora ekranu
 const doGory = $('#do-gory');
