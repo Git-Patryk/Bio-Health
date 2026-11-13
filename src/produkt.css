@@ -300,21 +300,44 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 
 /* ---------- rytm ---------- */
 .rytm { background: var(--granat); color: #fff; margin-top: clamp(24px, 4vh, 48px); padding: clamp(36px, 6vh, 64px) 0; overflow: hidden; }
-.rytm .haslo { max-width: 26ch; }
+.rytm .haslo { max-width: 26ch; font-size: clamp(32px, min(4.6vw, 6.6vh), 70px) !important; }
 .rytm-w { max-width: var(--szer); margin: 0 auto; padding: 0 var(--gutter); }
 .rytm-sterowanie { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: clamp(22px, 4vh, 44px) 0 clamp(16px, 2.6vh, 28px); }
 .segment { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(255,255,255,.1); }
 .segment button { border: 0; background: none; color: #c9cde0; min-height: 42px; padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: background-color .25s, color .25s; }
 .segment button[aria-checked='true'] { background: #fff; color: var(--granat); }
-.os { display: grid; grid-template-columns: repeat(16, 1fr); gap: 8px; }
-.tydzien { display: grid; gap: 10px; justify-items: center; font-size: 12px; color: #9aa0bd; }
-.tydzien .slot { width: 100%; aspect-ratio: 1 / 1.35; border-radius: 12px; background: rgba(255,255,255,.07); position: relative; display: grid; place-items: center; }
-.tydzien.dostawa .slot { background: var(--opak); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.25); }
-.tydzien.dostawa .slot::after { content: ''; width: 38%; height: 46%; border-radius: 4px 4px 6px 6px; background: rgba(255,255,255,.88); }
-.tydzien.pauza .slot { background: repeating-linear-gradient(135deg, rgba(255,255,255,.05) 0 6px, rgba(255,255,255,.12) 6px 12px); }
-.tydzien.dzis { color: #fff; font-weight: 600; }
-.os-opis { margin-top: 12px; color: #c9cde0; font-size: 16px; min-height: 1.5em; }
-.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: clamp(24px, 4vh, 48px); counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: clamp(20px, 3vh, 32px); }
+/* plan dostaw: karty z datami + kalendarz 4 miesięcy */
+.plan-dostaw { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 44px; align-items: start; }
+.karty-dostaw { display: grid; gap: 8px; }
+.karta-dostawy {
+  display: grid; grid-template-columns: 50px 1fr auto; gap: 14px; align-items: center;
+  padding: 8px 14px 8px 8px; border-radius: 16px; background: rgba(255,255,255,.06); transition: background-color .2s;
+}
+.karta-dostawy:hover { background: rgba(255,255,255,.11); }
+.karta-dostawy.nastepna { background: rgba(255,255,255,.13); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35); }
+.kd-dzien {
+  width: 50px; height: 50px; border-radius: 12px; background: var(--opak); color: var(--opak-tekst);
+  display: grid; place-items: center; align-content: center; line-height: 1; transition: background-color .6s;
+}
+.kd-dzien b { font-size: 20px; letter-spacing: -.02em; }
+.kd-dzien small { font-size: 11px; opacity: .85; margin-top: 2px; }
+.kd-tresc { display: grid; gap: 2px; min-width: 0; }
+.kd-tresc b { font-size: 16px; font-weight: 600; }
+.kd-tresc small { font-size: 14px; color: #c9cde0; }
+.kd-znacznik { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #fff; color: var(--granat); }
+.kalendarz { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+.miesiac h3 { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 15px; font-weight: 650; margin-bottom: 8px; }
+.miesiac h3 small { font-size: 11px; font-weight: 650; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,.14); color: #fff; }
+.miesiac ol { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 12px; text-align: center; font-variant-numeric: tabular-nums; }
+.miesiac li { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; color: #c9cde0; transition: transform .2s, box-shadow .2s; }
+.miesiac .dn { aspect-ratio: auto; padding-bottom: 4px; font-size: 10.5px; color: #7f86a6; }
+.miesiac .przeszly { color: #555b7c; }
+.miesiac .dzis { box-shadow: inset 0 0 0 1.5px #fff; color: #fff; font-weight: 650; }
+.miesiac .dostawa { background: var(--opak); color: var(--opak-tekst); font-weight: 700; box-shadow: 0 0 0 3px rgba(255,255,255,.14); }
+.miesiac .podswietl { transform: scale(1.3); box-shadow: 0 0 0 3px #fff; }
+.miesiac.wstrzymany ol { border-radius: 12px; background: repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 6px, rgba(255,255,255,.1) 6px 12px); }
+.miesiac.wstrzymany li:not(.dn) { opacity: .4; }
+.kroki { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: clamp(18px, 3vh, 44px); counter-reset: krok; border-top: 1px solid rgba(255,255,255,.16); padding-top: clamp(20px, 3vh, 32px); }
 .kroki li { display: grid; grid-template-columns: 34px 1fr; column-gap: 14px; align-content: start; }
 .kroki li > * { grid-column: 2; }
 .kroki li { counter-increment: krok; }
@@ -538,8 +561,8 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
   .lista-opinii { grid-template-columns: 1fr; }
   .razem-karta label { grid-template-columns: 96px 1fr; align-items: center; }
   .razem-obraz { height: 96px; }
-  .os { grid-template-columns: repeat(8, 1fr); }
-  .tydzien:nth-child(n+9) { display: none; }
+  .plan-dostaw { grid-template-columns: 1fr; gap: 28px; }
+  .kalendarz { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 18px; }
   .kroki { grid-template-columns: 1fr; gap: 28px; }
   .polecane-lista { grid-template-columns: repeat(2, 1fr); }
   .polecany .razem-obraz { height: 160px; }

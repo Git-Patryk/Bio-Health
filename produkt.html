@@ -296,8 +296,10 @@
             <div class="segment" role="radiogroup" aria-label="Dostawa co" id="segment"></div>
             <button type="button" class="pigulka pigulka--obrys-jasna" id="pauza" aria-pressed="false">Wstrzymaj na styczeń</button>
           </div>
-          <ol class="os" id="os" aria-label="Najbliższe 16 tygodni"></ol>
-          <p class="os-opis" id="os-opis" aria-live="polite"></p>
+          <div class="plan-dostaw">
+            <ol class="karty-dostaw" id="karty-dostaw" aria-label="Najbliższe dostawy" aria-live="polite"></ol>
+            <div class="kalendarz" id="kalendarz" aria-hidden="true"></div>
+          </div>
           <ol class="kroki">
             <li><h3>Wybierasz rytm</h3><p>Co 2, 4, 6 albo 8 tygodni. Podpowiemy, ile starcza opakowanie.</p></li>
             <li><h3>Płacisz przy wysyłce</h3><p>Bez przedpłaty. Trzy dni przed wysyłką przypomnimy e-mailem.</p></li>

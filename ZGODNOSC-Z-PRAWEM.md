@@ -185,7 +185,7 @@ Dane sprzedawcy w demo są **fikcyjne i oczywiście nieprawdziwe**, żeby nie po
 - **Na stronie:** zanim klient zamówi, widzi wprost: „Płacisz X zł co N tygodni. Następna płatność: [data]. Możesz zmienić, wstrzymać lub zrezygnować w każdej chwili w panelu konta — bez opłat”. Na 3 dni przed odnowieniem przychodzi przypomnienie e-mailem. Rezygnacja zajmuje 1–2 kliknięcia w panelu (pkt 13), bez dzwonienia i bez „czy na pewno?” powtarzanego kilka razy.
 - **Dlaczego tak:** UOKiK wymienia utrudnianie rezygnacji i ciche przechodzenie z darmowego okresu w płatny jako typowe manipulacje (dark patterns). Przy umowie przedłużanej automatycznie trzeba podać zasady jej trwania i wypowiedzenia. Unia przygotowuje Digital Fairness Act (projekt zapowiedziany na listopad 2026), który ma zaostrzyć zasady subskrypcji.
 - **Podstawa:** ustawa o prawach konsumenta, art. 12 ust. 1 pkt 16 [S2]; ustawa o przeciwdziałaniu nieuczciwym praktykom rynkowym [S6]; UOKiK o dark patterns [S17].
-- **W demo:** ✅ na `produkt.html` wybór rytmu (2/4/6/8 tyg.), data następnej dostawy, „bez przedpłaty, pauza jednym kliknięciem”, oś dostaw z pauzą na styczeń. Panel konta jeszcze nie istnieje.
+- **W demo:** ✅ na `produkt.html` wybór rytmu (2/4/6/8 tyg.), data następnej dostawy, „bez przedpłaty, pauza jednym kliknięciem”, plan dostaw: 3 najbliższe dostawy z datą, dniem tygodnia i kwotą plus kalendarz 4 miesięcy z zaznaczonymi dniami dostaw; pauza na styczeń przesuwa dostawę na 1 lutego. Panel konta jeszcze nie istnieje.
 
 ### 19. Potwierdzenie zamówienia
 - **Na stronie:** po zamówieniu ekran „Dziękujemy” z numerem zamówienia i informacją, że potwierdzenie zostało wysłane e-mailem. E-mail zawiera podsumowanie zamówienia, Regulamin (PDF), informacje o odstąpieniu i formularz odstąpienia.

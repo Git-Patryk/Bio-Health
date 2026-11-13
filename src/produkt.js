@@ -409,30 +409,76 @@ $('#pauza').addEventListener('click', (e) => {
   renderOs();
 });
 
-function renderOs() {
-  const dzis = new Date();
-  const start = dodajDni(dzis, -((dzis.getDay() + 6) % 7)); // poniedziałek tego tygodnia
-  const tyg = Array.from({ length: 16 }, (_, i) => dodajDni(start, i * 7));
-  const wStyczniu = (d) => d.getMonth() === 0;
-  const dostawy = new Set();
-  let i = 0;
-  while (i < 16) {
-    if (stan.pauza && wStyczniu(tyg[i])) { i += 1; continue; } // pauza przesuwa dostawę na pierwszy tydzień po styczniu
-    dostawy.add(i);
-    i += stan.rytm;
+// Plan dostaw: karty z datami (odpowiedź na „kiedy przyjdzie paczka”) + kalendarz 4 miesięcy obok,
+// żeby było widać, gdzie te daty leżą w czasie. Pierwsza paczka wychodzi dziś, kolejne co X tygodni.
+// Pauza na styczeń przesuwa styczniową dostawę na 1 lutego, a dalej rytm liczy się od niej.
+const KART = 3;
+const MIESIECY = 4;
+const klucz = (d) => `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+function planDostaw(doDaty) {
+  const dzis = new Date(); dzis.setHours(0, 0, 0, 0);
+  const plan = [];
+  let d = new Date(dzis);
+  while (plan.length < KART || d <= doDaty) {
+    let przesunieta = null;
+    if (stan.pauza && d.getMonth() === 0) { przesunieta = d; d = new Date(d.getFullYear(), 1, 1); }
+    plan.push({ data: d, przesunieta, dni: Math.round((d - dzis) / 864e5) });
+    d = dodajDni(d, stan.rytm * 7);
   }
-  $('#os').innerHTML = tyg.map((d, k) => {
-    const klasy = ['tydzien', dostawy.has(k) ? 'dostawa' : '', stan.pauza && wStyczniu(d) ? 'pauza' : '', k === 0 ? 'dzis' : ''].join(' ');
-    const etyk = k === 0 ? 'teraz' : dataPl(d, { day: 'numeric', month: 'short' }).replace('.', '');
-    return `<li class="${klasy}"><span class="slot"></span><span>${etyk}</span></li>`;
+  return plan;
+}
+function kiedy(dni) {
+  if (dni === 0) return 'wysyłamy dziś';
+  const t = Math.round(dni / 7);
+  return t === 1 ? 'za tydzień' : `za ${t} ${t < 5 ? 'tygodnie' : 'tygodni'}`;
+}
+
+function renderOs() {
+  const dzis = new Date(); dzis.setHours(0, 0, 0, 0);
+  const koniec = new Date(dzis.getFullYear(), dzis.getMonth() + MIESIECY, 0); // ostatni dzień 4. miesiąca
+  const plan = planDostaw(koniec);
+  const kwota = zl.format(cenaSub(stan.wielkosc));
+
+  $('#karty-dostaw').innerHTML = plan.slice(0, KART).map((p, i) => `
+    <li class="karta-dostawy${i === 1 ? ' nastepna' : ''}" data-dzien="${klucz(p.data)}">
+      <span class="kd-dzien"><b>${p.data.getDate()}</b><small>${dataPl(p.data, { month: 'short' }).replace('.', '')}</small></span>
+      <span class="kd-tresc">
+        <b>${dataPl(p.data, { weekday: 'long', day: 'numeric', month: 'long' })}</b>
+        <small>${p.przesunieta ? `przesunięta z ${dataPl(p.przesunieta)} (pauza)` : kiedy(p.dni)}, ${kwota}</small>
+      </span>
+      ${i === 1 ? '<span class="kd-znacznik">następna</span>' : ''}
+    </li>`).join('');
+
+  const dostawy = new Set(plan.map((p) => klucz(p.data)));
+  const DNI = ['pn', 'wt', 'śr', 'cz', 'pt', 'so', 'nd'];
+  $('#kalendarz').innerHTML = Array.from({ length: MIESIECY }, (_, m) => {
+    const pierwszy = new Date(dzis.getFullYear(), dzis.getMonth() + m, 1);
+    const ileDni = new Date(pierwszy.getFullYear(), pierwszy.getMonth() + 1, 0).getDate();
+    const przesuniecie = (pierwszy.getDay() + 6) % 7; // poniedziałek jako pierwszy dzień tygodnia
+    const wstrzymany = stan.pauza && pierwszy.getMonth() === 0;
+    const dni = Array.from({ length: ileDni }, (_, k) => {
+      const d = new Date(pierwszy.getFullYear(), pierwszy.getMonth(), k + 1);
+      const klasy = [d < dzis ? 'przeszly' : '', +d === +dzis ? 'dzis' : '', dostawy.has(klucz(d)) ? 'dostawa' : ''].filter(Boolean).join(' ');
+      return `<li class="${klasy}" data-dzien="${klucz(d)}">${k + 1}</li>`;
+    }).join('');
+    return `<div class="miesiac${wstrzymany ? ' wstrzymany' : ''}">
+      <h3>${dataPl(pierwszy, { month: 'long' })}${wstrzymany ? '<small>wstrzymany</small>' : ''}</h3>
+      <ol>${DNI.map((n) => `<li class="dn">${n}</li>`).join('')}${'<li></li>'.repeat(przesuniecie)}${dni}</ol>
+    </div>`;
   }).join('');
-  const daty = [...dostawy].slice(0, 4).map((k) => (k === 0 ? 'w tym tygodniu' : dataPl(tyg[k])));
-  $('#os-opis').textContent = `${stan.pauza ? 'Styczeń wstrzymany. ' : ''}Najbliższe dostawy: ${daty.join(', ')}. Płacisz ${zl.format(cenaSub(stan.wielkosc))} przy każdej wysyłce.`;
+
   if (!ruchOgraniczony && renderOs.gotowe) {
-    gsap.from('#os .dostawa .slot', { scale: 0.6, opacity: 0, duration: 0.5, stagger: 0.04, ease: 'back.out(2)' });
+    gsap.from('.miesiac .dostawa, .kd-dzien', { scale: 0.6, opacity: 0, duration: 0.45, stagger: 0.03, ease: 'back.out(2)' });
   }
   renderOs.gotowe = true;
 }
+// najechanie na kartę pokazuje jej dzień w kalendarzu
+$('#karty-dostaw').addEventListener('pointerover', (e) => {
+  const k = e.target.closest('.karta-dostawy');
+  $$('.miesiac .podswietl').forEach((x) => x.classList.remove('podswietl'));
+  if (k) $(`.miesiac [data-dzien="${k.dataset.dzien}"]`)?.classList.add('podswietl');
+});
+$('#karty-dostaw').addEventListener('pointerleave', () => $$('.miesiac .podswietl').forEach((x) => x.classList.remove('podswietl')));
 
 // ------------------------------------------------------ okna i toast
 const OKNA = {
