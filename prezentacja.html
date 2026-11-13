@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BC5 Makiety — Bio &amp; Health (prezentacja)</title>
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/prezentacja.css" />
+    <script type="module" src="/src/prezentacja.js"></script>
+  </head>
+  <body>
+    <div class="okno-pokazu">
+      <main class="scena" id="scena" aria-live="polite">
+
+        <!-- 1. Tytuł -->
+        <section class="slajd ciemny" data-tytul="Tytuł">
+          <div class="tytul-uklad">
+            <div>
+              <p class="metka">Business Case 5: makiety</p>
+              <h1 class="wielki">Strona produktu</h1>
+              <p class="podtytul">Od makiety lo-fi do strony, którą można kliknąć</p>
+              <p class="meta">Grupa 2, Bio &amp; Health<br />PM: Patryk Łachoda<br />20 listopada 2026</p>
+            </div>
+            <div class="stos">
+              <img class="stos-a" src="/prezentacja/lofi_ekran.webp" alt="" />
+              <img class="stos-b" src="/prezentacja/hifi_czekolada.webp" alt="" />
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Zadanie -->
+        <section class="slajd" data-tytul="Zadanie">
+          <div class="dwie">
+            <div>
+              <p class="metka">Zadanie od prowadzącego</p>
+              <h2 class="duzy">Grupa z suplementacji: strona z produktem</h2>
+              <p class="lead" data-krok="1">Cel strony: produkt trafia do koszyka. Najlepiej w subskrypcji, bo to nasz model biznesowy z BMC.</p>
+              <p class="lead szary" data-krok="2">Przykład: białko serwatkowe WPC 80, sześć smaków, trzy wielkości.</p>
+            </div>
+            <div class="persona" data-krok="1">
+              <p class="metka">Dla kogo projektujemy</p>
+              <h3>Kacper, 25 lat</h3>
+              <p class="szary">student z Wrocławia, chce schudnąć 10 kg</p>
+              <ul class="lista-kropki">
+                <li data-krok="2">Nie ufa reklamom po wpadce ze „spalaczem tłuszczu”</li>
+                <li data-krok="2">Boi się przedpłat i trudnego anulowania</li>
+                <li data-krok="2">Kupuje duże opakowania w ciemno, smak się przejada</li>
+                <li data-krok="2">Płaci BLIK-iem, odbiera z paczkomatu</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Proces -->
+        <section class="slajd" data-tytul="Proces">
+          <p class="metka">Jak pracowaliśmy</p>
+          <h2 class="duzy">Pięć etapów z wykładu, wszystkie przeszliśmy</h2>
+          <ol class="os-etapow">
+            <li data-krok="1"><span class="nr">1</span><b>Makieta lo-fi</b><span>układ, bez kolorów</span></li>
+            <li data-krok="2"><span class="nr">2</span><b>Test</b><span>persona, biznes, prawo</span></li>
+            <li data-krok="3"><span class="nr">3</span><b>Makieta hi-fi</b><span>kolor, typografia, treść</span></li>
+            <li data-krok="4"><span class="nr">4</span><b>Test</b><span>na komputerze i telefonie</span></li>
+            <li data-krok="5"><span class="nr">5</span><b>Kodowanie</b><span>działająca strona</span></li>
+          </ol>
+          <p class="przypis" data-krok="5">Najpierw UX, potem UI: błąd poprawiony na makiecie kosztuje najmniej (S. Watras, „Makiety”, wykres kosztu usunięcia błędu).</p>
+        </section>
+
+        <!-- 4. Konkurencja -->
+        <section class="slajd" data-tytul="Konkurencja">
+          <p class="metka">Analiza konkurencji</p>
+          <h2 class="duzy">Co bierzemy, a czego unikamy</h2>
+          <div class="trzy">
+            <article class="kolumna" data-krok="1">
+              <h3>Myprotein</h3>
+              <p class="plus">Ramka „Często kupowane z” z sumą zestawu</p>
+              <p class="minus">Ponad 50 smaków na jednej liście, stały licznik promocji</p>
+            </article>
+            <article class="kolumna" data-krok="2">
+              <h3>KFD</h3>
+              <p class="plus">Najniższa cena z 30 dni, cena za 100 g, „Jak sprawdzamy opinie”</p>
+              <p class="minus">Brak subskrypcji i pomocy w wyborze</p>
+            </article>
+            <article class="kolumna" data-krok="3">
+              <h3>Huel</h3>
+              <p class="plus">Subskrypcja obok zakupu jednorazowego, zestaw degustacyjny, quiz</p>
+              <p class="minus">Ogólnikowe obietnice zdrowotne</p>
+            </article>
+          </div>
+          <p class="wniosek" data-krok="4">Nikt nie łączy subskrypcji z pauzą, zestawu próbnego i ankiety doboru na jednej stronie. To nasza przewaga.</p>
+        </section>
+
+        <!-- 5. Lo-fi: pierwszy ekran -->
+        <section class="slajd" data-tytul="Makieta lo-fi">
+          <div class="lofi-uklad">
+            <div class="ramka-przegladarki">
+              <img src="/prezentacja/lofi_ekran.webp" alt="Makieta lo-fi strony produktu, pierwszy ekran" />
+              <span class="znacznik" data-krok="1" data-x="36" data-y="8">1</span>
+              <span class="znacznik" data-krok="2" data-x="53" data-y="32">2</span>
+              <span class="znacznik" data-krok="3" data-x="53" data-y="46">3</span>
+              <span class="znacznik" data-krok="4" data-x="53" data-y="53">4</span>
+              <span class="znacznik" data-krok="5" data-x="97" data-y="70">5</span>
+              <span class="znacznik" data-krok="6" data-x="97" data-y="89">6</span>
+            </div>
+            <div>
+              <p class="metka">Makieta lo-fi</p>
+              <h2 class="sredni">Pierwszy ekran: wszystko do decyzji bez przewijania</h2>
+              <ol class="objasnienia">
+                <li data-krok="1"><b>Menu według celu.</b> Redukcja, masa, trening. Kacper nie wie, co ma sens.</li>
+                <li data-krok="2"><b>Cena od razu</b>, za kg i najniższa z 30 dni.</li>
+                <li data-krok="3"><b>6 smaków zamiast 50.</b> Prawo Hicka.</li>
+                <li data-krok="4"><b>Zestaw próbny.</b> Na „smak się przejada”.</li>
+                <li data-krok="5"><b>Subskrypcja obok zakupu jednorazowego.</b> Bez przedpłaty, z pauzą.</li>
+                <li data-krok="6"><b>Przycisk z kwotą</b>, pod nim dostawa, BLIK i zwroty.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Lo-fi: cała strona -->
+        <section class="slajd" data-tytul="Cała makieta lo-fi">
+          <div class="lofi-uklad lofi-uklad--odwrotny">
+            <div>
+              <p class="metka">Makieta lo-fi, cała strona</p>
+              <h2 class="sredni">Wszystko, o czym mówił slajd „Co bierzemy pod uwagę”</h2>
+              <ul class="checklista">
+                <li data-krok="1">Cel strony: koszyk i subskrypcja</li>
+                <li data-krok="1">Historyjki użytkownika z BC3</li>
+                <li data-krok="2">Ścieżka zakupowa z BC4</li>
+                <li data-krok="2">Analiza konkurencji</li>
+                <li data-krok="3">Baner, ramki rekomendacyjne, marketing automation</li>
+                <li data-krok="3">Nagłówek i stopka</li>
+              </ul>
+            </div>
+            <div class="okno-przewijane" id="okno-przewijane">
+              <img src="/prezentacja/lofi_cala.webp" alt="Cała makieta lo-fi strony produktu" />
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Test -->
+        <section class="slajd" data-tytul="Test">
+          <p class="metka">Test makiety lo-fi</p>
+          <h2 class="sredni">Kacper dostał trzy zadania. Dwa wykazały problem.</h2>
+          <div class="test-uklad">
+            <figure class="panel-v"><img src="/prezentacja/lofi_v1_panel.webp" alt="Panel zakupu w wersji 1" /><figcaption>Wersja 1</figcaption></figure>
+            <ul class="wyniki">
+              <li class="ok" data-krok="1"><b>Wybierz smak, nie znając żadnego.</b> Znalazł zestaw próbny.</li>
+              <li class="uwaga" data-krok="2"><b>Czy subskrypcję da się wstrzymać?</b> Było, ale drobnym drukiem. Teraz dwa haczyki na wierzchu.</li>
+              <li class="blad" data-krok="3"><b>Ile i kiedy zapłacisz?</b> Brakowało daty. Teraz „Następna dostawa ok. 11 grudnia”.</li>
+              <li class="uwaga" data-krok="4"><b>Przycisk spadał poniżej ekranu laptopa.</b> Cena pod nazwą, karty obok siebie.</li>
+            </ul>
+            <figure class="panel-v" data-krok="4"><img src="/prezentacja/lofi_v2_panel.webp" alt="Panel zakupu w wersji 2 po teście" /><figcaption>Wersja 2</figcaption></figure>
+          </div>
+        </section>
+
+        <!-- 8. Lo-fi → hi-fi -->
+        <section class="slajd ciemny" data-tytul="Z lo-fi do hi-fi">
+          <div class="przejscie-uklad">
+            <div class="ramka-przegladarki ramka-przegladarki--duza" id="kurtyna">
+              <img src="/prezentacja/lofi_ekran.webp" alt="Makieta lo-fi" />
+              <img class="kurtyna-gora" src="/prezentacja/hifi_czekolada.webp" alt="Makieta hi-fi" data-krok="1" data-anim="kurtyna" />
+            </div>
+            <p class="podpis-jasny">Ten sam układ. <span data-krok="1">Dochodzi kolor, typografia i prawdziwa treść.</span></p>
+          </div>
+        </section>
+
+        <!-- 9. Hi-fi: kolor smaku -->
+        <section class="slajd" data-tytul="Makieta hi-fi">
+          <div class="lofi-uklad">
+            <div class="ramka-przegladarki">
+              <img src="/prezentacja/hifi_czekolada.webp" alt="Hi-fi, smak czekolada" />
+              <img class="warstwa" src="/prezentacja/hifi_wanilia.webp" alt="Hi-fi, smak wanilia" data-krok="1" data-anim="fade" />
+              <img class="warstwa" src="/prezentacja/hifi_truskawka.webp" alt="Hi-fi, smak truskawka" data-krok="2" data-anim="fade" />
+            </div>
+            <div>
+              <p class="metka">Makieta hi-fi</p>
+              <h2 class="sredni">Kolor smaku prowadzi stronę</h2>
+              <p class="lead">Wybierasz smak i cała góra strony zmienia kolor razem z opakowaniem. Reszta zostaje spokojna.</p>
+              <div class="tokeny" data-krok="3">
+                <span class="kolor k-granat">granat</span><span class="kolor k-mgla">mgła</span>
+                <span class="kolor k-czek">czekolada</span><span class="kolor k-wan">wanilia</span><span class="kolor k-trus">truskawka</span>
+              </div>
+              <p class="szary" data-krok="3">Jeden krój: Onest. Inspiracja: Revolut, czyli duża typografia, pływające karty i płynne przewijanie.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. Psychologia -->
+        <section class="slajd" data-tytul="Psychologia">
+          <p class="metka">Psychologia na stronie</p>
+          <h2 class="sredni">Cztery mechanizmy, każdy z jawnymi zasadami</h2>
+          <div class="mechanizmy">
+            <div data-krok="1"><p class="przyklad">109 zł obok 92,65 zł</p><h3>Kotwica cenowa</h3><p class="szary">Cena jednorazowa przy subskrypcji pokazuje oszczędność.</p></div>
+            <div data-krok="2"><p class="przyklad">Subskrypcja zaznaczona</p><h3>Efekt opcji domyślnej</h3><p class="szary">Ale obok: bez przedpłaty, pauza, data dostawy.</p></div>
+            <div data-krok="3"><p class="przyklad">4,7 z 312 opinii</p><h3>Społeczny dowód słuszności</h3><p class="szary">Z informacją, jak sprawdzamy opinie, i filtrem krytycznych.</p></div>
+            <div data-krok="4"><p class="przyklad">6 smaków</p><h3>Prawo Hicka</h3><p class="szary">Mniej opcji to szybsza decyzja niż przy 50 smakach.</p></div>
+          </div>
+          <p class="wniosek wniosek--czerwony" data-krok="5">Czego nie robimy: liczników „promocja kończy się za…”, ukrytej rezygnacji, produktów dodawanych do koszyka bez pytania. UOKiK nazywa to dark patterns.</p>
+        </section>
+
+        <!-- 11. Strona -->
+        <section class="slajd ciemny" data-tytul="Działająca strona">
+          <div class="demo-uklad">
+            <div>
+              <p class="metka">Etap 5: kodowanie</p>
+              <h2 class="duzy">Strona działa. Sprawdźmy na żywo.</h2>
+              <ol class="kroki-demo">
+                <li data-krok="1">Zmieniam smak</li>
+                <li data-krok="1">Zmieniam wielkość i rytm dostaw</li>
+                <li data-krok="1">Wstrzymuję styczeń na osi dostaw</li>
+                <li data-krok="1">Dodaję do koszyka</li>
+              </ol>
+              <a class="przycisk-demo" href="./produkt.html" target="_blank" rel="noopener" data-krok="2">Otwórz stronę produktu</a>
+              <p class="szary-jasny" data-krok="2">Zrobione w Claude Code, narzędziu z listy na slajdzie 9 wykładu. Działa też na telefonie.</p>
+            </div>
+            <div class="urzadzenia">
+              <img class="urz-komp" src="/prezentacja/hifi_koszyk.webp" alt="Strona z otwartym koszykiem" />
+              <img class="urz-tel" src="/prezentacja/hifi_telefon.webp" alt="Strona na telefonie" />
+            </div>
+          </div>
+        </section>
+
+        <!-- 12. Źródła -->
+        <section class="slajd" data-tytul="Źródła">
+          <p class="metka">Źródła i oznaczenie AI</p>
+          <h2 class="sredni">Dziękuję. Pytania?</h2>
+          <div class="zrodla">
+            <ul>
+              <li>Watras, S. (2026). <i>Makiety</i>; <i>UX w projektowaniu produktu</i> [prezentacje]. Uniwersytet SWPS.</li>
+              <li>Nielsen, J. (1994). 10 Usability Heuristics for User Interface Design. Nielsen Norman Group.</li>
+              <li>Hick, W. E. (1952). On the rate of gain of information. <i>Quarterly Journal of Experimental Psychology</i>, 4(1), 11–26.</li>
+              <li>Cialdini, R. (2016). <i>Wywieranie wpływu na ludzi</i>. GWP.</li>
+              <li>Johnson, E. J., Goldstein, D. (2003). Do defaults save lives? <i>Science</i>, 302, 1338–1339.</li>
+            </ul>
+            <ul>
+              <li>Ustawa o informowaniu o cenach towarów i usług, art. 4 (najniższa cena z 30 dni).</li>
+              <li>Rozporządzenie (UE) 1169/2011, art. 9 i 14 (informacja o żywności przy sprzedaży online).</li>
+              <li>UOKiK, materiały o dark patterns i subskrypcjach.</li>
+              <li>Strony konkurencji: myprotein.pl, sklep.kfd.pl, pl.huel.com (stan na 13.11.2026).</li>
+              <li>Zdjęcia: Unsplash (Robert V. Ruggiero, Kelly Sikkema).</li>
+            </ul>
+          </div>
+          <p class="ai">Makiety, strona i prezentacja przygotowane z pomocą AI (Claude Code). Produkt, ceny, opinie i firma są fikcyjne.</p>
+        </section>
+
+      </main>
+      <div class="pasek-postepu"><span id="postep"></span></div>
+      <p class="licznik-slajdow" id="licznik-slajdow"></p>
+      <p class="pomoc" id="pomoc">← → albo spacja, F = pełny ekran</p>
+    </div>
+  </body>
+</html>

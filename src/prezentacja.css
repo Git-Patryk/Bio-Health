@@ -1,0 +1,165 @@
+/* Prezentacja BC5 — ten sam system wizualny co strona (docs/DESIGN.md) */
+@import '@fontsource-variable/onest';
+
+:root {
+  --granat: #161a33;
+  --granat-2: #4e5470;
+  --mgla: #eef0f4;
+  --linia: #d9dce5;
+  --sygnal: #3d5afe;
+  --ok: #1e7a4f;
+  --czek-pole: #e9dcd3;
+  --czek: #5b3a2a;
+  --font: 'Onest Variable', ui-sans-serif, system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; background: #0d1024; overflow: hidden; }
+body { font-family: var(--font); color: var(--granat); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 3px solid var(--sygnal); outline-offset: 4px; }
+
+.okno-pokazu { position: fixed; inset: 0; }
+.scena {
+  position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center; background: #fff; overflow: hidden;
+}
+.slajd {
+  position: absolute; inset: 0; padding: 110px 130px 100px; background: #fff;
+  visibility: hidden; opacity: 0;
+}
+.slajd.aktywny { visibility: visible; opacity: 1; }
+.slajd.ciemny { background: var(--granat); color: #fff; }
+
+/* typografia */
+.metka { font-size: 26px; color: var(--granat-2); margin-bottom: 18px; font-weight: 500; }
+.ciemny .metka { color: #a9aecb; }
+.wielki { font-size: 168px; line-height: .92; letter-spacing: -.055em; font-weight: 680; }
+.duzy { font-size: 84px; line-height: 1; letter-spacing: -.045em; font-weight: 650; max-width: 17ch; }
+.sredni { font-size: 64px; line-height: 1.02; letter-spacing: -.04em; font-weight: 650; max-width: 20ch; }
+.podtytul { font-size: 40px; margin-top: 28px; color: #d6d9ea; letter-spacing: -.02em; max-width: 22ch; line-height: 1.2; }
+.meta { margin-top: 64px; font-size: 26px; line-height: 1.5; color: #a9aecb; }
+.lead { font-size: 34px; line-height: 1.35; margin-top: 36px; max-width: 30ch; letter-spacing: -.01em; }
+.szary { color: var(--granat-2); }
+.szary-jasny { color: #a9aecb; font-size: 24px; margin-top: 22px; max-width: 34ch; line-height: 1.4; }
+.przypis { position: absolute; left: 130px; bottom: 90px; font-size: 26px; color: var(--granat-2); max-width: 70ch; }
+
+/* 1 tytuł */
+.tytul-uklad { display: grid; grid-template-columns: 1fr 820px; gap: 40px; align-items: center; height: 100%; }
+.stos { position: relative; height: 640px; }
+.stos img { position: absolute; width: 760px; border-radius: 22px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.stos-a { top: 0; left: 0; transform: rotate(-5deg); opacity: .85; }
+.stos-b { top: 150px; left: 60px; transform: rotate(3deg); }
+
+/* 2 zadanie */
+.dwie { display: grid; grid-template-columns: 1.1fr 1fr; gap: 100px; align-items: center; height: 100%; }
+.persona { background: var(--czek-pole); border-radius: 36px; padding: 56px 60px; }
+.persona h3 { font-size: 56px; letter-spacing: -.035em; font-weight: 650; }
+.persona > .szary { font-size: 28px; margin-top: 6px; }
+.lista-kropki { margin-top: 34px; display: grid; gap: 18px; font-size: 30px; line-height: 1.3; }
+.lista-kropki li { padding-left: 34px; position: relative; }
+.lista-kropki li::before { content: ''; position: absolute; left: 0; top: 14px; width: 12px; height: 12px; border-radius: 50%; background: var(--czek); }
+
+/* 3 proces */
+.os-etapow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 110px; position: relative; }
+.os-etapow::before { content: ''; position: absolute; left: 40px; right: 40px; top: 40px; height: 4px; background: var(--mgla); }
+.os-etapow li { position: relative; display: grid; gap: 10px; padding-right: 30px; }
+.os-etapow .nr { width: 84px; height: 84px; border-radius: 50%; background: var(--granat); color: #fff; display: grid; place-items: center; font-size: 36px; font-weight: 650; margin-bottom: 18px; position: relative; }
+.os-etapow b { font-size: 38px; letter-spacing: -.02em; font-weight: 650; }
+.os-etapow span:last-child { font-size: 26px; color: var(--granat-2); }
+
+/* 4 konkurencja */
+.trzy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 70px; }
+.kolumna { border-top: 4px solid var(--granat); padding-top: 28px; display: grid; gap: 20px; align-content: start; }
+.kolumna h3 { font-size: 44px; letter-spacing: -.03em; font-weight: 650; }
+.plus, .minus { font-size: 28px; line-height: 1.35; padding-left: 44px; position: relative; }
+.plus::before, .minus::before { position: absolute; left: 0; top: 0; font-weight: 700; font-size: 30px; }
+.plus::before { content: '+'; color: var(--ok); }
+.minus::before { content: '−'; color: #c2364b; }
+.wniosek { position: absolute; left: 130px; right: 130px; bottom: 96px; font-size: 36px; line-height: 1.3; font-weight: 600; letter-spacing: -.015em; background: var(--czek-pole); padding: 30px 40px; border-radius: 26px; }
+.wniosek--czerwony { background: #fde8eb; }
+
+/* 5, 6, 9 lo-fi / hi-fi z objaśnieniami */
+.lofi-uklad { display: grid; grid-template-columns: 1120px 1fr; gap: 70px; align-items: center; height: 100%; }
+.lofi-uklad--odwrotny { grid-template-columns: 1fr 760px; }
+.ramka-przegladarki { position: relative; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px var(--linia); padding-top: 34px; background: #f3f4f7; }
+.ramka-przegladarki::before { content: ''; position: absolute; top: 12px; left: 18px; width: 10px; height: 10px; border-radius: 50%; background: #c9ccd8; box-shadow: 18px 0 0 #c9ccd8, 36px 0 0 #c9ccd8; }
+.ramka-przegladarki img { width: 100%; }
+.ramka-przegladarki .warstwa, .kurtyna-gora { position: absolute; left: 0; top: 34px; width: 100%; }
+.znacznik {
+  position: absolute; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%;
+  background: var(--sygnal); color: #fff; font-size: 24px; font-weight: 700; display: grid; place-items: center;
+  box-shadow: 0 0 0 6px rgba(61,90,254,.25), 0 8px 20px rgba(61,90,254,.4);
+}
+.objasnienia { margin-top: 40px; display: grid; gap: 20px; font-size: 28px; line-height: 1.3; counter-reset: o; }
+.objasnienia li { counter-increment: o; padding-left: 56px; position: relative; }
+.objasnienia li::before { content: counter(o); position: absolute; left: 0; top: -2px; width: 38px; height: 38px; border-radius: 50%; background: var(--sygnal); color: #fff; font-size: 20px; font-weight: 700; display: grid; place-items: center; }
+.okno-przewijane { height: 860px; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(22,26,51,.18), 0 0 0 1px var(--linia); background: #e9e9e9; }
+.okno-przewijane img { width: 100%; will-change: transform; }
+.checklista { margin-top: 44px; display: grid; gap: 22px; font-size: 32px; }
+.checklista li { padding-left: 58px; position: relative; }
+.checklista li::before { content: '✓'; position: absolute; left: 0; top: -4px; width: 40px; height: 40px; border-radius: 50%; background: var(--ok); color: #fff; font-size: 22px; font-weight: 700; display: grid; place-items: center; }
+
+/* 7 test */
+.test-uklad { display: grid; grid-template-columns: 380px 1fr 380px; gap: 56px; margin-top: 56px; align-items: start; }
+.panel-v { border-radius: 18px; overflow: hidden; box-shadow: 0 0 0 1px var(--linia), 0 20px 50px rgba(22,26,51,.12); }
+.panel-v figcaption { font-size: 22px; padding: 12px 18px; background: var(--mgla); font-weight: 600; }
+.wyniki { display: grid; gap: 26px; font-size: 28px; line-height: 1.32; }
+.wyniki li { padding-left: 60px; position: relative; }
+.wyniki li::before { position: absolute; left: 0; top: -2px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 22px; }
+.wyniki .ok::before { content: '✓'; background: var(--ok); }
+.wyniki .uwaga::before { content: '!'; background: #d98e04; }
+.wyniki .blad::before { content: '✕'; background: #c2364b; }
+
+/* 8 kurtyna */
+.przejscie-uklad { height: 100%; display: grid; place-items: center; align-content: center; gap: 40px; }
+.ramka-przegladarki--duza { width: 1300px; }
+.slajd:has(.przejscie-uklad) { padding-top: 60px; padding-bottom: 60px; }
+.podpis-jasny { font-size: 40px; letter-spacing: -.02em; color: #fff; font-weight: 600; }
+.podpis-jasny span { color: #a9aecb; font-weight: 400; }
+
+/* 9 tokeny */
+.tokeny { display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 22px; }
+.kolor { display: inline-flex; align-items: center; gap: 12px; font-size: 22px; padding: 10px 20px 10px 10px; border-radius: 999px; background: var(--mgla); }
+.kolor::before { content: ''; width: 34px; height: 34px; border-radius: 50%; background: var(--k); box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); }
+.k-granat { --k: #161a33; } .k-mgla { --k: #eef0f4; } .k-czek { --k: #5b3a2a; } .k-wan { --k: #d9b65e; } .k-trus { --k: #d2475d; }
+.lofi-uklad .szary { font-size: 26px; line-height: 1.4; max-width: 34ch; }
+
+/* 10 mechanizmy */
+.mechanizmy { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 64px; }
+.mechanizmy > div { display: grid; gap: 12px; align-content: start; }
+.przyklad { font-size: 30px; font-weight: 650; background: var(--mgla); border-radius: 18px; padding: 22px 24px; letter-spacing: -.01em; }
+.mechanizmy h3 { font-size: 34px; letter-spacing: -.02em; font-weight: 650; margin-top: 10px; }
+.mechanizmy .szary { font-size: 25px; line-height: 1.35; }
+
+/* 11 demo */
+.demo-uklad { display: grid; grid-template-columns: 1fr 980px; gap: 50px; align-items: center; height: 100%; }
+.kroki-demo { margin-top: 44px; display: grid; gap: 14px; font-size: 32px; counter-reset: d; }
+.kroki-demo li { counter-increment: d; color: #d6d9ea; }
+.kroki-demo li::before { content: counter(d) '. '; color: #a9aecb; }
+.przycisk-demo { display: inline-flex; margin-top: 48px; padding: 26px 44px; border-radius: 999px; background: #fff; color: var(--granat); font-size: 32px; font-weight: 650; text-decoration: none; }
+.przycisk-demo:hover { background: var(--czek-pole); }
+.urzadzenia { position: relative; height: 720px; }
+.urz-komp { position: absolute; left: 0; top: 40px; width: 860px; border-radius: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.45); }
+.urz-tel { position: absolute; right: 0; bottom: 0; width: 280px; border-radius: 36px; border: 10px solid #000; box-shadow: 0 30px 70px rgba(0,0,0,.5); }
+
+/* 12 źródła */
+.zrodla { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 56px; font-size: 24px; line-height: 1.4; }
+.zrodla ul { display: grid; gap: 14px; align-content: start; }
+.ai { position: absolute; left: 130px; bottom: 90px; font-size: 26px; color: var(--granat-2); }
+
+/* obsługa */
+.pasek-postepu { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,.08); }
+.pasek-postepu span { display: block; height: 100%; width: 0; background: var(--sygnal); transition: width .4s; }
+.licznik-slajdow { position: fixed; right: 18px; bottom: 12px; color: #6f7593; font-size: 14px; }
+.pomoc { position: fixed; left: 18px; bottom: 12px; color: #6f7593; font-size: 14px; transition: opacity .6s; }
+
+/* druk / zrzut: wszystko widoczne, bez animacji */
+html.druk .scena { left: 0; top: 0; }
+html.druk .pasek-postepu, html.druk .licznik-slajdow, html.druk .pomoc { display: none; }
+html.druk * { transition: none !important; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

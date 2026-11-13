@@ -1,0 +1,21 @@
+# Cotygodniowe propozycje aktualizacji bibliotek i akcji GitHuba.
+# cooldown: nowa wersja musi mieć min. 14 dni, zanim Dependabot ją zaproponuje
+# (ochrona przed świeżo podmienionymi/zainfekowanymi paczkami).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    groups:
+      zaleznosci:
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14

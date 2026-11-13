@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "4317", "--strictPort"],
+      "port": 4317
+    },
+    {
+      "name": "podglad-wersji-produkcyjnej",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "--", "--port", "4318", "--strictPort"],
+      "port": 4318
+    }
+  ]
+}

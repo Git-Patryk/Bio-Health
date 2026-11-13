@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bio &amp; Health — sklep pokazowy (projekt studencki)</title>
+    <meta
+      name="description"
+      content="Projekt studencki: pokazowa strona sklepu z suplementami i odżywkami w subskrypcji. To nie jest prawdziwy sklep."
+    />
+    <!-- Demo nie powinno trafiać do wyszukiwarek jako „prawdziwy sklep”. -->
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body>
+    <a class="pomin" href="#tresc">Przejdź do treści</a>
+
+    <p class="pasek-demo" role="note">
+      <strong>Sklep pokazowy — projekt studencki.</strong>
+      Niczego tu nie kupisz i nie zbieramy żadnych danych.
+      <a href="./informacje.html">Dowiedz się więcej</a>
+    </p>
+
+    <header class="naglowek">
+      <a class="logo" href="./" aria-label="Bio &amp; Health — strona główna">
+        Bio<span aria-hidden="true">&amp;</span>Health
+      </a>
+      <span class="nazwa-robocza">nazwa robocza</span>
+    </header>
+
+    <main id="tresc">
+      <section class="hero" aria-labelledby="hero-tytul">
+        <div class="hero-tekst">
+          <p class="etykieta">Suplementy i odżywki w subskrypcji</p>
+          <h1 id="hero-tytul">
+            Twój cel. Twój zestaw.
+            <span>W rytmie, który sam ustawisz.</span>
+          </h1>
+          <p class="opis">
+            Zestaw dobrany do celu — redukcji, budowy masy albo regularnego
+            treningu — z dostawą co tyle tygodni, ile chcesz. Bez zobowiązań,
+            z rezygnacją jednym kliknięciem.
+          </p>
+          <p class="status">
+            <span class="kropka" aria-hidden="true"></span>
+            Strona w przygotowaniu. Gotowa jest
+            <a href="./produkt.html">przykładowa strona produktu</a>.
+          </p>
+        </div>
+
+        <div class="hero-scena" aria-hidden="true">
+          <div class="kapsulka-zapas"></div>
+          <canvas id="scena"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <footer class="stopka">
+      <a href="./informacje.html">Informacje i prywatność</a>
+      <span>Projekt studencki — praktyki „Psychologia w e-commerce”, SWPS, zima 2026.</span>
+      <span>Przygotowano z pomocą AI (Claude Code).</span>
+    </footer>
+  </body>
+</html>

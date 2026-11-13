@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Białko serwatkowe WPC 80, 900 g — Bio &amp; Health (sklep pokazowy)</title>
+    <meta
+      name="description"
+      content="Białko serwatkowe WPC 80: 22,5 g białka w porcji, 6 smaków, subskrypcja z pauzą i bez przedpłaty. Strona pokazowa — projekt studencki, to nie jest prawdziwy sklep."
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/produkt.css" />
+    <script type="module" src="/src/produkt.js"></script>
+  </head>
+  <body>
+    <a class="pomin" href="#tresc">Przejdź do treści</a>
+
+    <p class="pasek-demo" role="note">
+      <strong>Sklep pokazowy — projekt studencki.</strong>
+      Niczego tu nie kupisz i nie zbieramy żadnych danych.
+      <a href="./informacje.html">Dowiedz się więcej</a>
+    </p>
+
+    <header class="naglowek" id="naglowek">
+      <div class="naglowek-w">
+        <a class="logo" href="./" aria-label="Bio &amp; Health — strona główna">Bio<span>&amp;</span>Health</a>
+        <nav class="menu" id="menu" aria-label="Główne menu">
+          <a href="#" aria-current="page">Sklep</a>
+          <a href="#">Redukcja</a>
+          <a href="#">Masa</a>
+          <a href="#">Trening</a>
+          <a href="#">Zestawy próbne</a>
+          <a href="#rytm">Jak działa subskrypcja</a>
+        </nav>
+        <div class="naglowek-akcje">
+          <button class="ikona" type="button" aria-label="Szukaj" data-modal="szukaj">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+          <button class="pigulka pigulka--obrys tylko-duze" type="button" data-modal="ankieta">Dobierz zestaw</button>
+          <button class="ikona" type="button" aria-label="Moje konto" data-modal="konto">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+          </button>
+          <button class="ikona koszyk-ikona" type="button" id="otworz-koszyk" aria-label="Koszyk, 0 produktów">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            <span class="licznik" id="licznik" hidden>0</span>
+          </button>
+          <button class="ikona tylko-male" type="button" id="przelacz-menu" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="tresc">
+      <!-- ============ produkt ============ -->
+      <section class="produkt" id="produkt" aria-labelledby="nazwa-produktu">
+        <div class="produkt-w">
+          <nav class="okruszki" aria-label="Jesteś tutaj">
+            <ol>
+              <li><a href="./">Strona główna</a></li>
+              <li><a href="#">Odżywki białkowe</a></li>
+              <li><a href="#">Białko serwatkowe</a></li>
+              <li aria-current="page">WPC 80</li>
+            </ol>
+          </nav>
+
+          <div class="galeria" id="galeria">
+            <div class="scena-produktu" id="scena-produktu">
+              <figure class="widok widok--aktywny" data-widok="przod">
+                <svg class="opakowanie" viewBox="0 0 300 400" role="img" aria-labelledby="opak-opis">
+                  <title id="opak-opis">Opakowanie białka WPC 80, 900 g, smak czekolada</title>
+                  <defs>
+                    <linearGradient id="cien" x1="0" x2="1">
+                      <stop offset="0" stop-color="#000" stop-opacity=".28" />
+                      <stop offset=".18" stop-color="#fff" stop-opacity=".12" />
+                      <stop offset=".45" stop-color="#fff" stop-opacity=".02" />
+                      <stop offset=".8" stop-color="#000" stop-opacity=".06" />
+                      <stop offset="1" stop-color="#000" stop-opacity=".3" />
+                    </linearGradient>
+                  </defs>
+                  <path class="opak-korpus" d="M44 26h212l3 30c9 92 17 206 9 310-1 13-9 20-22 20H54c-13 0-21-7-22-20-8-104 0-218 9-310z" />
+                  <path class="opak-zgrzew" d="M44 26h212l2 26H42z" />
+                  <path d="M44 26h212l3 30c9 92 17 206 9 310-1 13-9 20-22 20H54c-13 0-21-7-22-20-8-104 0-218 9-310z" fill="url(#cien)" />
+                  <rect x="70" y="112" width="160" height="196" rx="18" class="opak-etykieta" />
+                  <text x="150" y="146" text-anchor="middle" class="opak-marka">Bio&amp;Health</text>
+                  <text x="150" y="208" text-anchor="middle" class="opak-wpc">WPC 80</text>
+                  <text x="150" y="236" text-anchor="middle" class="opak-opis">białko serwatkowe</text>
+                  <rect x="94" y="254" width="112" height="28" rx="14" class="opak-smak-tlo" />
+                  <text x="150" y="273" text-anchor="middle" class="opak-smak" id="opak-smak">czekolada</text>
+                  <text x="150" y="342" text-anchor="middle" class="opak-gram" id="opak-gram">900 g</text>
+                </svg>
+              </figure>
+              <figure class="widok" data-widok="tyl">
+                <div class="etykieta-tyl">
+                  <p class="et-nag">Wartość odżywcza w porcji 30 g</p>
+                  <dl>
+                    <div><dt>Energia</dt><dd>113 kcal</dd></div>
+                    <div><dt>Białko</dt><dd>22,5 g</dd></div>
+                    <div><dt>Węglowodany</dt><dd>1,8 g</dd></div>
+                    <div><dt>w tym cukry</dt><dd>1,7 g</dd></div>
+                    <div><dt>Tłuszcz</dt><dd>2,0 g</dd></div>
+                    <div><dt>Sól</dt><dd>0,12 g</dd></div>
+                  </dl>
+                  <p class="et-stopka">Zawiera mleko i soję. Pełny skład niżej na stronie.</p>
+                </div>
+              </figure>
+              <figure class="widok" data-widok="zdjecie">
+                <img src="/img/shaker.webp" width="1400" height="869" alt="Osoba wsypuje miarkę białka do kubka" loading="lazy" decoding="async" />
+                <figcaption>Fot. Kelly Sikkema, Unsplash</figcaption>
+              </figure>
+
+              <div class="karta-plywajaca karta-plywajaca--ocena" aria-hidden="true">
+                <span class="gw">★</span> 4,7 <span class="szary">312 opinii</span>
+              </div>
+              <div class="karta-plywajaca karta-plywajaca--dostawa" aria-hidden="true">
+                <span class="kal"><b id="karta-dzien">11</b><small id="karta-mies">gru</small></span>
+                <span><small class="szary">Następna dostawa</small><br /><b>co <span id="karta-rytm">4 tygodnie</span></b></span>
+              </div>
+              <div class="karta-plywajaca karta-plywajaca--bialko" aria-hidden="true">
+                <b>22,5 g</b><small class="szary">białka w porcji</small>
+              </div>
+            </div>
+
+            <div class="miniatury" role="tablist" aria-label="Zdjęcia produktu">
+              <button role="tab" aria-selected="true" data-pokaz="przod"><span class="mini mini--przod"></span>Przód</button>
+              <button role="tab" aria-selected="false" data-pokaz="tyl"><span class="mini mini--tyl"></span>Etykieta</button>
+              <button role="tab" aria-selected="false" data-pokaz="zdjecie"><span class="mini mini--zdjecie"></span>Przygotowanie</button>
+            </div>
+          </div>
+
+          <!-- panel zakupu -->
+          <div class="panel-zakupu" id="panel-zakupu">
+            <p class="kategoria">Odżywka białkowa, suplement diety</p>
+            <h1 id="nazwa-produktu">Białko serwatkowe WPC 80</h1>
+            <p class="ocena-linia">
+              <a href="#opinie" class="gwiazdki" aria-label="Ocena 4,7 na 5, 312 opinii">★★★★★ <b>4,7</b> <span>312 opinii</span></a>
+              <a href="#weryfikacja" class="cichy-link">Jak sprawdzamy opinie</a>
+            </p>
+
+            <div class="cena-blok" aria-live="polite">
+              <p class="cena"><span id="cena-glowna">92,65 zł</span> <span class="cena-dop" id="cena-dop">za dostawę w subskrypcji</span></p>
+              <p class="cena-info" id="cena-info"></p>
+            </div>
+
+            <fieldset class="wybor">
+              <legend>Smak: <b id="nazwa-smaku">czekolada</b></legend>
+              <div class="pigulki" id="smaki"></div>
+              <p class="pod-wyborem">
+                Nie wiesz, który? <button type="button" class="link-przycisk" id="dodaj-probny">Zestaw próbny 5 × 30 g za 19 zł</button>
+                <span class="szary" id="info-kawa">Kawa wróci wkrótce. <button type="button" class="link-przycisk szary" data-modal="powiadom">Powiadom mnie</button></span>
+              </p>
+            </fieldset>
+
+            <fieldset class="wybor">
+              <legend>Wielkość</legend>
+              <div class="pigulki" id="wielkosci"></div>
+            </fieldset>
+
+            <fieldset class="wybor">
+              <legend>Sposób zakupu</legend>
+              <div class="tryby">
+                <label class="tryb">
+                  <input type="radio" name="tryb" value="sub" checked />
+                  <span class="tryb-gora"><b>Subskrypcja −15%</b><b id="cena-sub">92,65 zł</b></span>
+                  <span class="tryb-tresc">
+                    <span class="rytm-wybor">
+                      Dostawa co
+                      <select id="rytm-select" aria-label="Jak często dostawa">
+                        <option value="2">2 tygodnie</option>
+                        <option value="4" selected>4 tygodnie</option>
+                        <option value="6">6 tygodni</option>
+                        <option value="8">8 tygodni</option>
+                      </select>
+                    </span>
+                    <span class="haczyki"><span>bez przedpłaty</span><span>pauza jednym kliknięciem</span></span>
+                    <span class="szary">Następna dostawa ok. <b id="nastepna">11 grudnia</b>. <a href="#rytm" class="cichy-link">Jak to działa</a></span>
+                  </span>
+                </label>
+                <label class="tryb">
+                  <input type="radio" name="tryb" value="raz" />
+                  <span class="tryb-gora"><b>Jednorazowo</b><b id="cena-raz">109,00 zł</b></span>
+                  <span class="tryb-tresc szary">Bez zobowiązań. Możesz kupić bez zakładania konta.</span>
+                </label>
+              </div>
+              <p class="podpowiedz" id="podpowiedz-rytm"></p>
+            </fieldset>
+
+            <div class="kup-wiersz">
+              <div class="ilosc" role="group" aria-label="Ilość">
+                <button type="button" id="mniej" aria-label="Mniej">−</button>
+                <output id="ilosc" aria-live="polite">1</output>
+                <button type="button" id="wiecej" aria-label="Więcej">+</button>
+              </div>
+              <button class="pigulka pigulka--glowna kup" type="button" id="dodaj">Dodaj do koszyka <span id="kwota-przycisk">92,65 zł</span></button>
+              <button class="ikona ikona--obrys" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false" id="ulubione">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+              </button>
+            </div>
+
+            <ul class="zaufanie">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/></svg>Zamów do 14:00, wyślemy dziś. Paczkomat 9,99 zł, od 150 zł za darmo.</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>BLIK, karta, szybki przelew, Apple Pay i Google Pay.</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4"/></svg>14 dni na zwrot zamkniętego opakowania.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ przyklejony pasek ============ -->
+      <div class="pasek-sekcji" id="pasek-sekcji">
+        <div class="pasek-sekcji-w">
+          <nav aria-label="Sekcje strony produktu">
+            <a href="#opis">Opis</a>
+            <a href="#sklad">Skład</a>
+            <a href="#rytm">Subskrypcja</a>
+            <a href="#opinie">Opinie</a>
+            <a href="#pytania">Pytania</a>
+          </nav>
+          <div class="mini-zakup">
+            <span class="mini-kolor" aria-hidden="true"></span>
+            <span><b id="mini-nazwa">Czekolada, 900 g</b> <span class="szary" id="mini-cena">92,65 zł</span></span>
+            <button class="pigulka pigulka--glowna" type="button" id="dodaj-mini">Dodaj do koszyka</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ baner ankiety ============ -->
+      <section class="baner" aria-labelledby="baner-tytul">
+        <img src="/img/bieg.webp" width="2000" height="1333" alt="" loading="lazy" decoding="async" />
+        <div class="baner-tresc">
+          <h2 id="baner-tytul">Nie wiesz, czego potrzebujesz przy redukcji?</h2>
+          <p>Sześć pytań o cel i rytm dnia. Bez pytań o zdrowie. Zestaw dobierzemy w dwie minuty.</p>
+          <button class="pigulka pigulka--jasna" type="button" data-modal="ankieta">Dobierz zestaw</button>
+        </div>
+        <p class="podpis-foto">Fot. Robert V. Ruggiero, Unsplash</p>
+      </section>
+
+      <!-- ============ opis ============ -->
+      <section class="sekcja opis" id="opis" aria-labelledby="opis-tytul">
+        <h2 id="opis-tytul" class="haslo">Proste białko na co dzień. Miarka, woda, trzydzieści sekund.</h2>
+        <div class="opis-siatka">
+          <div class="opis-tekst">
+            <p>Koncentrat białek serwatkowych z mleka, z krótkim składem i bez dodatku cukru. Dobrze się rozpuszcza w wodzie i w mleku, więc sprawdzi się po treningu, do owsianki albo jako szybkie uzupełnienie białka w ciągu dnia.</p>
+            <p>Białko przyczynia się do wzrostu masy mięśniowej i do utrzymania masy mięśniowej. Odżywka uzupełnia dietę, ale jej nie zastępuje.</p>
+          </div>
+          <dl class="liczby">
+            <div><dt>białka w porcji</dt><dd>22,5 g</dd></div>
+            <div><dt>porcji w 900 g</dt><dd>30</dd></div>
+            <div><dt>kcal w porcji</dt><dd>113</dd></div>
+            <div><dt>dodatku cukru</dt><dd>0 g</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <!-- ============ skład ============ -->
+      <section class="sekcja sklad" id="sklad" aria-labelledby="sklad-tytul">
+        <h2 id="sklad-tytul">Skład i wartości odżywcze</h2>
+        <div class="sklad-siatka">
+          <div class="tabela-w">
+            <table>
+              <caption class="ukryte">Wartości odżywcze, smak czekolada</caption>
+              <thead><tr><th scope="col">Wartość odżywcza</th><th scope="col">w 100 g</th><th scope="col">w porcji 30 g</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Energia</th><td>1590 kJ / 377 kcal</td><td>477 kJ / 113 kcal</td></tr>
+                <tr><th scope="row">Tłuszcz</th><td>6,5 g</td><td>2,0 g</td></tr>
+                <tr><th scope="row" class="wciecie">w tym kwasy tłuszczowe nasycone</th><td>4,2 g</td><td>1,3 g</td></tr>
+                <tr><th scope="row">Węglowodany</th><td>6,0 g</td><td>1,8 g</td></tr>
+                <tr><th scope="row" class="wciecie">w tym cukry</th><td>5,5 g</td><td>1,7 g</td></tr>
+                <tr><th scope="row">Białko</th><td>75 g</td><td>22,5 g</td></tr>
+                <tr><th scope="row">Sól</th><td>0,40 g</td><td>0,12 g</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="sklad-tekst">
+            <h3>Składniki</h3>
+            <p>Koncentrat białek serwatkowych (z <strong>mleka</strong>) 92%, kakao o obniżonej zawartości tłuszczu 6%, aromat, emulgator: lecytyny (z <strong>soi</strong>), substancja słodząca: sukraloza.</p>
+            <h3>Sposób użycia</h3>
+            <p>30 g (jedna miarka) wymieszaj z 250 ml wody lub mleka. Jedna porcja dziennie.</p>
+            <div class="ostrzezenia">
+              <p>Nie przekraczać zalecanej porcji do spożycia w ciągu dnia. Suplement diety nie może być stosowany jako substytut (zamiennik) zróżnicowanej diety. Przechowywać w sposób niedostępny dla małych dzieci.</p>
+              <p>Przechowywać w suchym miejscu, w temperaturze pokojowej. Masa netto: 900 g.</p>
+            </div>
+            <p class="szary maly">Podmiot odpowiedzialny: Bio &amp; Health sp. z o.o. (firma fikcyjna), ul. Przykładowa 1, 00-000 Warszawa. Skład przykładowy, przygotowany na potrzeby projektu.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ rytm dostaw ============ -->
+      <section class="rytm" id="rytm" aria-labelledby="rytm-tytul">
+        <div class="rytm-w">
+          <h2 id="rytm-tytul" class="haslo">Ty ustawiasz rytm. My pilnujemy, żeby białko się nie skończyło.</h2>
+          <div class="rytm-sterowanie">
+            <div class="segment" role="radiogroup" aria-label="Dostawa co" id="segment"></div>
+            <button type="button" class="pigulka pigulka--obrys-jasna" id="pauza" aria-pressed="false">Wstrzymaj na styczeń</button>
+          </div>
+          <ol class="os" id="os" aria-label="Najbliższe 16 tygodni"></ol>
+          <p class="os-opis" id="os-opis" aria-live="polite"></p>
+          <ol class="kroki">
+            <li><h3>Wybierasz rytm</h3><p>Co 2, 4, 6 albo 8 tygodni. Podpowiemy, ile starcza opakowanie.</p></li>
+            <li><h3>Płacisz przy wysyłce</h3><p>Bez przedpłaty. Trzy dni przed wysyłką przypomnimy e-mailem.</p></li>
+            <li><h3>Zmieniasz, kiedy chcesz</h3><p>Pauza, inny smak albo rezygnacja jednym kliknięciem w panelu, bez opłat.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============ często kupowane razem ============ -->
+      <section class="sekcja razem" aria-labelledby="razem-tytul">
+        <h2 id="razem-tytul">Często kupowane razem</h2>
+        <div class="razem-siatka">
+          <ul class="razem-lista" id="razem-lista"></ul>
+          <div class="razem-suma">
+            <p class="szary">Razem za zaznaczone</p>
+            <p class="cena" id="razem-kwota">177,00 zł</p>
+            <button class="pigulka pigulka--glowna" type="button" id="razem-dodaj">Dodaj zaznaczone</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ opinie ============ -->
+      <section class="sekcja opinie" id="opinie" aria-labelledby="opinie-tytul">
+        <h2 id="opinie-tytul">Opinie</h2>
+        <div class="opinie-siatka">
+          <div class="opinie-podsumowanie">
+            <p class="ocena-duza">4,7<small>/5</small></p>
+            <p class="szary">312 opinii</p>
+            <ul class="rozklad" aria-label="Rozkład ocen">
+              <li><span>5</span><span class="pasek" data-proc="78"></span><span>243</span></li>
+              <li><span>4</span><span class="pasek" data-proc="14"></span><span>44</span></li>
+              <li><span>3</span><span class="pasek" data-proc="4"></span><span>12</span></li>
+              <li><span>2</span><span class="pasek" data-proc="2"></span><span>7</span></li>
+              <li><span>1</span><span class="pasek" data-proc="2"></span><span>6</span></li>
+            </ul>
+            <p class="szary maly" id="weryfikacja">Opinie mogą wystawiać tylko osoby, które kupiły produkt. Sprawdzamy to po numerze zamówienia. Krytycznych opinii nie ukrywamy. Opinie na tej stronie są przykładowe.</p>
+          </div>
+          <div>
+            <div class="filtry" role="group" aria-label="Filtruj opinie">
+              <button type="button" class="pigulka pigulka--wybor" aria-pressed="true" data-filtr="wszystkie">Wszystkie</button>
+              <button type="button" class="pigulka pigulka--wybor" aria-pressed="false" data-filtr="smak" id="filtr-smak">Czekolada</button>
+              <button type="button" class="pigulka pigulka--wybor" aria-pressed="false" data-filtr="krytyczne">Krytyczne</button>
+            </div>
+            <ul class="lista-opinii" id="lista-opinii"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ pytania ============ -->
+      <section class="sekcja pytania" id="pytania" aria-labelledby="pytania-tytul">
+        <h2 id="pytania-tytul">Pytania i odpowiedzi</h2>
+        <div class="akordeon">
+          <details><summary>Na jak długo starczy opakowanie 900 g?</summary><p>Przy jednej porcji dziennie na 30 dni, czyli około 4 tygodnie. Dlatego przy tej wielkości podpowiadamy dostawę co 4 tygodnie.</p></details>
+          <details><summary>Czy mogę wstrzymać subskrypcję na czas sesji albo wyjazdu?</summary><p>Tak. W panelu konta klikasz „Wstrzymaj” i wybierasz, do kiedy. Nic nie płacisz, dopóki dostawy są wstrzymane.</p></details>
+          <details><summary>Jak zrezygnować z subskrypcji?</summary><p>W panelu konta, przyciskiem „Zrezygnuj”. Bez dzwonienia i bez opłat. Jeśli paczka jest już w drodze, możesz ją zwrócić w ciągu 14 dni, o ile opakowanie jest zamknięte.</p></details>
+          <details><summary>Czy produkt zawiera laktozę?</summary><p>Tak, koncentrat białek serwatkowych naturalnie zawiera laktozę. Jeśli chcesz jej unikać, w ankiecie „Dobierz zestaw” możesz ją wykluczyć.</p></details>
+          <details><summary>Czy mogę zwrócić otwarte opakowanie?</summary><p>Nie. Otwartego suplementu nie można zwrócić ze względów higienicznych. Zamknięte opakowanie zwrócisz w ciągu 14 dni bez podania przyczyny.</p></details>
+        </div>
+      </section>
+
+      <!-- ============ polecane ============ -->
+      <section class="sekcja polecane" aria-labelledby="polecane-tytul">
+        <h2 id="polecane-tytul">Polecane do redukcji</h2>
+        <ul class="polecane-lista" id="polecane-lista"></ul>
+      </section>
+
+      <!-- ============ newsletter ============ -->
+      <section class="newsletter" aria-labelledby="news-tytul">
+        <div>
+          <h2 id="news-tytul">Raz w tygodniu: porady o treningu i suplementach</h2>
+          <p class="szary">Bez spamu. Wypiszesz się jednym kliknięciem.</p>
+        </div>
+        <form class="news-form" id="news-form" novalidate>
+          <label class="ukryte" for="news-email">Adres e-mail</label>
+          <div class="news-wiersz">
+            <input type="email" id="news-email" name="email" autocomplete="email" placeholder="Twój e-mail" required />
+            <button class="pigulka pigulka--glowna" type="submit">Zapisz się</button>
+          </div>
+          <label class="zgoda"><input type="checkbox" id="news-zgoda" required /> Chcę otrzymywać informacje o nowościach i promocjach Bio &amp; Health e-mailem. Mogę w każdej chwili zrezygnować.</label>
+          <p class="komunikat" id="news-komunikat" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="stopka">
+      <div class="stopka-w">
+        <div>
+          <p class="logo logo--stopka">Bio<span>&amp;</span>Health</p>
+          <p>Bio &amp; Health sp. z o.o. (firma fikcyjna)<br />ul. Przykładowa 1, 00-000 Warszawa<br />NIP 000-000-00-00<br />kontakt@bio-health.example</p>
+        </div>
+        <div><h2>Sklep</h2><ul><li><a href="#">Redukcja</a></li><li><a href="#">Masa</a></li><li><a href="#">Trening</a></li><li><a href="#">Zestawy próbne</a></li></ul></div>
+        <div><h2>Pomoc</h2><ul><li><a href="#">Dostawa i płatność</a></li><li><a href="#">Zwroty</a></li><li><a href="#">Reklamacje</a></li><li><a href="#">Kontakt</a></li></ul></div>
+        <div><h2>Dokumenty</h2><ul><li><a href="#">Regulamin</a></li><li><a href="#">Polityka prywatności</a></li><li><a href="#">Polityka cookies</a></li><li><a href="./informacje.html">Informacje o projekcie</a></li></ul></div>
+      </div>
+      <div class="stopka-dol">
+        <span>Projekt studencki: praktyki „Psychologia w e-commerce”, SWPS, 2026.</span>
+        <span>Przygotowano z pomocą AI (Claude Code). Zdjęcia: Unsplash.</span>
+      </div>
+    </footer>
+
+    <!-- ============ pasek zakupu na telefonie ============ -->
+    <div class="pasek-mobilny" id="pasek-mobilny">
+      <span><b id="mob-cena">92,65 zł</b><small class="szary" id="mob-opis">co 4 tygodnie</small></span>
+      <button class="pigulka pigulka--glowna" type="button" id="dodaj-mob">Dodaj do koszyka</button>
+    </div>
+
+    <!-- ============ koszyk ============ -->
+    <div class="zaslona" id="zaslona" hidden></div>
+    <aside class="koszyk" id="koszyk" aria-labelledby="koszyk-tytul" aria-modal="true" role="dialog" hidden>
+      <div class="koszyk-gora">
+        <h2 id="koszyk-tytul">Koszyk</h2>
+        <button class="ikona" type="button" id="zamknij-koszyk" aria-label="Zamknij koszyk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <p class="koszyk-potw" id="koszyk-potw" role="status"></p>
+      <ul class="koszyk-lista" id="koszyk-lista"></ul>
+      <div class="darmowa" id="darmowa">
+        <p id="darmowa-tekst"></p>
+        <span class="darmowa-pasek"><span id="darmowa-wyp"></span></span>
+      </div>
+      <div class="koszyk-propozycja" id="koszyk-propozycja"></div>
+      <div class="koszyk-dol">
+        <p class="koszyk-suma"><span>Razem</span><b id="koszyk-suma">0,00 zł</b></p>
+        <p class="szary maly">Dostawę wybierzesz w następnym kroku. Nic nie dodajemy do koszyka automatycznie.</p>
+        <button class="pigulka pigulka--glowna szeroka" type="button" data-modal="kasa">Przejdź do kasy</button>
+        <button class="pigulka pigulka--obrys szeroka" type="button" id="kontynuuj">Kontynuuj zakupy</button>
+      </div>
+    </aside>
+
+    <!-- ============ okna informacyjne ============ -->
+    <dialog class="okno" id="okno">
+      <form method="dialog" class="okno-w">
+        <h2 id="okno-tytul"></h2>
+        <div id="okno-tresc"></div>
+        <button class="pigulka pigulka--glowna" value="ok">Rozumiem</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+/* Paleta i typografia robocze — do podmiany, gdy grupa ustali identyfikację marki.
+   Czcionki systemowe: zero pobierania z zewnątrz (RODO, wydajność). */
+:root {
+  --papier: #f2eee4;
+  --papier-2: #e9e3d4;
+  --tusz: #17201b;
+  --tusz-2: #4a554e;
+  --chlorofil: #2f6b4f;
+  --bursztyn: #b8741a;
+  --krem: #e9dfc8;
+
+  --szeryf: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --bezszeryf: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --margines: clamp(16px, 5vw, 64px);
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--papier);
+  color: var(--tusz);
+  font-family: var(--bezszeryf);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--chlorofil);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--tusz);
+}
+
+:focus-visible {
+  outline: 3px solid var(--bursztyn);
+  outline-offset: 3px;
+}
+
+.pomin {
+  position: absolute;
+  left: 8px;
+  top: -100px;
+  padding: 8px 14px;
+  background: var(--tusz);
+  color: var(--papier);
+  z-index: 10;
+}
+
+.pomin:focus {
+  top: 8px;
+}
+
+/* Pasek „sklep pokazowy” — zawsze widoczny, żeby nikt nie wziął demo za prawdziwy sklep */
+.pasek-demo {
+  margin: 0;
+  padding: 10px var(--margines);
+  background: var(--tusz);
+  color: var(--papier);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.pasek-demo a {
+  color: var(--krem);
+  margin-left: 0.4em;
+}
+
+.naglowek {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 22px var(--margines);
+}
+
+.logo {
+  font-family: var(--szeryf);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--tusz);
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--chlorofil);
+  font-style: italic;
+  margin: 0 0.05em;
+}
+
+.nazwa-robocza {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tusz-2);
+}
+
+main {
+  flex: 1;
+}
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 8px var(--margines) 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 32px;
+    min-height: min(78vh, 760px);
+  }
+}
+
+.etykieta {
+  margin: 0 0 18px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--chlorofil);
+}
+
+h1 {
+  margin: 0 0 22px;
+  font-family: var(--szeryf);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+h1 span {
+  display: block;
+  font-style: italic;
+  color: var(--chlorofil);
+}
+
+.opis {
+  max-width: 34em;
+  margin: 0 0 28px;
+  color: var(--tusz-2);
+  font-size: 1.125rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 8px 14px;
+  border: 1px solid rgb(23 32 27 / 0.18);
+  border-radius: 999px;
+  font-size: 0.875rem;
+}
+
+.kropka {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bursztyn);
+}
+
+/* Wejście tekstu — czysty CSS, więc treść jest widoczna nawet bez JavaScriptu */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-tekst > * {
+    animation: wejscie 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-tekst > :nth-child(2) { animation-delay: 0.08s; }
+  .hero-tekst > :nth-child(3) { animation-delay: 0.16s; }
+  .hero-tekst > :nth-child(4) { animation-delay: 0.24s; }
+
+  .kropka {
+    animation: puls 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes wejscie {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes puls {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Scena 3D */
+.hero-scena {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 620px;
+  justify-self: center;
+}
+
+.hero-scena canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Zapas bez WebGL (albo zanim scena się wczyta): kapsułka narysowana w CSS */
+.kapsulka-zapas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26%;
+  height: 62%;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, var(--chlorofil) 50%, var(--krem) 50%);
+  box-shadow: inset -10px 0 24px rgb(0 0 0 / 0.18), 0 30px 60px -20px rgb(23 32 27 / 0.35);
+  transform: translate(-50%, -50%) rotate(-32deg);
+  transition: opacity 0.6s ease;
+}
+
+.scena-gotowa .kapsulka-zapas {
+  opacity: 0;
+}
+
+/* Strona dokumentu (informacje) */
+.dokument {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 16px var(--margines) 64px;
+}
+
+.dokument h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.dokument h2 {
+  margin: 2em 0 0.4em;
+  font-family: var(--szeryf);
+  font-weight: 600;
+  font-size: 1.375rem;
+}
+
+.aktualizacja {
+  color: var(--tusz-2);
+  font-size: 0.875rem;
+}
+
+.stopka {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  padding: 22px var(--margines);
+  border-top: 1px solid rgb(23 32 27 / 0.12);
+  background: var(--papier-2);
+  color: var(--tusz-2);
+  font-size: 0.8125rem;
+}

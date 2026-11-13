@@ -1,0 +1,22 @@
+# Zależności i wynik budowania — odtwarzane przez `npm ci` i `npm run build`
+node_modules/
+dist/
+
+# Sekrety — NIGDY nie trafiają do repozytorium
+.env
+.env.*
+!.env.example
+
+# Prywatne notatki, szkice i pliki robocze (zostają tylko na dysku)
+_robocze/
+
+# Śmieci systemowe i edytorów
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+.playwright-mcp/
+
+# Lokalne ustawienia Claude Code (launch.json zostaje w repo)
+.claude/settings.local.json
