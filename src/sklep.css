@@ -30,6 +30,7 @@
 [data-kat='suplementy'] { --pole: #e6e9ef; --opak: #6b7590; }
 [data-kat='sklep'] { --pole: #eef0f4; --opak: #161a33; }
 [data-kat='wyprzedaz'] { --pole: #f7d9dd; --opak: #c23f55; }
+[data-kat='ankieta'] { --pole: #f1dcc2; --opak: #a8642a; }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -185,7 +186,25 @@ h1, h2, h3, p, ul, ol, figure { margin: 0; }
 .autor { margin-top: 18px; font-size: 14px; color: var(--granat-2); }
 .polecane { padding-top: 56px; }
 
-/* ---------- lista artykułów (Strefa wiedzy) ---------- */
+/* ---------- Dobierz zestaw (ankieta w przygotowaniu) ---------- */
+.ankieta { padding-top: 40px; max-width: 920px; }
+.ankieta-status { padding: 30px 32px; border-radius: var(--r-panel); background: var(--granat); color: #fff; }
+.ankieta-znaczek { display: inline-block; padding: 4px 12px; border-radius: 999px; background: #e9b872; color: var(--granat); font-size: 13px; font-weight: 700; }
+.ankieta-status h2 { margin-top: 14px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; font-weight: 650; letter-spacing: -.02em; }
+.ankieta-status p { margin-top: 10px; max-width: 60ch; color: #c9cde0; font-size: 18px; }
+.ankieta-przyciski { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.ankieta-status .pigulka--glowna { background: #fff; color: var(--granat); }
+.ankieta-status .pigulka--glowna:hover { background: var(--mgla); }
+.ankieta-status .pigulka--obrys { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .6); }
+.ankieta-status .pigulka--obrys:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+.ankieta-tytul { margin-top: 44px; font-size: clamp(24px, 2.8vw, 32px); font-weight: 650; letter-spacing: -.02em; }
+.ankieta-tematy { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; list-style: none; padding: 0; counter-reset: temat; }
+.ankieta-tematy li { counter-increment: temat; position: relative; padding: 20px 20px 20px 66px; border-radius: 18px; background: var(--pole); }
+.ankieta-tematy li::before { content: counter(temat); position: absolute; left: 18px; top: 18px; width: 34px; height: 34px; border-radius: 50%; background: var(--opak); color: #fff; display: grid; place-items: center; font-weight: 700; }
+.ankieta-tematy b { display: block; font-size: 18px; }
+.ankieta-tematy span { display: block; margin-top: 2px; font-size: 15px; color: var(--granat-2); }
+
+/* ---------- lista artykułów (Strefa Wiedzy) ---------- */
 .porady-lista { padding-top: 40px; }
 .karta-liczba { color: var(--granat) !important; font-size: 15px !important; }
 .karta-liczba b { display: block; font-size: 40px; line-height: 1.05; font-weight: 700; letter-spacing: -.03em; color: var(--opak); margin-bottom: 2px; }

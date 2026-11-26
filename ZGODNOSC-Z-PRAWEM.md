@@ -98,7 +98,7 @@ Dane sprzedawcy w demo są **fikcyjne i oczywiście nieprawdziwe**, żeby nie po
 - **Na stronie:** kilka kroków z paskiem postępu. Pytania o **cel** (redukcja, budowa masy, regularny trening), częstotliwość treningów, preferowaną formę (kapsułki, proszek), smak i budżet. Do tego opcja „Wyklucz składniki” (np. laktoza, gluten, soja) jako preferencja, bez pytania o przyczynę. Na końcu wynik z wyjaśnieniem, dlaczego taki zestaw, i dopisek: *„Rekomendacja ma charakter informacyjny i nie jest poradą medyczną. W ciąży, w trakcie leczenia lub przyjmując leki skonsultuj suplementację z lekarzem.”*
 - **Dlaczego tak:** pytania o choroby, ciążę czy leki to **dane o zdrowiu**, czyli szczególna kategoria danych. Wymagają wyraźnej zgody i dodatkowych zabezpieczeń. Ankieta oparta na celu i preferencjach daje dobry dobór bez zbierania takich danych (zasada minimalizacji). Wyjaśnienie, skąd wynik, buduje zaufanie i spełnia wymóg przejrzystości.
 - **Podstawa:** RODO art. 5 ust. 1 lit. c (minimalizacja), art. 9 (dane szczególne), art. 12–13 (przejrzystość) [S1]; zakaz przypisywania właściwości leczniczych [S9, S10].
-- **W demo:** ankieta **działa** (liczy wynik w przeglądarce), a odpowiedzi nie są nigdzie wysyłane. Pytania i logikę doboru opracujemy osobno.
+- **W demo:** od 26.11.2026 każdy przycisk „Dobierz zestaw” prowadzi do strony `ankieta.html` z informacją, że ankiety jeszcze nie ma, i listą tematów, o które zapyta (bez pytań o zdrowie). Docelowo ankieta **ma działać** (liczy wynik w przeglądarce), a odpowiedzi nie są nigdzie wysyłane. Pytania i logikę doboru opracujemy osobno, razem z grupą.
 
 ---
 

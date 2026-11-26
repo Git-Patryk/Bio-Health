@@ -143,8 +143,18 @@ function renderCeny() {
   $('#kwota-przycisk').textContent = razem;
   $('#mini-cena').textContent = razem;
   $('#mob-cena').textContent = razem;
-  $('#mob-opis').textContent = stan.tryb === 'sub' ? `co ${tygodnie(stan.rytm)}` : 'jednorazowo';
-  $('#mini-nazwa').textContent = `${stan.smak.nazwa}, ${nazwaWielkosci(w)}`;
+  // przyklejone paski zakupu: zawsze widać, CO trafi do koszyka (smak, wielkość i sposób zakupu)
+  const sposob = stan.tryb === 'sub' ? `Subskrypcja co ${tygodnie(stan.rytm)}` : 'Zakup jednorazowy';
+  const sposobKrotko = stan.tryb === 'sub' ? `Subskrypcja co ${stan.rytm} tyg.` : 'Jednorazowo';
+  const wariant = `${stan.smak.nazwa}, ${nazwaWielkosci(w)}`;
+  $('#mini-nazwa').textContent = wariant;
+  $('#mini-tryb').textContent = sposob;
+  $('#mini-tryb').classList.toggle('jednorazowo', stan.tryb !== 'sub');
+  $('#mob-opis').textContent = `${sposobKrotko} · ${wariant.toLowerCase()}`;
+  $('#mob-opis').classList.toggle('jednorazowo', stan.tryb !== 'sub');
+  const etykieta = `Dodaj do koszyka: ${wariant.toLowerCase()}, ${sposob.toLowerCase()}`;
+  $('#dodaj-mini').setAttribute('aria-label', etykieta);
+  $('#dodaj-mob').setAttribute('aria-label', etykieta);
 }
 
 function renderDostawa() {
@@ -661,7 +671,7 @@ renderOpinie();
 renderKoszyk();
 renderWszystko();
 
-// wejście z innej strony przez przycisk w nagłówku (produkt.html#ankieta, #szukaj, #konto, #koszyk)
+// wejście z innej strony przez przycisk w nagłówku (produkt.html#szukaj, #konto, #koszyk)
 const zHasha = location.hash.slice(1);
-if (['ankieta', 'szukaj', 'konto'].includes(zHasha)) otworzOkno(zHasha);
+if (['szukaj', 'konto'].includes(zHasha)) otworzOkno(zHasha);
 else if (zHasha === 'koszyk') { renderKoszyk(); otworzKoszyk(); }

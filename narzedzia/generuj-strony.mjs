@@ -18,7 +18,7 @@ const hrefProduktu = (k, p) => p.link || `./${k.slug}.html#${p.id}`;
 // ------------------------------------------------------------------ nagłówek (wspólny dla wszystkich stron)
 // Układ: logo → Sklep (duży panel z wszystkimi działami), Białko, Suplementy, Witaminy, Wyprzedaż → (przerwa)
 // Strefa Wiedzy → Dobierz zestaw → szukaj, konto, koszyk → język. Na karcie produktu przyciski otwierają okna
-// tej strony; na pozostałych prowadzą do karty produktu (produkt.html#ankieta, #szukaj, #konto, #koszyk).
+// tej strony; na pozostałych prowadzą do karty produktu (produkt.html#szukaj, #konto, #koszyk). „Dobierz zestaw” → ankieta.html.
 const strzalka = '<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg>';
 const LOGO_ZNAK = '<svg class="logo-znak" viewBox="0 0 100 100" aria-hidden="true"><path class="lz-petla" d="M79.11 25.57 A38 38 0 1 1 25.57 20.89" fill="none" stroke-width="12" stroke-linecap="round"/><path class="lz-grot" d="M36.5 11.4 L31.6 32.6 L15.2 13.3 Z" stroke-width="2" stroke-linejoin="round"/><g transform="rotate(-40 50 53)"><path class="lz-k1" d="M49 43 H38 A10 10 0 0 0 38 63 H49 Z"/><path class="lz-k2" d="M51 43 H62 A10 10 0 0 1 62 63 H51 Z"/></g></svg>';
 const LOGO_NAPIS = '<span class="logo-napis" aria-hidden="true">BIO<span>&amp;</span>HEALTH</span>';
@@ -38,7 +38,7 @@ function naglowek({ kat = null, strona = null, produkt = false } = {}) {
     .filter((p, i, t) => t.findIndex((x) => hrefProduktu(k, x) === hrefProduktu(k, p)) === i)
     .map((p) => `<li><a href="${hrefProduktu(k, p)}"${strona && hrefProduktu(k, p) === strona ? cur : ''}>${p.menu}</a></li>`)
     .join('');
-  const ankieta = produkt ? 'href="#ankieta" data-modal="ankieta"' : 'href="./produkt.html#ankieta"';
+  const ankieta = 'href="./ankieta.html"';
   const mega = `<div class="menu-panel menu-panel--mega"><div class="mega">${KATEGORIE.map((k) => `<div class="mega-kolumna"><h3><a href="./${k.slug}.html">${k.menuSklep || k.menu}</a></h3><ul>${podkategorie(k)}</ul></div>`).join('')}<div class="mega-promo"><b>Nie wiesz, od czego zacząć?</b><span>Kilka pytań o cel i rytm dnia — dobierzemy zestaw w subskrypcji.</span><a ${ankieta}>Dobierz zestaw</a></div></div></div>`;
   const pozycje = [
     `<li class="menu-pozycja menu-pozycja--mega"><a class="menu-link" href="./sklep.html"${kat === 'sklep' ? cur : ''}>Sklep${strzalka}</a>${mega}</li>`,
@@ -49,9 +49,7 @@ function naglowek({ kat = null, strona = null, produkt = false } = {}) {
     `<li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" ${ankieta}>Dobierz zestaw</a></li>`,
   ];
   const nav = `<nav class="menu" id="menu" aria-label="Menu sklepu"><ul class="menu-lista">${pozycje.join('')}</ul></nav>`;
-  const cel = produkt
-    ? '<button class="naglowek-cel" type="button" data-modal="ankieta">Dobierz zestaw</button>'
-    : '<a class="naglowek-cel" href="./produkt.html#ankieta">Dobierz zestaw</a>';
+  const cel = `<a class="naglowek-cel" href="./ankieta.html"${kat === 'ankieta' ? cur : ''}>Dobierz zestaw</a>`;
   const ikony = produkt
     ? `<button class="ikona ikona--szukaj" type="button" aria-label="Szukaj" data-modal="szukaj">${IKONY.szukaj}</button>
           <button class="ikona" type="button" aria-label="Moje konto" data-modal="konto">${IKONY.konto}</button>
@@ -296,6 +294,42 @@ for (const k of KATEGORIE) {
     title: 'Wyprzedaż: przecenione suplementy i przekąski — Bio & Health (sklep pokazowy)',
     desc: 'Wyprzedaż Bio & Health: przecenione suplementy i przekąski z podaną najniższą ceną z 30 dni przed obniżką. Sklep pokazowy, projekt studencki.',
     kat: 'wyprzedaz', strona: './wyprzedaz.html', ld: jsonLd([okruszkiLd(sciezka)]), tresc,
+  }));
+}
+
+// ------------------------------------------------------------------ Dobierz zestaw (strona ankiety — w przygotowaniu)
+// Pytań nie wymyślamy: opracowujemy je razem z grupą (CLAUDE.md, zasada 2). Tematy z ZGODNOSC-Z-PRAWEM.md, punkt 10.
+{
+  const sciezka = [['Strona główna', './'], ['Dobierz zestaw', './ankieta.html']];
+  const TEMATY = [
+    ['Twój cel', 'redukcja, budowa masy albo regularny trening'],
+    ['Rytm dnia', 'jak często trenujesz i ile masz czasu na posiłki'],
+    ['Forma i smak', 'proszek czy kapsułki, ulubione smaki'],
+    ['Czego unikasz', 'np. laktozy albo glutenu — bez pytania o powód'],
+    ['Budżet', 'ile chcesz wydawać na jedną dostawę'],
+  ];
+  const tresc = `<section class="dzial-glowa">
+        <div class="w">
+          ${okruszkiHTML(sciezka)}
+          <h1>Dobierz zestaw</h1>
+          <p class="lead">Kilka krótkich pytań, a my dobierzemy zestaw suplementów w subskrypcji do Twojego celu — z wyjaśnieniem, dlaczego właśnie taki.</p>
+        </div>
+      </section>
+      <section class="w ankieta" aria-labelledby="ankieta-status">
+        <div class="ankieta-status" role="status">
+          <span class="ankieta-znaczek">W przygotowaniu</span>
+          <h2 id="ankieta-status">Ankiety jeszcze nie ma</h2>
+          <p>Pytania i sposób doboru opracowujemy razem z zespołem projektu. Do tego czasu zobacz gotowe zestawy albo zajrzyj do Strefy Wiedzy.</p>
+          <div class="ankieta-przyciski"><a class="pigulka pigulka--glowna" href="./zestawy.html">Zobacz gotowe zestawy</a><a class="pigulka pigulka--obrys" href="./strefa-wiedzy.html">Strefa Wiedzy</a></div>
+        </div>
+        <h2 class="ankieta-tytul">O co zapyta ankieta</h2>
+        <ol class="ankieta-tematy">${TEMATY.map(([t, o]) => `<li><b>${t}</b><span>${o}</span></li>`).join('')}</ol>
+        <p class="przypis"><b>Nie zapytamy o zdrowie, choroby ani leki.</b> Rekomendacja będzie miała charakter informacyjny i nie jest poradą medyczną. W ciąży, w trakcie leczenia albo przyjmując leki skonsultuj suplementację z lekarzem.</p>
+      </section>`;
+  zapisz('ankieta.html', strona({
+    title: 'Dobierz zestaw suplementów do celu — ankieta — Bio & Health (sklep pokazowy)',
+    desc: 'Ankieta Bio & Health dobierze zestaw suplementów w subskrypcji do Twojego celu: redukcji, budowy masy albo regularnego treningu. Sklep pokazowy, projekt studencki.',
+    kat: 'ankieta', strona: './ankieta.html', ld: jsonLd([okruszkiLd(sciezka)]), tresc,
   }));
 }
 
