@@ -43,7 +43,11 @@ strona-bio-health/
 ├── informacje.html       informacje i prywatność
 ├── produkt.html          przykładowa strona produktu (BC5)
 ├── prezentacja.html      prezentacja makiet BC5 (strzałki / klik / spacja; ?druk&s=N&k=K do PDF)
-├── src/                  style i skrypty (scena 3D: src/scena-3d.js)
+├── prezentacja-seo.html  prezentacja BC6: słowa kluczowe, domena, menu, Strefa wiedzy
+├── bialko.html …         7 działów sklepu (białko, kreatyna, witaminy, minerały, omega 3 i kolagen, przekąski, zestawy)
+├── strefa-wiedzy.html    Strefa wiedzy + artykuły (bialko-na-redukcji, kreatyna-jak-brac, witamina-d3-zima)
+├── narzedzia/            generator działów, Strefy wiedzy i menu (node narzedzia/generuj-strony.mjs)
+├── src/                  style i skrypty (scena 3D: src/scena-3d.js, menu: src/menu.*)
 ├── public/               pliki kopiowane bez zmian (favicon, zdjęcia, obrazy do prezentacji)
 ├── ZGODNOSC-Z-PRAWEM.md  co zawiera strona i dlaczego to legalne
 ├── docs/                 research i plan

@@ -1,5 +1,6 @@
 /* Strona produktu — kierunek wizualny w docs/DESIGN.md */
 @import '@fontsource-variable/onest';
+@import './menu.css';
 
 :root {
   --biel: #ffffff;
@@ -100,9 +101,7 @@ section[id] { scroll-margin-top: calc(var(--naglowek-h) + 60px); } /* nagłówek
 .naglowek-w { max-width: var(--szer); margin: 0 auto; height: 100%; padding: 0 var(--gutter); display: flex; align-items: center; gap: 36px; }
 .logo { font-weight: 700; font-size: 22px; letter-spacing: -.04em; text-decoration: none; }
 .logo span { font-weight: 400; margin: 0 1px; color: var(--granat-2); }
-.menu { display: flex; gap: 26px; font-size: 15px; font-weight: 500; }
-.menu a { text-decoration: none; padding: 6px 0; opacity: .78; transition: opacity .2s; }
-.menu a:hover, .menu a[aria-current='page'] { opacity: 1; }
+/* menu z kategoriami: src/menu.css */
 .naglowek-akcje { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .naglowek-akcje .pigulka { min-height: 40px; padding: 0 18px; font-size: 15px; margin: 0 8px; }
 .licznik {
@@ -533,19 +532,15 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 }
 
 /* ---------- tablet i telefon ---------- */
-@media (max-width: 1100px) {
-  .menu { gap: 18px; }
-  .menu a:nth-child(n+5) { display: none; }
+@media (max-width: 1440px) {
+  .naglowek-akcje .tylko-duze { display: none; }
+}
+@media (min-width: 901px) and (max-width: 1240px) {
+  .naglowek-akcje .tylko-duze { display: inline-flex; }
 }
 @media (max-width: 900px) {
   :root { --naglowek-h: 62px; }
   body { font-size: 16px; }
-  .menu {
-    position: fixed; inset: var(--naglowek-h) 0 auto 0; flex-direction: column; gap: 0; background: #fff; padding: 8px var(--gutter) 20px;
-    box-shadow: 0 20px 40px rgba(22,26,51,.12); transform: translateY(-120%); transition: transform .35s; z-index: -1; font-size: 18px;
-  }
-  .menu a, .menu a:nth-child(n+5) { display: block; padding: 14px 0; border-bottom: 1px solid var(--linia); opacity: 1; }
-  .menu.otwarte { transform: none; }
   .tylko-duze { display: none; }
   .tylko-male { display: grid; }
   .produkt-w { grid-template-columns: minmax(0, 1fr); padding-bottom: 0; }

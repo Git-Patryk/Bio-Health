@@ -28,7 +28,8 @@ co ma być na stronie, dlaczego i jak działa w demo.
 - Vite 8 + three.js + GSAP, czysty JavaScript (moduły ES), bez frameworka. Komentarze i nazwy po polsku.
 - **three.js: korzystaj z MCP `threejsresources`.** Najpierw `threejs_search_guides`, potem `threejs_get_guide` lub `threejs_get_code_snippet`. Nie polegaj na pamięci, bo API three.js często się zmienia.
 - `npm run dev`: serwer deweloperski. `npm run build && npm run preview`: wersja produkcyjna z CSP.
-- Nowa podstrona HTML musi zostać dopisana do `build.rolldownOptions.input` w `vite.config.js`.
+- `vite.config.js` sam zbiera wszystkie pliki `.html` z katalogu głównego.
+- **Działy sklepu, poradnik i menu z kategoriami** powstają z jednego pliku danych `narzedzia/dane-sklepu.mjs`: po zmianie uruchom `node narzedzia/generuj-strony.mjs` (wstawia też menu do `index.html` i `produkt.html` między znaczniki `<!-- MENU:START/END -->`). Nie edytuj wygenerowanych plików ręcznie. Wygląd menu: `src/menu.css`, obsługa: `src/menu.js`.
 - CSP jest wstrzykiwana tylko przy budowaniu (`vite.config.js`). Po zmianach **zawsze** sprawdź wersję produkcyjną w przeglądarce i konsolę.
 - `base: './'`: ścieżki względne.
 - Publikacja na GitHub Pages: z gałęzi `gh-pages` = zawartość `dist/` (+ `.nojekyll`) po `npm run build`, wypychana osobno. Bez GitHub Actions: token bez zakresu `workflow` nie może wypchnąć plików z `.github/workflows/`. Repo jest publiczne, więc do commitów nie trafiają dane osobowe poza imieniem i nazwiskiem właściciela na slajdzie tytułowym (jego decyzja).

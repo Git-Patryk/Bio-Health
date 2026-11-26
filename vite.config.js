@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
@@ -39,13 +40,13 @@ export default defineConfig({
   build: {
     // three.js to ok. 600 kB (ok. 160 kB po kompresji) — ładowany w tle, po tekście strony.
     chunkSizeWarningLimit: 700,
+    // Wszystkie strony HTML z katalogu głównego (działy i poradnik powstają w narzedzia/generuj-strony.mjs).
     rolldownOptions: {
-      input: {
-        main: resolve(import.meta.dirname, 'index.html'),
-        informacje: resolve(import.meta.dirname, 'informacje.html'),
-        produkt: resolve(import.meta.dirname, 'produkt.html'),
-        prezentacja: resolve(import.meta.dirname, 'prezentacja.html'),
-      },
+      input: Object.fromEntries(
+        readdirSync(import.meta.dirname)
+          .filter((plik) => plik.endsWith('.html'))
+          .map((plik) => [plik.replace('.html', '') === 'index' ? 'main' : plik.replace('.html', ''), resolve(import.meta.dirname, plik)]),
+      ),
     },
   },
 });

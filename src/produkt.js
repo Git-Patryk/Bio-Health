@@ -2,6 +2,7 @@
 // nic nie jest wysyłane. Koszyk żyje tylko w pamięci strony.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { zamknijMenu } from './menu.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -587,11 +588,7 @@ $('#news-form').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
-// menu na telefonie
-$('#przelacz-menu').addEventListener('click', (e) => {
-  const otw = $('#menu').classList.toggle('otwarte');
-  e.currentTarget.setAttribute('aria-expanded', otw);
-});
+// menu z kategoriami (przycisk „Menu”, Esc): src/menu.js
 
 // --------------------------------------------- przewijanie i animacje
 // Zwykłe przewijanie przeglądarki (bez „wygładzania”, które opóźniało każdy ruch kółka).
@@ -604,11 +601,11 @@ document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href^="#"]');
   if (!a || a.dataset.modal) return;
   // linki do podstron, których prototyp jeszcze nie ma: zamiast skoku na górę strony krótka informacja
-  if (a.getAttribute('href') === '#') { e.preventDefault(); $('#menu').classList.remove('otwarte'); otworzOkno('w-przygotowaniu'); return; }
+  if (a.getAttribute('href') === '#') { e.preventDefault(); zamknijMenu(); otworzOkno('w-przygotowaniu'); return; }
   const cel = $(a.getAttribute('href'));
   if (!cel) return;
   e.preventDefault();
-  $('#menu').classList.remove('otwarte');
+  zamknijMenu();
   // sekcja ma zacząć się tuż pod przyklejonymi paskami
   przewinDo(cel.getBoundingClientRect().top + window.scrollY - wysokoscPaskow());
 });

@@ -1,3 +1,6 @@
+// Menu z kategoriami (przycisk „Menu” na telefonie).
+import './menu.js';
+
 // Scena 3D ładuje się osobno (dynamiczny import), więc tekst strony
 // pojawia się od razu, a three.js dociąga się w tle.
 const canvas = document.getElementById('scena');

@@ -1,0 +1,88 @@
+/* Menu główne z kategoriami — wspólne dla wszystkich podstron.
+   Kategorie i ich nazwy wynikają z analizy słów kluczowych (BC6, dane z Google Trends).
+   Na komputerze: kategoria = link do działu, po najechaniu albo wejściu klawiszem Tab
+   rozwija się lista podkategorii. Na telefonie: wszystko w jednym panelu pod przyciskiem „Menu”. */
+
+.menu {
+  --m-tekst: #161a33;
+  --m-szary: #4e5470;
+  --m-linia: #d9dce5;
+  --m-mgla: #eef0f4;
+  font-size: 15px;
+  font-weight: 500;
+}
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu-lista { display: flex; gap: 18px; }
+.menu-pozycja { position: relative; }
+.menu-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 10px 0; color: var(--m-tekst); text-decoration: none; white-space: nowrap;
+  opacity: .8; transition: opacity .2s;
+}
+.menu-link:hover,
+.menu-pozycja:focus-within > .menu-link,
+.menu-link[aria-current='page'] { opacity: 1; }
+.menu-link[aria-current='page'] { box-shadow: inset 0 -2px 0 currentColor; }
+.menu-strzalka { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .6; transition: transform .2s; }
+.menu-pozycja:hover .menu-strzalka,
+.menu-pozycja:focus-within .menu-strzalka { transform: rotate(180deg); }
+
+/* panel z podkategoriami (górny margines wewnętrzny „łączy” link z panelem, żeby nie znikał przy zjeżdżaniu myszą) */
+.menu-panel {
+  position: absolute; top: 100%; left: -16px; z-index: 70;
+  padding-top: 8px; min-width: 250px;
+  opacity: 0; visibility: hidden; transform: translateY(6px);
+  transition: opacity .18s, transform .18s, visibility 0s linear .18s;
+}
+.menu-pozycja:hover > .menu-panel,
+.menu-pozycja:focus-within > .menu-panel {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .18s, transform .18s, visibility 0s;
+}
+.menu-pozycja.schowane > .menu-panel { opacity: 0; visibility: hidden; }
+.menu-pozycja:last-child > .menu-panel { left: auto; right: -16px; }
+.menu-panel ul {
+  background: #fff; border-radius: 18px; padding: 8px;
+  box-shadow: 0 18px 48px rgba(22, 26, 51, .16), 0 0 0 1px var(--m-linia);
+}
+.menu-panel a {
+  display: block; padding: 9px 12px; border-radius: 10px;
+  color: var(--m-tekst); text-decoration: none; font-weight: 450; white-space: nowrap;
+}
+.menu-panel a:hover, .menu-panel a:focus-visible { background: var(--m-mgla); }
+.menu-panel a[aria-current='page'] { background: var(--m-mgla); font-weight: 600; }
+.menu-panel .menu-wszystko { font-weight: 650; }
+.menu-panel .menu-wszystko::after { content: ' →'; }
+
+/* przycisk „Menu” (telefon i węższy laptop) */
+.naglowek .przelacz-menu { display: none; }
+
+@media (max-width: 1240px) {
+  .naglowek .przelacz-menu { display: grid; }
+  /* panel wysuwa się spod nagłówka (nagłówek ma position: sticky albo relative) */
+  .menu {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 45;
+    max-height: calc(100dvh - var(--naglowek-h, 64px) - 32px); overflow-y: auto; overscroll-behavior: contain;
+    background: #fff; padding: 8px clamp(16px, 4vw, 48px) 28px;
+    box-shadow: 0 20px 40px rgba(22, 26, 51, .12);
+    transform: translateY(-110%); visibility: hidden;
+    transition: transform .35s, visibility 0s linear .35s;
+  }
+  .menu.otwarte { transform: none; visibility: visible; transition: transform .35s, visibility 0s; }
+  .menu-lista { display: grid; gap: 0; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); column-gap: 32px; }
+  .menu-pozycja { border-bottom: 1px solid var(--m-linia); padding: 6px 0 10px; }
+  .menu-link { font-size: 18px; font-weight: 650; opacity: 1; padding: 10px 0 4px; }
+  .menu-link[aria-current='page'] { box-shadow: none; text-decoration: underline; text-underline-offset: .25em; }
+  .menu-strzalka { display: none; }
+  .menu-panel, .menu-pozycja:last-child > .menu-panel {
+    position: static; opacity: 1; visibility: inherit; transform: none; padding: 0; min-width: 0;
+  }
+  .menu-panel ul { background: none; box-shadow: none; padding: 0; border-radius: 0; }
+  .menu-panel a { padding: 7px 0; color: var(--m-szary); font-size: 16px; white-space: normal; }
+  .menu-panel a:hover { background: none; color: var(--m-tekst); text-decoration: underline; }
+  .menu-panel .menu-wszystko { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu, .menu-panel, .menu-strzalka { transition: none !important; }
+}
