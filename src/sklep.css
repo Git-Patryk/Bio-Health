@@ -229,7 +229,13 @@ h1, h2, h3, p, ul, ol, figure { margin: 0; }
 .liczby { list-style: none; padding: 0; margin-top: 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .liczby li { padding: 14px 14px 16px; border-radius: 16px; background: rgba(255, 255, 255, .1); }
 .liczby b { display: block; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.05; font-weight: 700; letter-spacing: -.02em; color: #fff; white-space: nowrap; }
-.liczby span { display: block; margin-top: 6px; font-size: 14px; line-height: 1.35; color: #c9cde0; }
+.liczby li > span { display: block; margin-top: 6px; font-size: 14px; line-height: 1.35; color: #c9cde0; }
+.liczby .cale { white-space: nowrap; }
+/* długa wartość (np. „1000–2000 j.m.”): jednostka może zejść pod liczbę, liczby rosną z szerokością
+   wiersza (do 32 px), a podpisy we wszystkich kafelkach zaczynają się na tej samej wysokości */
+.liczby--dlugie { container-type: inline-size; grid-template-rows: auto auto; }
+.liczby--dlugie li { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+.liczby--dlugie b { white-space: normal; font-size: clamp(22px, calc((100cqi - 104px) / 16.5), 32px); }
 
 /* ---------- kalkulator białka ---------- */
 .kalkulator { margin-top: 20px; padding: 26px; border-radius: 24px; background: var(--pole); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 28px; }
@@ -305,8 +311,12 @@ figcaption { margin-top: 12px; font-size: 14px; line-height: 1.5; color: var(--g
 }
 @media (max-width: 700px) {
   .liczby { grid-template-columns: 1fr; }
-  .liczby li { display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; }
-  .liczby span { margin-top: 0; }
+  .liczby li { display: flex; align-items: baseline; gap: 12px; padding: 12px 14px; grid-row: auto; }
+  .liczby li > span { margin-top: 0; }
+  .liczby--dlugie { grid-template-rows: none; }
+  .liczby--dlugie li { display: block; }
+  .liczby--dlugie li > span { margin-top: 4px; }
+  .liczby--dlugie b { white-space: nowrap; font-size: 24px; }
   .kalkulator { grid-template-columns: 1fr; padding: 20px; }
   .zrodla-bialka { grid-template-columns: 1fr 1fr; }
   .zb--link { grid-column: 1 / -1; }

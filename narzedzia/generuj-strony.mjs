@@ -494,7 +494,13 @@ function miniProdukt(ref) {
   return `<li><a href="${hrefProduktu(k, p)}" data-kat="${k.slug}"><span class="mini-obraz">${opakowanie(p.ksztalt, p.etykieta)}</span><span class="mini-tekst"><b>${p.nazwa}</b><small>${zl(p.cena)} · subskrypcja ${zl(p.cena * 0.85)}</small></span></a></li>`;
 }
 
-const liczbyHTML = (liczby) => `<ul class="liczby">${liczby.map((l) => `<li><b>${l.w}</b><span>${l.o}</span></li>`).join('')}</ul>`;
+// Długa wartość (np. „1000–2000 j.m.”) nie mieści się w wąskim kafelku: taki wiersz dostaje klasę
+// liczby--dlugie (jednostka może zejść do drugiej linii). Zakres „1000–2000” zostaje w całości.
+const liczbyHTML = (liczby) => {
+  const dlugie = liczby.some((l) => l.w.length > 10);
+  const wartosc = (w) => w.replace(/\S+–\S+/g, '<span class="cale">$&</span>');
+  return `<ul class="liczby${dlugie ? ' liczby--dlugie' : ''}">${liczby.map((l) => `<li><b>${wartosc(l.w)}</b><span>${l.o}</span></li>`).join('')}</ul>`;
+};
 
 const naId = (t) => bezTagow(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 // nagłówki-pytania dostają id, żeby spis treści mógł do nich prowadzić
