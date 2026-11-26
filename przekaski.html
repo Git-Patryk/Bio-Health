@@ -15,8 +15,8 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strona główna","item":"https://git-patryk.github.io/Bio-Health/"},{"@type":"ListItem","position":2,"name":"Przekąski i napoje","item":"https://git-patryk.github.io/Bio-Health/przekaski.html"}]}</script>
     <script type="module" crossorigin src="./assets/modulepreload-polyfill-P2Xu9kJm.js"></script>
     <script type="module" crossorigin src="./assets/wspolne-BCLX5-uR.js"></script>
-    <script type="module" crossorigin src="./assets/sklep-DTJgotOB.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/sklep-DMWhfSxJ.css">
+    <script type="module" crossorigin src="./assets/sklep-BaihffQV.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/sklep-Cz1xgMLV.css">
   </head>
   <body data-kat="przekaski">
     <!-- Plik wygenerowany: node narzedzia/generuj-strony.mjs (zmiany wprowadzaj w narzedzia/dane-sklepu.mjs) -->
@@ -69,8 +69,27 @@
 
       <section class="w produkty" aria-labelledby="produkty-tytul">
         <h2 id="produkty-tytul" class="ukryte">Produkty w dziale Przekąski i napoje</h2>
-        <ul class="siatka">
-        <li class="kafel" data-kat="przekaski" id="baton-proteinowy">
+        <div class="dzial-uklad" data-filtrowanie>
+          <aside class="filtry" id="filtry" aria-label="Filtry produktów">
+            <div class="filtry-glowa"><p class="filtry-tytul">Filtry</p><button type="button" class="link-przycisk" data-wyczysc>Wyczyść</button><button type="button" class="ikona filtry-zamknij" aria-label="Zamknij filtry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <form class="filtry-formularz"><fieldset class="filtr"><legend>Cel</legend><label><input type="checkbox" name="cele" value="redukcja" /> <span>Redukcja</span> <small>1</small></label><label><input type="checkbox" name="cele" value="trening" /> <span>Trening</span> <small>3</small></label><label><input type="checkbox" name="cele" value="codziennie" /> <span>Na co dzień</span> <small>1</small></label></fieldset><fieldset class="filtr"><legend>Forma</legend><label><input type="checkbox" name="forma" value="baton" /> <span>Baton</span> <small>1</small></label><label><input type="checkbox" name="forma" value="platki" /> <span>Płatki</span> <small>2</small></label><label><input type="checkbox" name="forma" value="saszetki" /> <span>Saszetki</span> <small>1</small></label></fieldset><fieldset class="filtr"><legend>Dieta</legend><label><input type="checkbox" name="dieta" value="weganskie" /> <span>Wegańskie</span> <small>2</small></label><label><input type="checkbox" name="dieta" value="bez-laktozy" /> <span>Bez laktozy</span> <small>2</small></label></fieldset><fieldset class="filtr"><legend>Cena</legend><label><input type="radio" name="cena" value="" checked /> <span>Dowolna</span></label><label><input type="radio" name="cena" value="0-30" /> <span>do 30 zł</span> <small>2</small></label><label><input type="radio" name="cena" value="30-70" /> <span>30–70 zł</span> <small>2</small></label></fieldset><fieldset class="filtr"><legend>Oferta</legend><label><input type="checkbox" name="wyprzedaz" value="1" /> <span>Tylko przecenione</span> <small>1</small></label></fieldset></form>
+            <button type="button" class="pigulka pigulka--glowna filtry-pokaz">Pokaż produkty</button>
+          </aside>
+          <div class="dzial-lista">
+            <div class="lista-pasek">
+              <button class="filtry-otworz" type="button" aria-controls="filtry" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtry <span class="filtry-licznik" hidden></span></button>
+              <p class="lista-liczba" aria-live="polite"><b>4</b> produkty</p>
+              <label class="sortuj">Sortuj
+                <select name="sortuj">
+                  <option value="polecane">Polecane</option>
+                  <option value="cena-rosnaco">Cena: od najniższej</option>
+                  <option value="cena-malejaco">Cena: od najwyższej</option>
+                  <option value="nazwa">Nazwa: A–Z</option>
+                </select>
+              </label>
+            </div>
+            <ul class="siatka">
+            <li class="kafel" data-kat="przekaski" id="baton-proteinowy" data-cele="redukcja trening" data-forma="baton" data-dieta="" data-cena="59.00" data-wyprzedaz="0" data-nazwa="Baton proteinowy, 12 × 50 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><g transform="rotate(-14 60 80)"><rect class="k-korpus" x="4" y="56" width="112" height="46" rx="10"/><rect class="k-etykieta" x="28" y="64" width="64" height="30" rx="6"/><text class="k-tekst" x="60" y="84" text-anchor="middle" font-size="14">BATON</text></g></svg></div>
           <div class="kafel-tresc">
             <h3>Baton proteinowy, 12 × 50 g</h3>
@@ -79,7 +98,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="przekaski" id="musli">
+            <li class="kafel" data-kat="przekaski" id="musli" data-cele="codziennie" data-forma="platki" data-dieta="weganskie bez-laktozy" data-cena="21.00" data-wyprzedaz="0" data-nazwa="Musli bez dodatku cukrów, 500 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="26" y="16" width="68" height="14" rx="3"/><path class="k-korpus" d="M26 28h68l10 120H16z"/><rect class="k-etykieta" x="28" y="66" width="64" height="50" rx="8"/><text class="k-tekst" x="60" y="96" text-anchor="middle" font-size="15">MUSLI</text></svg></div>
           <div class="kafel-tresc">
             <h3>Musli bez dodatku cukrów, 500 g</h3>
@@ -88,7 +107,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="przekaski" id="musli-proteinowe">
+            <li class="kafel" data-kat="przekaski" id="musli-proteinowe" data-cele="trening" data-forma="platki" data-dieta="" data-cena="22.10" data-wyprzedaz="15" data-nazwa="Musli proteinowe, 500 g">
           <div class="kafel-obraz"><span class="znaczek-wyp">−15%</span><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="26" y="16" width="68" height="14" rx="3"/><path class="k-korpus" d="M26 28h68l10 120H16z"/><rect class="k-etykieta" x="28" y="66" width="64" height="50" rx="8"/><text class="k-tekst" x="60" y="96" text-anchor="middle" font-size="15">MUSLI+</text></svg></div>
           <div class="kafel-tresc">
             <h3>Musli proteinowe, 500 g</h3>
@@ -97,7 +116,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="przekaski" id="elektrolity">
+            <li class="kafel" data-kat="przekaski" id="elektrolity" data-cele="trening" data-forma="saszetki" data-dieta="weganskie bez-laktozy" data-cena="39.00" data-wyprzedaz="0" data-nazwa="Elektrolity — izotonik w proszku, 20 saszetek">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="11">ELEKTRO</text></svg></div>
           <div class="kafel-tresc">
             <h3>Elektrolity — izotonik w proszku, 20 saszetek</h3>
@@ -106,8 +125,11 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        </ul>
-        
+            </ul>
+            <p class="lista-pusto" hidden>Żaden produkt nie pasuje do wybranych filtrów. <button type="button" class="link-przycisk" data-wyczysc>Wyczyść filtry</button></p>
+            
+          </div>
+        </div>
       </section>
 
       
