@@ -166,3 +166,18 @@
   .cookies { left: 8px; right: 8px; bottom: 8px; padding: 18px; }
   .cookies-przyciski { grid-template-columns: 1fr; }
 }
+
+/* ---------- pasek korzyści nad nagłówkiem (statyczny, bez przewijania tekstu) ---------- */
+.pasek-korzysci { position: relative; z-index: 55; background: #f1dcc2; color: #161a33; font-size: 13.5px; line-height: 1.2; }
+.pasek-korzysci ul { list-style: none; margin: 0; height: 36px; padding: 0 clamp(16px, 2.2vw, 36px); display: flex; align-items: center; justify-content: center; gap: 36px; }
+.pasek-korzysci li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.pasek-korzysci svg { width: 16px; height: 16px; flex: none; fill: none; stroke: #8c4f17; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.pasek-korzysci b { font-weight: 750; }
+.pasek-korzysci a { color: inherit; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(22, 26, 51, .35); text-underline-offset: .2em; }
+.pasek-korzysci a:hover { text-decoration-color: currentColor; }
+@media (max-width: 900px) {
+  /* na telefonie: jeden rząd, który można przesunąć palcem (sam się nie rusza) */
+  .pasek-korzysci ul { justify-content: flex-start; gap: 24px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .pasek-korzysci ul::-webkit-scrollbar { display: none; }
+  .pasek-korzysci li { scroll-snap-align: start; }
+}

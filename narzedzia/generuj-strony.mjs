@@ -32,6 +32,18 @@ const IKONY = {
   jezyk: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>',
 };
 
+// Pasek korzyści nad nagłówkiem: statyczny (bez przewijania się tekstu), tylko prawdziwe obietnice sklepu.
+function pasekKorzysci({ produkt = false } = {}) {
+  const ik = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  return `<aside class="pasek-korzysci" aria-label="Zalety zakupów w Bio &amp; Health">
+      <ul>
+        <li>${ik('<path d="M5 19 19 5"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>')}<span><b>−15%</b> na każdą dostawę w subskrypcji</span></li>
+        <li>${ik('<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/>')}<span>Darmowa dostawa do Paczkomatu od 150 zł</span></li>
+        <li>${ik('<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/>')}<a href="${produkt ? '#rytm' : './produkt.html#rytm'}">Dostawa co 2, 4, 6 lub 8 tygodni — jak to działa?</a></li>
+      </ul>
+    </aside>`;
+}
+
 function naglowek({ kat = null, strona = null, produkt = false } = {}) {
   const cur = ' aria-current="page"';
   const podkategorie = (k) => k.produkty
@@ -193,6 +205,7 @@ function strona({ title, desc, kat, menuKat = kat, strona: biezaca, ld, tresc })
       <a href="./informacje.html">Dowiedz się więcej</a>
     </p>
 
+    ${pasekKorzysci()}
     ${naglowek({ kat: menuKat, strona: biezaca })}
 
     <main id="tresc">
@@ -518,7 +531,7 @@ for (const [plik, opcje] of [['index.html', {}], ['informacje.html', {}], ['prod
     console.warn(`Pominięto ${plik}: brak znaczników <!-- NAGLOWEK:START --> / <!-- NAGLOWEK:END -->`);
     continue;
   }
-  writeFileSync(sciezka, html.replace(wzor, `<!-- NAGLOWEK:START -->\n    ${naglowek(opcje)}\n    <!-- NAGLOWEK:END -->`));
+  writeFileSync(sciezka, html.replace(wzor, `<!-- NAGLOWEK:START -->\n    ${pasekKorzysci(opcje)}\n    ${naglowek(opcje)}\n    <!-- NAGLOWEK:END -->`));
   zapisane.push(`${plik} (nagłówek)`);
 }
 
