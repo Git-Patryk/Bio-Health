@@ -1,7 +1,7 @@
-// Generuje działy sklepu, poradnik i wspólne menu z jednego zestawu danych (narzedzia/dane-sklepu.mjs).
+// Generuje działy sklepu, Sklep, Wyprzedaż, Strefę Wiedzy i wspólny nagłówek z jednego zestawu danych (narzedzia/dane-sklepu.mjs).
 // Uruchom z katalogu projektu:  node narzedzia/generuj-strony.mjs
 // Strony są zwykłym HTML (bez JavaScriptu do treści), żeby czytały je wyszukiwarki i asystenci AI.
-// Menu wstawiamy też do index.html i produkt.html — między znaczniki <!-- MENU:START --> i <!-- MENU:END -->.
+// Nagłówek wstawiamy też do index.html, produkt.html i informacje.html — między znaczniki <!-- NAGLOWEK:START/END -->.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -15,26 +15,70 @@ const kategoria = (slug) => KATEGORIE.find((k) => k.slug === slug);
 const artykul = (slug) => ARTYKULY.find((a) => a.slug === slug);
 const hrefProduktu = (k, p) => p.link || `./${k.slug}.html#${p.id}`;
 
-// ------------------------------------------------------------------ menu
+// ------------------------------------------------------------------ nagłówek (wspólny dla wszystkich stron)
+// Układ: logo → Sklep (duży panel z wszystkimi działami), Białko, Suplementy, Witaminy, Wyprzedaż → (przerwa)
+// Strefa Wiedzy → Dobierz zestaw → szukaj, konto, koszyk → język. Na karcie produktu przyciski otwierają okna
+// tej strony; na pozostałych prowadzą do karty produktu (produkt.html#ankieta, #szukaj, #konto, #koszyk).
 const strzalka = '<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg>';
+const LOGO_ZNAK = '<svg class="logo-znak" viewBox="0 0 100 100" aria-hidden="true"><path class="lz-petla" d="M79.11 25.57 A38 38 0 1 1 25.57 20.89" fill="none" stroke-width="12" stroke-linecap="round"/><path class="lz-grot" d="M36.5 11.4 L31.6 32.6 L15.2 13.3 Z" stroke-width="2" stroke-linejoin="round"/><g transform="rotate(-40 50 53)"><path class="lz-k1" d="M49 43 H38 A10 10 0 0 0 38 63 H49 Z"/><path class="lz-k2" d="M51 43 H62 A10 10 0 0 1 62 63 H51 Z"/></g></svg>';
+const LOGO_NAPIS = '<span class="logo-napis" aria-hidden="true">BIO<span>&amp;</span>HEALTH</span>';
+const logo = () => `<a class="logo" href="./" aria-label="Bio &amp; Health — strona główna">${LOGO_ZNAK}${LOGO_NAPIS}</a>`;
+const logoStopka = `<p class="logo logo--jasne logo--stopka" aria-label="Bio &amp; Health">${LOGO_ZNAK}${LOGO_NAPIS}</p>`;
+const IKONY = {
+  szukaj: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+  konto: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  koszyk: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>',
+  jezyk: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>',
+};
 
-function menu({ kat = null, strona = null } = {}) {
-  const pozycje = KATEGORIE.map((k) => {
-    const biezacy = k.slug === kat ? ' aria-current="page"' : '';
-    const linki = [
-      `<li><a class="menu-wszystko" href="./${k.slug}.html">${k.slug === 'zestawy' ? 'Wszystkie zestawy' : `Cały dział: ${k.menu}`}</a></li>`,
-      ...k.produkty
-        .filter((p, i, t) => t.findIndex((x) => hrefProduktu(k, x) === hrefProduktu(k, p)) === i)
-        .map((p) => `<li><a href="${hrefProduktu(k, p)}"${strona && hrefProduktu(k, p) === strona ? ' aria-current="page"' : ''}>${p.menu}</a></li>`),
-    ];
-    return `<li class="menu-pozycja"><a class="menu-link" href="./${k.slug}.html"${biezacy}>${k.menu}${strzalka}</a><div class="menu-panel"><ul>${linki.join('')}</ul></div></li>`;
-  });
-  const porady = [
-    `<li><a class="menu-wszystko" href="./strefa-wiedzy.html">Cała Strefa wiedzy</a></li>`,
-    ...ARTYKULY.map((a) => `<li><a href="./${a.slug}.html"${strona === `./${a.slug}.html` ? ' aria-current="page"' : ''}>${a.menu}</a></li>`),
+function naglowek({ kat = null, strona = null, produkt = false } = {}) {
+  const cur = ' aria-current="page"';
+  const podkategorie = (k) => k.produkty
+    .filter((p, i, t) => t.findIndex((x) => hrefProduktu(k, x) === hrefProduktu(k, p)) === i)
+    .map((p) => `<li><a href="${hrefProduktu(k, p)}"${strona && hrefProduktu(k, p) === strona ? cur : ''}>${p.menu}</a></li>`)
+    .join('');
+  const ankieta = produkt ? 'href="#ankieta" data-modal="ankieta"' : 'href="./produkt.html#ankieta"';
+  const mega = `<div class="menu-panel menu-panel--mega"><div class="mega">${KATEGORIE.map((k) => `<div class="mega-kolumna"><h3><a href="./${k.slug}.html">${k.menuSklep || k.menu}</a></h3><ul>${podkategorie(k)}</ul></div>`).join('')}<div class="mega-promo"><b>Nie wiesz, od czego zacząć?</b><span>Kilka pytań o cel i rytm dnia — dobierzemy zestaw w subskrypcji.</span><a ${ankieta}>Dobierz zestaw</a></div></div></div>`;
+  const pozycje = [
+    `<li class="menu-pozycja menu-pozycja--mega"><a class="menu-link" href="./sklep.html"${kat === 'sklep' ? cur : ''}>Sklep${strzalka}</a>${mega}</li>`,
+    ...KATEGORIE.filter((k) => k.naGorze).map((k) => `<li class="menu-pozycja"><a class="menu-link" href="./${k.slug}.html"${k.slug === kat ? cur : ''}>${k.menu}${strzalka}</a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./${k.slug}.html">Cały dział: ${k.menuSklep || k.menu}</a></li>${podkategorie(k)}</ul></div></li>`),
+    ...KATEGORIE.filter((k) => !k.naGorze).map((k) => `<li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" href="./${k.slug}.html">${k.menuSklep || k.menu}</a></li>`),
+    `<li class="menu-pozycja"><a class="menu-link menu-link--wyprzedaz" href="./wyprzedaz.html"${kat === 'wyprzedaz' ? cur : ''}>Wyprzedaż</a></li>`,
+    `<li class="menu-pozycja menu-pozycja--wiedza"><a class="menu-link" href="./strefa-wiedzy.html"${kat === 'wiedza' ? cur : ''}>Strefa Wiedzy${strzalka}</a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./strefa-wiedzy.html">Cała Strefa Wiedzy</a></li>${ARTYKULY.map((a) => `<li><a href="./${a.slug}.html"${strona === `./${a.slug}.html` ? cur : ''}>${a.menu}</a></li>`).join('')}</ul></div></li>`,
+    `<li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" ${ankieta}>Dobierz zestaw</a></li>`,
   ];
-  pozycje.push(`<li class="menu-pozycja"><a class="menu-link" href="./strefa-wiedzy.html"${kat === 'wiedza' ? ' aria-current="page"' : ''}>Strefa wiedzy${strzalka}</a><div class="menu-panel"><ul>${porady.join('')}</ul></div></li>`);
-  return `<nav class="menu" id="menu" aria-label="Kategorie sklepu"><ul class="menu-lista">${pozycje.join('')}</ul></nav>`;
+  const nav = `<nav class="menu" id="menu" aria-label="Menu sklepu"><ul class="menu-lista">${pozycje.join('')}</ul></nav>`;
+  const cel = produkt
+    ? '<button class="naglowek-cel" type="button" data-modal="ankieta">Dobierz zestaw</button>'
+    : '<a class="naglowek-cel" href="./produkt.html#ankieta">Dobierz zestaw</a>';
+  const ikony = produkt
+    ? `<button class="ikona ikona--szukaj" type="button" aria-label="Szukaj" data-modal="szukaj">${IKONY.szukaj}</button>
+          <button class="ikona" type="button" aria-label="Moje konto" data-modal="konto">${IKONY.konto}</button>
+          <button class="ikona koszyk-ikona" type="button" id="otworz-koszyk" aria-label="Koszyk, 0 produktów">${IKONY.koszyk}<span class="licznik" id="licznik" hidden>0</span></button>`
+    : `<a class="ikona ikona--szukaj" href="./produkt.html#szukaj" aria-label="Szukaj">${IKONY.szukaj}</a>
+          <a class="ikona" href="./produkt.html#konto" aria-label="Moje konto">${IKONY.konto}</a>
+          <a class="ikona" href="./produkt.html#koszyk" aria-label="Koszyk">${IKONY.koszyk}</a>`;
+  const jezyk = `<div class="jezyk">
+            <button class="jezyk-przycisk" type="button" aria-expanded="false" aria-label="Język strony: polski">${IKONY.jezyk}<span>PL</span>${strzalka.replace('menu-strzalka', 'menu-strzalka jezyk-strzalka')}</button>
+            <div class="jezyk-panel" hidden>
+              <button type="button" data-jezyk="pl" aria-pressed="true">Polski</button>
+              <button type="button" data-jezyk="en" aria-pressed="false" lang="en">English</button>
+              <p class="jezyk-info" role="status" hidden>Wersja angielska jest w przygotowaniu — to sklep pokazowy, więc zostajemy przy polskim.</p>
+            </div>
+          </div>`;
+  return `<header class="naglowek" id="naglowek">
+      <div class="naglowek-w">
+        ${logo()}
+        ${nav}
+        ${cel}
+        <div class="naglowek-akcje">
+          ${ikony}
+          ${jezyk}
+          <button class="ikona przelacz-menu" type="button" id="przelacz-menu" aria-expanded="false" aria-controls="menu" aria-label="Menu">${IKONY.menu}</button>
+        </div>
+      </div>
+    </header>`;
 }
 
 // ------------------------------------------------------------------ obrazki opakowań (SVG, kolor z CSS działu)
@@ -51,15 +95,20 @@ function opakowanie(ksztalt, etykieta) {
 }
 
 function kafel(k, p, { zKotwica = true } = {}) {
-  const cena = p.bezSubskrypcji
-    ? `<b>${zl(p.cena)}</b> <span>jednorazowo</span>`
-    : `<b>${zl(p.cena)}</b> <span>· ${zl(p.cena * 0.85)} w subskrypcji</span>`;
+  // przecena: cena po obniżce, przekreślona regularna i najniższa cena z 30 dni przed obniżką (dyrektywa Omnibus)
+  const cena = p.wyprzedaz
+    ? `<b class="cena-wyp">${zl(p.cena * (1 - p.wyprzedaz / 100))}</b> <s>${zl(p.cena)}</s><span class="omnibus">Najniższa cena z 30 dni przed obniżką: ${zl(p.cena)}</span>`
+    : p.bezSubskrypcji
+      ? `<b>${zl(p.cena)}</b> <span>jednorazowo</span>`
+      : `<b>${zl(p.cena)}</b> <span>· ${zl(p.cena * 0.85)} w subskrypcji</span>`;
   const tytul = p.link ? `<a href="${p.link}">${p.nazwa}</a>` : p.nazwa;
-  const status = p.link
+  const status = p.link?.includes('produkt.html')
     ? '<p class="kafel-status kafel-status--gotowe">Zobacz kartę produktu →</p>'
-    : '<p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>';
+    : p.link
+      ? `<p class="kafel-status kafel-status--gotowe">Zobacz w dziale ${k.menuSklep || k.menu} →</p>`
+      : '<p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>';
   return `<li class="kafel" data-kat="${k.slug}"${zKotwica ? ` id="${p.id}"` : ''}>
-          <div class="kafel-obraz">${opakowanie(p.ksztalt, p.etykieta)}</div>
+          <div class="kafel-obraz">${p.wyprzedaz ? `<span class="znaczek-wyp">−${p.wyprzedaz}%</span>` : ''}${opakowanie(p.ksztalt, p.etykieta)}</div>
           <div class="kafel-tresc">
             <h3>${tytul}</h3>
             <p class="kafel-opis">${p.opis}</p>
@@ -106,12 +155,12 @@ const faqLd = (pytania) => ({
 const stopka = `<footer class="stopka">
       <div class="stopka-w">
         <div>
-          <p class="logo logo--stopka">Bio<span>&amp;</span>Health</p>
+          ${logoStopka}
           <p>Bio &amp; Health sp. z o.o. (firma fikcyjna)<br />ul. Przykładowa 1, 00-000 Warszawa<br />NIP 000-000-00-00<br />kontakt@bio-health.example</p>
         </div>
-        <div><h2>Sklep</h2><ul>${KATEGORIE.slice(0, 4).map((k) => `<li><a href="./${k.slug}.html">${k.menu}</a></li>`).join('')}<li><a href="./zestawy.html">Zestawy w subskrypcji</a></li></ul></div>
-        <div><h2>Strefa wiedzy</h2><ul>${ARTYKULY.map((a) => `<li><a href="./${a.slug}.html">${a.krotki}</a></li>`).join('')}<li><a href="./strefa-wiedzy.html">Cała Strefa wiedzy</a></li></ul></div>
-        <div><h2>Dokumenty</h2><ul><li><a href="./informacje.html">Informacje o projekcie</a></li><li><a href="./produkt.html">Przykładowa karta produktu</a></li></ul></div>
+        <div><h2>Sklep</h2><ul><li><a href="./sklep.html">Wszystkie produkty</a></li>${KATEGORIE.filter((k) => k.naGorze).map((k) => `<li><a href="./${k.slug}.html">${k.menu}</a></li>`).join('')}<li><a href="./zestawy.html">Zestawy w subskrypcji</a></li><li><a href="./wyprzedaz.html">Wyprzedaż</a></li></ul></div>
+        <div><h2>Strefa Wiedzy</h2><ul>${ARTYKULY.map((a) => `<li><a href="./${a.slug}.html">${a.krotki}</a></li>`).join('')}<li><a href="./strefa-wiedzy.html">Cała Strefa Wiedzy</a></li></ul></div>
+        <div><h2>Dokumenty</h2><ul><li><a href="./informacje.html">Informacje o projekcie</a></li><li><button type="button" class="link-cookies" data-cookies>Ustawienia cookies</button></li><li><a href="./produkt.html">Przykładowa karta produktu</a></li></ul></div>
       </div>
       <div class="stopka-dol">
         <span>Projekt studencki: praktyki „Psychologia w e-commerce”, SWPS, 2026.</span>
@@ -146,18 +195,7 @@ function strona({ title, desc, kat, menuKat = kat, strona: biezaca, ld, tresc })
       <a href="./informacje.html">Dowiedz się więcej</a>
     </p>
 
-    <header class="naglowek" id="naglowek">
-      <div class="naglowek-w">
-        <a class="logo" href="./" aria-label="Bio &amp; Health — strona główna">Bio<span>&amp;</span>Health</a>
-        <!-- MENU:START -->${menu({ kat: menuKat, strona: biezaca })}<!-- MENU:END -->
-        <div class="naglowek-akcje">
-          <a class="pigulka pigulka--obrys naglowek-pigulka" href="./zestawy.html">Dobierz zestaw</a>
-          <button class="ikona przelacz-menu" type="button" id="przelacz-menu" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
-          </button>
-        </div>
-      </div>
-    </header>
+    ${naglowek({ kat: menuKat, strona: biezaca })}
 
     <main id="tresc">
       ${tresc}
@@ -177,7 +215,7 @@ function kartyPorad(slugi) {
   return `<ul class="karty-porad">${slugi
     .map((s) => {
       const a = artykul(s);
-      return `<li class="karta-porady" data-kat="${a.kat}"><span class="etykieta">Strefa wiedzy · ${a.czas} czytania</span><p class="karta-liczba"><b>${a.liczby[0].w}</b> ${a.liczby[0].o}</p><h3><a href="./${a.slug}.html">${a.h1}</a></h3><p>${a.zajawka}</p><ul class="slowa" aria-label="Słowa kluczowe">${a.slowa.map((w) => `<li>${w}</li>`).join('')}</ul></li>`;
+      return `<li class="karta-porady" data-kat="${a.kat}"><span class="etykieta">Strefa Wiedzy · ${a.czas} czytania</span><p class="karta-liczba"><b>${a.liczby[0].w}</b> ${a.liczby[0].o}</p><h3><a href="./${a.slug}.html">${a.h1}</a></h3><p>${a.zajawka}</p><ul class="slowa" aria-label="Słowa kluczowe">${a.slowa.map((w) => `<li>${w}</li>`).join('')}</ul></li>`;
     })
     .join('')}</ul>`;
 }
@@ -210,9 +248,55 @@ for (const k of KATEGORIE) {
 
       ${k.pytania.length ? `<div class="w">${pytaniaHTML(k.pytania, `Najczęstsze pytania: ${k.menu.toLowerCase()}`)}</div>` : ''}
 
-      ${k.porady.length ? `<section class="w poradnik" aria-labelledby="poradnik-tytul"><h2 id="poradnik-tytul">Ze Strefy wiedzy</h2>${kartyPorad(k.porady)}</section>` : ''}`;
+      ${k.porady.length ? `<section class="w poradnik" aria-labelledby="poradnik-tytul"><h2 id="poradnik-tytul">Ze Strefy Wiedzy</h2>${kartyPorad(k.porady)}</section>` : ''}`;
   const ld = jsonLd([okruszkiLd(sciezka), ...(k.pytania.length ? [faqLd(k.pytania)] : [])]);
   zapisz(`${k.slug}.html`, strona({ title: k.title, desc: k.desc, kat: k.slug, strona: `./${k.slug}.html`, ld, tresc }));
+}
+
+// ------------------------------------------------------------------ Sklep (wszystkie produkty) i Wyprzedaż
+{
+  const sciezka = [['Strona główna', './'], ['Sklep', './sklep.html']];
+  const tresc = `<section class="dzial-glowa">
+        <div class="w">
+          ${okruszkiHTML(sciezka)}
+          <h1>Suplementy i odżywki</h1>
+          <p class="lead">Wszystkie produkty Bio &amp; Health w jednym miejscu: białko, suplementy, witaminy i minerały, przekąski i napoje oraz zestawy w subskrypcji z dostawą co 2–8 tygodni.</p>
+          <ul class="chipy" aria-label="Działy">${KATEGORIE.map((k) => `<li><a href="#dzial-${k.slug}">${k.menuSklep || k.menu}</a></li>`).join('')}<li><a href="./wyprzedaz.html">Wyprzedaż</a></li></ul>
+        </div>
+      </section>
+      ${KATEGORIE.map((k) => `<section class="w sklep-dzial" id="dzial-${k.slug}" aria-labelledby="tytul-${k.slug}">
+        <div class="sklep-dzial-glowa"><h2 id="tytul-${k.slug}"><a href="./${k.slug}.html">${k.menuSklep || k.menu}</a></h2><a class="cichy-link" href="./${k.slug}.html">Cały dział →</a></div>
+        <ul class="siatka">
+        ${k.produkty.map((p) => kafel(k, { ...p, link: p.link || `./${k.slug}.html#${p.id}` }, { zKotwica: false })).join('\n        ')}
+        </ul>
+      </section>`).join('\n      ')}`;
+  zapisz('sklep.html', strona({
+    title: 'Sklep: suplementy i odżywki w subskrypcji — Bio & Health (sklep pokazowy)',
+    desc: 'Wszystkie produkty Bio & Health: białko, kreatyna i inne suplementy, witaminy i minerały, przekąski i zestawy w subskrypcji. Sklep pokazowy, projekt studencki.',
+    kat: 'sklep', strona: './sklep.html', ld: jsonLd([okruszkiLd(sciezka)]), tresc,
+  }));
+}
+{
+  const sciezka = [['Strona główna', './'], ['Wyprzedaż', './wyprzedaz.html']];
+  const przecenione = KATEGORIE.flatMap((k) => k.produkty.filter((p) => p.wyprzedaz).map((p) => kafel(k, { ...p, link: p.link || `./${k.slug}.html#${p.id}` }, { zKotwica: false })));
+  const tresc = `<section class="dzial-glowa">
+        <div class="w">
+          ${okruszkiHTML(sciezka)}
+          <h1>Wyprzedaż</h1>
+          <p class="lead">Przecenione suplementy i przekąski. Przy każdej obniżce podajemy najniższą cenę z 30 dni przed obniżką — tak, jak wymaga prawo.</p>
+        </div>
+      </section>
+      <section class="w produkty" aria-label="Przecenione produkty">
+        <ul class="siatka">
+        ${przecenione.join('\n        ')}
+        </ul>
+        <p class="przypis">Ceny przykładowe (sklep pokazowy). Obniżka dotyczy zakupu jednorazowego; w subskrypcji obowiązuje stały rabat 15%.</p>
+      </section>`;
+  zapisz('wyprzedaz.html', strona({
+    title: 'Wyprzedaż: przecenione suplementy i przekąski — Bio & Health (sklep pokazowy)',
+    desc: 'Wyprzedaż Bio & Health: przecenione suplementy i przekąski z podaną najniższą ceną z 30 dni przed obniżką. Sklep pokazowy, projekt studencki.',
+    kat: 'wyprzedaz', strona: './wyprzedaz.html', ld: jsonLd([okruszkiLd(sciezka)]), tresc,
+  }));
 }
 
 // ------------------------------------------------------------------ strefa wiedzy: elementy wizualne
@@ -317,11 +401,11 @@ const wypelnij = (html) =>
 
 // ------------------------------------------------------------------ strefa wiedzy: lista
 {
-  const sciezka = [['Strona główna', './'], ['Strefa wiedzy', './strefa-wiedzy.html']];
+  const sciezka = [['Strona główna', './'], ['Strefa Wiedzy', './strefa-wiedzy.html']];
   const tresc = `<section class="dzial-glowa">
         <div class="w">
           ${okruszkiHTML(sciezka)}
-          <h1>Strefa wiedzy</h1>
+          <h1>Strefa Wiedzy</h1>
           <p class="lead">Prosto i z liczbami: ile białka jeść, jak brać kreatynę, ile witaminy D3 zimą. Każdy artykuł ma źródła, a podkreślone słowa prowadzą prosto do produktu, o którym czytasz.</p>
         </div>
       </section>
@@ -329,8 +413,8 @@ const wypelnij = (html) =>
   zapisz(
     'strefa-wiedzy.html',
     strona({
-      title: 'Strefa wiedzy: białko, kreatyna, witamina D3 — Bio & Health (sklep pokazowy)',
-      desc: 'Strefa wiedzy Bio & Health: ile białka na redukcji, jak brać kreatynę, ile witaminy D3 zimą. Kalkulator, liczby i źródła. Sklep pokazowy, projekt studencki.',
+      title: 'Strefa Wiedzy: białko, kreatyna, witamina D3 — Bio & Health (sklep pokazowy)',
+      desc: 'Strefa Wiedzy Bio & Health: ile białka na redukcji, jak brać kreatynę, ile witaminy D3 zimą. Kalkulator, liczby i źródła. Sklep pokazowy, projekt studencki.',
       kat: 'wiedza',
       strona: './strefa-wiedzy.html',
       ld: jsonLd([okruszkiLd(sciezka)]),
@@ -341,12 +425,12 @@ const wypelnij = (html) =>
 
 // ------------------------------------------------------------------ strefa wiedzy: artykuły
 for (const a of ARTYKULY) {
-  const sciezka = [['Strona główna', './'], ['Strefa wiedzy', './strefa-wiedzy.html'], [a.krotki, `./${a.slug}.html`]];
+  const sciezka = [['Strona główna', './'], ['Strefa Wiedzy', './strefa-wiedzy.html'], [a.krotki, `./${a.slug}.html`]];
   const tresc = `<section class="artykul-glowa" data-kat="${a.kat}">
         <div class="w">
           ${okruszkiHTML(sciezka)}
           <h1>${a.h1}</h1>
-          <p class="artykul-meta">Strefa wiedzy · aktualizacja 26 listopada 2026 · ${a.czas} czytania</p>
+          <p class="artykul-meta">Strefa Wiedzy · aktualizacja 26 listopada 2026 · ${a.czas} czytania</p>
         </div>
       </section>
 
@@ -365,7 +449,7 @@ for (const a of ARTYKULY) {
         <aside class="boczny" aria-label="Produkty z artykułu">
           <p class="boczny-tytul">Produkty z artykułu</p>
           <ul>${a.polecane.map(miniProdukt).join('')}</ul>
-          <a class="boczny-link" href="./strefa-wiedzy.html">← Cała Strefa wiedzy</a>
+          <a class="boczny-link" href="./strefa-wiedzy.html">← Cała Strefa Wiedzy</a>
         </aside>
       </div>
 
@@ -391,17 +475,17 @@ for (const a of ARTYKULY) {
   zapisz(`${a.slug}.html`, strona({ title: a.title, desc: a.desc, kat: a.kat, menuKat: 'wiedza', strona: `./${a.slug}.html`, ld, tresc }));
 }
 
-// ------------------------------------------------------------------ menu w istniejących stronach
-for (const [plik, opcje] of [['index.html', {}], ['produkt.html', { kat: 'bialko', strona: './produkt.html' }]]) {
+// ------------------------------------------------------------------ nagłówek w istniejących stronach
+for (const [plik, opcje] of [['index.html', {}], ['informacje.html', {}], ['produkt.html', { kat: 'bialko', strona: './produkt.html', produkt: true }]]) {
   const sciezka = resolve(KATALOG, plik);
   const html = readFileSync(sciezka, 'utf8');
-  const wzor = /<!-- MENU:START -->[\s\S]*?<!-- MENU:END -->/;
+  const wzor = /<!-- NAGLOWEK:START -->[\s\S]*?<!-- NAGLOWEK:END -->/;
   if (!wzor.test(html)) {
-    console.warn(`Pominięto ${plik}: brak znaczników <!-- MENU:START --> / <!-- MENU:END -->`);
+    console.warn(`Pominięto ${plik}: brak znaczników <!-- NAGLOWEK:START --> / <!-- NAGLOWEK:END -->`);
     continue;
   }
-  writeFileSync(sciezka, html.replace(wzor, `<!-- MENU:START -->${menu(opcje)}<!-- MENU:END -->`));
-  zapisane.push(`${plik} (menu)`);
+  writeFileSync(sciezka, html.replace(wzor, `<!-- NAGLOWEK:START -->\n    ${naglowek(opcje)}\n    <!-- NAGLOWEK:END -->`));
+  zapisane.push(`${plik} (nagłówek)`);
 }
 
 // ------------------------------------------------------------------ dane strukturalne karty produktu (ścieżka + pytania z sekcji „Pytania i odpowiedzi”)

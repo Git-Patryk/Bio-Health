@@ -1,6 +1,6 @@
 /* Działy sklepu i poradnik (BC6: SEO / GEO). Kierunek wizualny: docs/DESIGN.md */
 @import '@fontsource-variable/onest';
-@import './menu.css';
+@import './wspolne.css';
 
 :root {
   --biel: #ffffff;
@@ -27,6 +27,9 @@
 [data-kat='przekaski'] { --pole: #e3dad3; --opak: #3e2c24; }
 [data-kat='zestawy'] { --pole: #dde2f7; --opak: #161a33; }
 [data-kat='wiedza'] { --pole: #eef0f4; --opak: #161a33; }
+[data-kat='suplementy'] { --pole: #e6e9ef; --opak: #6b7590; }
+[data-kat='sklep'] { --pole: #eef0f4; --opak: #161a33; }
+[data-kat='wyprzedaz'] { --pole: #f7d9dd; --opak: #c23f55; }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -68,13 +71,6 @@ h1, h2, h3, p, ul, ol, figure { margin: 0; }
   position: sticky; top: 0; z-index: 50; height: var(--naglowek-h);
   background: rgba(255, 255, 255, .94); backdrop-filter: saturate(1.6) blur(14px); box-shadow: 0 1px 0 var(--linia);
 }
-.naglowek-w { max-width: var(--szer); margin: 0 auto; height: 100%; padding: 0 var(--gutter); display: flex; align-items: center; gap: 36px; }
-.logo { font-weight: 700; font-size: 22px; letter-spacing: -.04em; text-decoration: none; }
-.logo span { font-weight: 400; margin: 0 1px; color: var(--granat-2); }
-.naglowek-akcje { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-@media (max-width: 1440px) { .naglowek-pigulka { display: none; } }
-@media (max-width: 1240px) { .naglowek-pigulka { display: inline-flex; } }
-@media (max-width: 560px) { .naglowek-pigulka { display: none; } }
 
 /* ---------- ścieżka (okruszki) ---------- */
 .okruszki { font-size: 14px; color: var(--granat-2); }
@@ -102,7 +98,16 @@ h1, h2, h3, p, ul, ol, figure { margin: 0; }
   box-shadow: 0 0 0 1px var(--linia); overflow: hidden; scroll-margin-top: calc(var(--naglowek-h) + 20px);
 }
 .kafel:target { box-shadow: 0 0 0 3px var(--sygnal); }
-.kafel-obraz { background: var(--pole); aspect-ratio: 4 / 3; display: grid; place-items: center; }
+.kafel-obraz { position: relative; background: var(--pole); aspect-ratio: 4 / 3; display: grid; place-items: center; }
+.znaczek-wyp { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: #c2364b; color: #fff; font-size: 14px; font-weight: 700; }
+.kafel-cena .cena-wyp { color: #c2364b; }
+.kafel-cena s { margin-left: 4px; color: var(--granat-2); }
+.omnibus { display: block; margin-top: 2px; font-size: 12.5px; line-height: 1.35; color: var(--granat-2); }
+.sklep-dzial { padding-top: 52px; }
+.sklep-dzial-glowa { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px; }
+.sklep-dzial-glowa h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 650; letter-spacing: -.02em; }
+.sklep-dzial-glowa h2 a { text-decoration: none; }
+.cichy-link { color: var(--granat-2); font-size: 15px; }
 .kafel-obraz svg { width: 46%; height: 78%; }
 .kafel-obraz .k-korpus { fill: var(--opak); }
 .kafel-obraz .k-etykieta { fill: #fff; opacity: .92; }
@@ -296,8 +301,7 @@ figcaption { margin-top: 12px; font-size: 14px; line-height: 1.5; color: var(--g
 /* ---------- stopka ---------- */
 .stopka { margin-top: clamp(64px, 9vw, 120px); background: var(--granat); color: #c9cde0; font-size: 15px; padding-bottom: 24px; }
 .stopka-w { max-width: var(--szer); margin: 0 auto; padding: 64px var(--gutter) 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.logo--stopka { color: #fff; margin-bottom: 14px; }
-.logo--stopka span { color: #9aa0bd; }
+.logo--stopka { margin-bottom: 14px; }
 .stopka h2 { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 12px; }
 .stopka ul { display: grid; gap: 8px; list-style: none; padding: 0; }
 .stopka a { text-decoration: none; }

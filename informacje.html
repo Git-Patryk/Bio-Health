@@ -13,6 +13,7 @@
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.js"></script>
   </head>
   <body>
     <a class="pomin" href="#tresc">Przejdź do treści</a>
@@ -22,12 +23,29 @@
       Niczego tu nie kupisz i nie zbieramy żadnych danych.
     </p>
 
-    <header class="naglowek">
-      <a class="logo" href="./" aria-label="Bio &amp; Health — strona główna">
-        Bio<span aria-hidden="true">&amp;</span>Health
-      </a>
-      <span class="nazwa-robocza">nazwa robocza</span>
+    <!-- NAGLOWEK:START -->
+    <header class="naglowek" id="naglowek">
+      <div class="naglowek-w">
+        <a class="logo" href="./" aria-label="Bio &amp; Health — strona główna"><svg class="logo-znak" viewBox="0 0 100 100" aria-hidden="true"><path class="lz-petla" d="M79.11 25.57 A38 38 0 1 1 25.57 20.89" fill="none" stroke-width="12" stroke-linecap="round"/><path class="lz-grot" d="M36.5 11.4 L31.6 32.6 L15.2 13.3 Z" stroke-width="2" stroke-linejoin="round"/><g transform="rotate(-40 50 53)"><path class="lz-k1" d="M49 43 H38 A10 10 0 0 0 38 63 H49 Z"/><path class="lz-k2" d="M51 43 H62 A10 10 0 0 1 62 63 H51 Z"/></g></svg><span class="logo-napis" aria-hidden="true">BIO<span>&amp;</span>HEALTH</span></a>
+        <nav class="menu" id="menu" aria-label="Menu sklepu"><ul class="menu-lista"><li class="menu-pozycja menu-pozycja--mega"><a class="menu-link" href="./sklep.html">Sklep<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></a><div class="menu-panel menu-panel--mega"><div class="mega"><div class="mega-kolumna"><h3><a href="./bialko.html">Białko</a></h3><ul><li><a href="./produkt.html">Białko WPC 80</a></li><li><a href="./bialko.html#bialko-wpi-90">Białko WPI 90 (izolat)</a></li><li><a href="./bialko.html#bialko-roslinne">Białko roślinne</a></li><li><a href="./bialko.html#gainer">Gainer</a></li></ul></div><div class="mega-kolumna"><h3><a href="./suplementy.html">Suplementy</a></h3><ul><li><a href="./suplementy.html#kreatyna-monohydrat">Kreatyna monohydrat</a></li><li><a href="./suplementy.html#kreatyna-kapsulki">Kreatyna w kapsułkach</a></li><li><a href="./suplementy.html#przedtreningowka">Przedtreningówka</a></li><li><a href="./suplementy.html#bcaa">BCAA</a></li><li><a href="./suplementy.html#omega-3">Omega 3</a></li><li><a href="./suplementy.html#omega-3-plyn">Omega 3 w płynie</a></li><li><a href="./suplementy.html#kolagen">Kolagen</a></li></ul></div><div class="mega-kolumna"><h3><a href="./witaminy.html">Witaminy i minerały</a></h3><ul><li><a href="./witaminy.html#witamina-d3">Witamina D3</a></li><li><a href="./witaminy.html#witamina-c">Witamina C</a></li><li><a href="./witaminy.html#witamina-b12">Witamina B12</a></li><li><a href="./witaminy.html#kwas-foliowy">Kwas foliowy</a></li><li><a href="./witaminy.html#witaminy-dla-dzieci">Witaminy dla dzieci</a></li><li><a href="./witaminy.html#magnez">Magnez</a></li><li><a href="./witaminy.html#zelazo">Żelazo</a></li><li><a href="./witaminy.html#cynk">Cynk</a></li></ul></div><div class="mega-kolumna"><h3><a href="./przekaski.html">Przekąski i napoje</a></h3><ul><li><a href="./przekaski.html#baton-proteinowy">Baton proteinowy</a></li><li><a href="./przekaski.html#musli">Musli</a></li><li><a href="./przekaski.html#musli-proteinowe">Musli proteinowe</a></li><li><a href="./przekaski.html#elektrolity">Elektrolity (izotonik)</a></li></ul></div><div class="mega-kolumna"><h3><a href="./zestawy.html">Zestawy w subskrypcji</a></h3><ul><li><a href="./zestawy.html#na-redukcje">Zestaw na redukcję</a></li><li><a href="./zestawy.html#na-mase">Zestaw na masę</a></li><li><a href="./zestawy.html#trening">Regularny trening</a></li><li><a href="./zestawy.html#dla-rodziny">Zestaw dla rodziny</a></li><li><a href="./produkt.html">Zestaw próbny</a></li></ul></div><div class="mega-promo"><b>Nie wiesz, od czego zacząć?</b><span>Kilka pytań o cel i rytm dnia — dobierzemy zestaw w subskrypcji.</span><a href="./produkt.html#ankieta">Dobierz zestaw</a></div></div></div></li><li class="menu-pozycja"><a class="menu-link" href="./bialko.html">Białko<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./bialko.html">Cały dział: Białko</a></li><li><a href="./produkt.html">Białko WPC 80</a></li><li><a href="./bialko.html#bialko-wpi-90">Białko WPI 90 (izolat)</a></li><li><a href="./bialko.html#bialko-roslinne">Białko roślinne</a></li><li><a href="./bialko.html#gainer">Gainer</a></li></ul></div></li><li class="menu-pozycja"><a class="menu-link" href="./suplementy.html">Suplementy<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./suplementy.html">Cały dział: Suplementy</a></li><li><a href="./suplementy.html#kreatyna-monohydrat">Kreatyna monohydrat</a></li><li><a href="./suplementy.html#kreatyna-kapsulki">Kreatyna w kapsułkach</a></li><li><a href="./suplementy.html#przedtreningowka">Przedtreningówka</a></li><li><a href="./suplementy.html#bcaa">BCAA</a></li><li><a href="./suplementy.html#omega-3">Omega 3</a></li><li><a href="./suplementy.html#omega-3-plyn">Omega 3 w płynie</a></li><li><a href="./suplementy.html#kolagen">Kolagen</a></li></ul></div></li><li class="menu-pozycja"><a class="menu-link" href="./witaminy.html">Witaminy<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./witaminy.html">Cały dział: Witaminy i minerały</a></li><li><a href="./witaminy.html#witamina-d3">Witamina D3</a></li><li><a href="./witaminy.html#witamina-c">Witamina C</a></li><li><a href="./witaminy.html#witamina-b12">Witamina B12</a></li><li><a href="./witaminy.html#kwas-foliowy">Kwas foliowy</a></li><li><a href="./witaminy.html#witaminy-dla-dzieci">Witaminy dla dzieci</a></li><li><a href="./witaminy.html#magnez">Magnez</a></li><li><a href="./witaminy.html#zelazo">Żelazo</a></li><li><a href="./witaminy.html#cynk">Cynk</a></li></ul></div></li><li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" href="./przekaski.html">Przekąski i napoje</a></li><li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" href="./zestawy.html">Zestawy w subskrypcji</a></li><li class="menu-pozycja"><a class="menu-link menu-link--wyprzedaz" href="./wyprzedaz.html">Wyprzedaż</a></li><li class="menu-pozycja menu-pozycja--wiedza"><a class="menu-link" href="./strefa-wiedzy.html">Strefa Wiedzy<svg class="menu-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></a><div class="menu-panel"><ul><li><a class="menu-wszystko" href="./strefa-wiedzy.html">Cała Strefa Wiedzy</a></li><li><a href="./bialko-na-redukcji.html">Białko na redukcji</a></li><li><a href="./kreatyna-jak-brac.html">Kreatyna: jak ją brać?</a></li><li><a href="./witamina-d3-zima.html">Witamina D3 zimą</a></li></ul></div></li><li class="menu-pozycja menu-pozycja--mobilna"><a class="menu-link" href="./produkt.html#ankieta">Dobierz zestaw</a></li></ul></nav>
+        <a class="naglowek-cel" href="./produkt.html#ankieta">Dobierz zestaw</a>
+        <div class="naglowek-akcje">
+          <a class="ikona ikona--szukaj" href="./produkt.html#szukaj" aria-label="Szukaj"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></a>
+          <a class="ikona" href="./produkt.html#konto" aria-label="Moje konto"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+          <a class="ikona" href="./produkt.html#koszyk" aria-label="Koszyk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+          <div class="jezyk">
+            <button class="jezyk-przycisk" type="button" aria-expanded="false" aria-label="Język strony: polski"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>PL</span><svg class="menu-strzalka jezyk-strzalka" viewBox="0 0 12 12" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></button>
+            <div class="jezyk-panel" hidden>
+              <button type="button" data-jezyk="pl" aria-pressed="true">Polski</button>
+              <button type="button" data-jezyk="en" aria-pressed="false" lang="en">English</button>
+              <p class="jezyk-info" role="status" hidden>Wersja angielska jest w przygotowaniu — to sklep pokazowy, więc zostajemy przy polskim.</p>
+            </div>
+          </div>
+          <button class="ikona przelacz-menu" type="button" id="przelacz-menu" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button>
+        </div>
+      </div>
     </header>
+    <!-- NAGLOWEK:END -->
 
     <main id="tresc" class="dokument">
       <h1>Informacje i prywatność</h1>
@@ -53,10 +71,14 @@
 
       <h2>Pliki cookies i analityka</h2>
       <p>
-        Nie używamy plików cookies, narzędzi analitycznych, pikseli
-        reklamowych ani zewnętrznych czcionek czy skryptów. Wszystkie pliki
-        strony pochodzą z tego samego serwera. Dlatego strona nie wyświetla
-        baneru zgody na cookies — nie ma o co pytać.
+        Nie używamy narzędzi analitycznych, pikseli reklamowych ani
+        zewnętrznych czcionek czy skryptów. Wszystkie pliki strony pochodzą
+        z tego samego serwera. Baner cookies jest pokazowy: pokazuje, jak
+        wyglądałoby pytanie o zgodę w prawdziwym sklepie. Twój wybór
+        (akceptuję, odrzucam albo własne ustawienia) zapisujemy tylko w tej
+        przeglądarce, żeby baner nie wracał przy każdej stronie — to zapis
+        niezbędny. Zmienisz go w każdej chwili przyciskiem „Ustawienia cookies”
+        w stopce.
       </p>
 
       <h2>Gdzie działa strona</h2>
@@ -92,6 +114,7 @@
     </main>
 
     <footer class="stopka">
+      <button type="button" class="link-cookies" data-cookies>Ustawienia cookies</button>
       <span>Projekt studencki — praktyki „Psychologia w e-commerce”, SWPS, zima 2026.</span>
       <span>Przygotowano z pomocą AI (Claude Code).</span>
     </footer>

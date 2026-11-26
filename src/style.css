@@ -1,4 +1,5 @@
-@import './menu.css';
+@import '@fontsource-variable/onest';
+@import './wspolne.css';
 
 /* Paleta i typografia robocze — do podmiany, gdy grupa ustali identyfikację marki.
    Czcionki systemowe: zero pobierania z zewnątrz (RODO, wydajność). */
@@ -83,63 +84,20 @@ a:hover {
   margin-left: 0.4em;
 }
 
+/* nagłówek: wspólny wygląd w src/wspolne.css */
 .naglowek {
-  position: relative;
+  --naglowek-h: 72px;
+  position: sticky;
+  top: 0;
   z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  padding: 16px var(--margines);
+  height: var(--naglowek-h);
+  background: #fff;
+  box-shadow: 0 1px 0 #d9dce5;
+  font-family: 'Onest Variable', var(--bezszeryf);
 }
 
-.naglowek-akcje {
-  margin-left: auto;
-}
-
-.ikona {
-  width: 44px;
-  height: 44px;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--tusz);
-  cursor: pointer;
-}
-
-.ikona:hover {
-  background: rgba(23, 32, 27, 0.08);
-}
-
-.ikona svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-}
-
-.logo {
-  font-family: var(--szeryf);
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--tusz);
-  text-decoration: none;
-}
-
-.logo span {
-  color: var(--chlorofil);
-  font-style: italic;
-  margin: 0 0.05em;
-}
-
-.nazwa-robocza {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--tusz-2);
+@media (max-width: 900px) {
+  .naglowek { --naglowek-h: 62px; }
 }
 
 main {

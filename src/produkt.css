@@ -1,6 +1,6 @@
 /* Strona produktu — kierunek wizualny w docs/DESIGN.md */
 @import '@fontsource-variable/onest';
-@import './menu.css';
+@import './wspolne.css';
 
 :root {
   --biel: #ffffff;
@@ -98,12 +98,6 @@ section[id] { scroll-margin-top: calc(var(--naglowek-h) + 60px); } /* nagłówek
   background: transparent; transition: background-color .35s, box-shadow .35s;
 }
 .naglowek.zwiniety { background: rgba(255,255,255,.92); backdrop-filter: saturate(1.6) blur(14px); box-shadow: 0 1px 0 var(--linia); }
-.naglowek-w { max-width: var(--szer); margin: 0 auto; height: 100%; padding: 0 var(--gutter); display: flex; align-items: center; gap: 36px; }
-.logo { font-weight: 700; font-size: 22px; letter-spacing: -.04em; text-decoration: none; }
-.logo span { font-weight: 400; margin: 0 1px; color: var(--granat-2); }
-/* menu z kategoriami: src/menu.css */
-.naglowek-akcje { margin-left: auto; display: flex; align-items: center; gap: 4px; }
-.naglowek-akcje .pigulka { min-height: 40px; padding: 0 18px; font-size: 15px; margin: 0 8px; }
 .licznik {
   position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px;
   border-radius: 999px; background: var(--granat); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
@@ -422,8 +416,7 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 /* ---------- stopka ---------- */
 .stopka { margin-top: clamp(64px, 9vw, 120px); background: var(--granat); color: #c9cde0; font-size: 15px; padding-bottom: 24px; }
 .stopka-w { max-width: var(--szer); margin: 0 auto; padding: 64px var(--gutter) 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.logo--stopka { color: #fff; margin-bottom: 14px; }
-.logo--stopka span { color: #9aa0bd; }
+.logo--stopka { margin-bottom: 14px; }
 .stopka h2 { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 12px; }
 .stopka ul { display: grid; gap: 8px; }
 .stopka a { text-decoration: none; }
@@ -532,12 +525,6 @@ th.wciecie { padding-left: 16px; color: var(--granat-2); }
 }
 
 /* ---------- tablet i telefon ---------- */
-@media (max-width: 1440px) {
-  .naglowek-akcje .tylko-duze { display: none; }
-}
-@media (min-width: 901px) and (max-width: 1240px) {
-  .naglowek-akcje .tylko-duze { display: inline-flex; }
-}
 @media (max-width: 900px) {
   :root { --naglowek-h: 62px; }
   body { font-size: 16px; }

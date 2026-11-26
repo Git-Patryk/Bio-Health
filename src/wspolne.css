@@ -1,0 +1,168 @@
+/* Wspólne elementy wszystkich stron: nagłówek (logo, menu, Strefa Wiedzy, ankieta, konto, język)
+   i baner cookies. Układ nagłówka: logo → Sklep, Białko, Suplementy, Witaminy, Wyprzedaż → (przerwa)
+   Strefa Wiedzy → Dobierz zestaw → szukaj, konto, koszyk → język.
+   Panele menu otwierają się od razu po najechaniu i znikają, gdy kursor zjedzie (bez opóźnień). */
+
+.naglowek {
+  --n-tekst: #161a33; --n-szary: #4e5470; --n-linia: #d9dce5; --n-mgla: #eef0f4; --n-karmel: #c27a36; --n-wyprz: #c2364b;
+  color: var(--n-tekst);
+}
+.naglowek-w { max-width: none; margin: 0; height: 100%; padding: 0 clamp(16px, 2.2vw, 36px); display: flex; align-items: center; gap: 0; }
+
+/* ---------- logo: pętla dostaw z kapsułką + napis ---------- */
+.logo { display: inline-flex; align-items: center; gap: 9px; margin-right: clamp(18px, 2.6vw, 40px); color: var(--n-tekst); text-decoration: none; flex: none; }
+.logo-znak { width: 34px; height: 34px; flex: none; overflow: visible; }
+.lz-petla { stroke: var(--logo-p1, #161a33); }
+.lz-grot { fill: var(--logo-p1, #161a33); stroke: var(--logo-p1, #161a33); }
+.lz-k1 { fill: #c27a36; }
+.lz-k2 { fill: #e9b872; }
+.logo-napis { font-weight: 860; font-size: 21px; line-height: 1; letter-spacing: -.035em; white-space: nowrap; }
+.logo-napis span { color: #c27a36; margin: 0 .01em; font-weight: 860; }
+.logo--jasne { --logo-p1: #ffffff; color: #fff; }
+
+/* ---------- menu ---------- */
+.menu { height: 100%; font-size: 15px; font-weight: 600; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu-lista { display: flex; align-items: stretch; height: 100%; }
+.menu-pozycja { position: relative; display: flex; }
+.menu-link {
+  position: relative; display: flex; align-items: center; gap: 5px; padding: 0 12px;
+  color: var(--n-tekst); text-decoration: none; white-space: nowrap;
+}
+.menu-link::after {
+  content: ''; position: absolute; left: 12px; right: 12px; bottom: calc(50% - 17px); height: 2px; border-radius: 2px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+}
+.menu-pozycja:hover > .menu-link::after, .menu-pozycja:focus-within > .menu-link::after, .menu-link[aria-current='page']::after { transform: scaleX(1); }
+.menu-link--wyprzedaz { color: var(--n-wyprz); }
+.menu-strzalka { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .55; }
+/* Strefa Wiedzy po nieco większej przerwie, z cienką kreską oddzielającą */
+.menu-pozycja--wiedza { margin-left: 26px; }
+.menu-pozycja--wiedza::before { content: ''; position: absolute; left: -13px; top: 50%; width: 1px; height: 22px; margin-top: -11px; background: var(--n-linia); }
+.menu-pozycja--mobilna { display: none; }
+
+/* panele — od razu po najechaniu / wejściu klawiszem Tab */
+.menu-panel { position: absolute; top: 100%; left: 0; z-index: 70; display: none; }
+.menu-pozycja:hover > .menu-panel, .menu-pozycja:focus-within > .menu-panel { display: block; }
+.menu-pozycja.schowane > .menu-panel { display: none; }
+.menu-panel > ul {
+  min-width: 250px; padding: 10px; background: #fff; border-radius: 0 0 18px 18px;
+  box-shadow: 0 22px 44px rgba(22, 26, 51, .14), 0 0 0 1px var(--n-linia);
+}
+.menu-panel a { display: block; padding: 9px 12px; border-radius: 10px; color: var(--n-tekst); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.menu-panel a:hover, .menu-panel a:focus-visible { background: var(--n-mgla); }
+.menu-panel a[aria-current='page'] { background: var(--n-mgla); font-weight: 650; }
+.menu-panel .menu-wszystko { font-weight: 700; }
+.menu-panel .menu-wszystko::after { content: ' →'; }
+
+/* „Sklep”: duży panel na całą szerokość, wszystkie działy w kolumnach */
+.menu-pozycja--mega { position: static; }
+.menu-panel--mega { left: 0; right: 0; background: #fff; border-top: 1px solid var(--n-linia); box-shadow: 0 26px 50px rgba(22, 26, 51, .16); }
+.mega { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(240px, 300px); gap: 28px; padding: 28px clamp(16px, 2.2vw, 36px) 34px; max-width: 1640px; }
+.mega-kolumna h3 { margin: 0 0 6px; font-size: 16px; font-weight: 750; letter-spacing: -.01em; }
+.mega-kolumna h3 a { padding: 6px 0; color: var(--n-tekst); text-decoration: none; }
+.mega-kolumna h3 a:hover { background: none; text-decoration: underline; text-underline-offset: .2em; }
+.mega-kolumna ul { display: grid; gap: 0; min-width: 0; padding: 0; background: none; box-shadow: none; border-radius: 0; }
+.mega-kolumna ul a { padding: 6px 0; color: var(--n-szary); font-weight: 450; white-space: normal; }
+.mega-kolumna ul a:hover { background: none; color: var(--n-tekst); text-decoration: underline; text-underline-offset: .2em; }
+.mega-promo { display: grid; gap: 8px; align-content: start; padding: 22px; border-radius: 20px; background: #f1dcc2; }
+.mega-promo b { font-size: 19px; line-height: 1.2; letter-spacing: -.015em; }
+.mega-promo span { font-size: 14px; color: var(--n-szary); font-weight: 450; }
+.menu-panel .mega-promo a { justify-self: start; margin-top: 6px; padding: 9px 16px; border-radius: 999px; background: var(--n-tekst); color: #fff; font-weight: 600; }
+.menu-panel .mega-promo a:hover { background: #262b52; }
+
+/* ---------- ankieta, konto, koszyk, język ---------- */
+.naglowek-cel {
+  flex: none; display: inline-flex; align-items: center; margin-left: 16px; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px;
+  background: transparent; box-shadow: inset 0 0 0 1.5px var(--n-tekst); color: var(--n-tekst);
+  font: inherit; font-size: 15px; font-weight: 650; white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color .2s, color .2s;
+}
+.naglowek-cel:hover { background: var(--n-tekst); color: #fff; }
+.naglowek-akcje { margin-left: auto; display: flex; align-items: center; gap: 2px; }
+.naglowek .ikona {
+  position: relative; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%;
+  background: transparent; color: var(--n-tekst); cursor: pointer; text-decoration: none;
+}
+.naglowek .ikona:hover { background: rgba(22, 26, 51, .07); }
+.naglowek .ikona svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.jezyk { position: relative; margin-left: 8px; }
+.jezyk-przycisk {
+  display: flex; align-items: center; gap: 6px; height: 38px; padding: 0 12px; border: 1.5px solid var(--n-linia); border-radius: 999px;
+  background: #fff; color: var(--n-tekst); font: inherit; font-size: 14px; font-weight: 650; cursor: pointer;
+}
+.jezyk-przycisk:hover { border-color: var(--n-tekst); }
+.jezyk-przycisk svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; }
+.jezyk-panel {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 80; width: 230px; padding: 6px; border-radius: 16px; background: #fff;
+  box-shadow: 0 22px 44px rgba(22, 26, 51, .16), 0 0 0 1px var(--n-linia);
+}
+.jezyk-panel button {
+  display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 10px 12px; border: 0; border-radius: 10px;
+  background: none; color: var(--n-tekst); font: inherit; font-size: 15px; font-weight: 500; text-align: left; cursor: pointer;
+}
+.jezyk-panel button:hover { background: var(--n-mgla); }
+.jezyk-panel button[aria-pressed='true']::after { content: '✓'; font-weight: 700; }
+.jezyk-info { margin: 4px 0 6px; padding: 8px 12px; font-size: 13px; line-height: 1.4; color: var(--n-szary); }
+.naglowek .przelacz-menu { display: none; }
+
+@media (max-width: 1180px) {
+  .naglowek .przelacz-menu { display: grid; }
+  .menu {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 45; height: auto;
+    max-height: calc(100dvh - var(--naglowek-h, 64px) - 32px); overflow-y: auto; overscroll-behavior: contain;
+    padding: 6px clamp(16px, 4vw, 48px) 26px; background: #fff; box-shadow: 0 20px 40px rgba(22, 26, 51, .12);
+    display: none;
+  }
+  .menu.otwarte { display: block; }
+  .menu-lista { display: grid; height: auto; }
+  .menu-pozycja { display: block; padding: 6px 0 10px; border-bottom: 1px solid var(--n-linia); }
+  .menu-pozycja--wiedza { margin-left: 0; }
+  .menu-pozycja--wiedza::before { display: none; }
+  .menu-pozycja--mobilna { display: block; }
+  .menu-link { padding: 10px 0 4px; font-size: 18px; font-weight: 700; }
+  .menu-link::after, .menu-strzalka { display: none; }
+  .menu-panel { position: static; display: block; }
+  .menu-panel--mega { display: none !important; }
+  .menu-panel > ul { padding: 0; background: none; box-shadow: none; border-radius: 0; min-width: 0; }
+  .menu-panel a { padding: 7px 0; color: var(--n-szary); font-size: 16px; white-space: normal; }
+  .menu-panel a:hover { background: none; color: var(--n-tekst); text-decoration: underline; }
+  .menu-panel .menu-wszystko { display: none; }
+}
+@media (max-width: 640px) {
+  .naglowek-cel, .naglowek .ikona--szukaj { display: none; }
+  .logo-napis { font-size: 18px; }
+  .logo-znak { width: 30px; height: 30px; }
+  .jezyk { margin-left: 2px; }
+  .jezyk-przycisk { padding: 0 9px; }
+  .jezyk-przycisk .jezyk-strzalka { display: none; }
+}
+
+/* ---------- baner cookies ---------- */
+.cookies {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 200; max-width: 600px; margin: 0 auto;
+  padding: 22px 24px; border-radius: 22px; background: #fff; color: #161a33; font-size: 15px; line-height: 1.5;
+  box-shadow: 0 30px 80px rgba(22, 26, 51, .28), 0 0 0 1px #d9dce5;
+}
+.cookies h2 { margin: 0 0 6px; font-size: 19px; line-height: 1.25; letter-spacing: -.01em; }
+.cookies p { margin: 0 0 14px; color: #4e5470; }
+.cookies p a { color: #161a33; }
+.cookies-przyciski { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cookies-przyciski button {
+  min-height: 46px; padding: 0 12px; border: 1.5px solid #161a33; border-radius: 999px; background: #161a33; color: #fff;
+  font: inherit; font-size: 15px; font-weight: 650; cursor: pointer;
+}
+.cookies-przyciski button:hover { background: #262b52; }
+.cookies-przyciski .cookies-obrys { background: #fff; color: #161a33; }
+.cookies-przyciski .cookies-obrys:hover { background: #eef0f4; }
+.cookies-ustawienia { display: grid; gap: 8px; margin: 0 0 14px; }
+.cookies-ustawienia label { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border-radius: 14px; background: #eef0f4; cursor: pointer; }
+.cookies-ustawienia label b { display: block; font-size: 15px; }
+.cookies-ustawienia label small { display: block; font-size: 13px; color: #4e5470; line-height: 1.35; }
+.cookies-ustawienia input { width: 22px; height: 22px; flex: none; accent-color: #161a33; }
+.cookies :focus-visible { outline: 3px solid #3d5afe; outline-offset: 3px; }
+.link-cookies { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-decoration: none; cursor: pointer; }
+.link-cookies:hover { text-decoration: underline; }
+@media (max-width: 560px) {
+  .cookies { left: 8px; right: 8px; bottom: 8px; padding: 18px; }
+  .cookies-przyciski { grid-template-columns: 1fr; }
+}

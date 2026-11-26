@@ -2,7 +2,7 @@
 // nic nie jest wysyłane. Koszyk żyje tylko w pamięci strony.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { zamknijMenu } from './menu.js';
+import { zamknijMenu } from './wspolne.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -588,7 +588,7 @@ $('#news-form').addEventListener('submit', (e) => {
   e.target.reset();
 });
 
-// menu z kategoriami (przycisk „Menu”, Esc): src/menu.js
+// menu z kategoriami (przycisk „Menu”, Esc): src/wspolne.js
 
 // --------------------------------------------- przewijanie i animacje
 // Zwykłe przewijanie przeglądarki (bez „wygładzania”, które opóźniało każdy ruch kółka).
@@ -660,3 +660,8 @@ renderSegment();
 renderOpinie();
 renderKoszyk();
 renderWszystko();
+
+// wejście z innej strony przez przycisk w nagłówku (produkt.html#ankieta, #szukaj, #konto, #koszyk)
+const zHasha = location.hash.slice(1);
+if (['ankieta', 'szukaj', 'konto'].includes(zHasha)) otworzOkno(zHasha);
+else if (zHasha === 'koszyk') { renderKoszyk(); otworzKoszyk(); }

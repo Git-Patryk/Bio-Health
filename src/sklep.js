@@ -1,6 +1,6 @@
 // Działy sklepu i Strefa wiedzy: treść jest w HTML (czytają ją wyszukiwarki i asystenci AI).
 // Tu tylko menu i kalkulator białka w artykule „Białko na redukcji”.
-import './menu.js';
+import './wspolne.js';
 
 const formularz = document.getElementById('kalk-formularz');
 if (formularz) {

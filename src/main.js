@@ -1,5 +1,5 @@
 // Menu z kategoriami (przycisk „Menu” na telefonie).
-import './menu.js';
+import './wspolne.js';
 
 // Scena 3D ładuje się osobno (dynamiczny import), więc tekst strony
 // pojawia się od razu, a three.js dociąga się w tle.

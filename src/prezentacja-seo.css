@@ -191,6 +191,16 @@ cite { display: block; font-size: 22px; color: var(--akcent); font-weight: 600; 
 .menu-lista-opis { margin-top: 30px; font-size: 28px; line-height: 1.5; color: var(--granat-2); }
 .menu-punkt { margin-top: 30px; font-size: 28px; line-height: 1.38; padding-left: 24px; border-left: 6px solid #c27a36; }
 .menu-punkt b { color: var(--czek); }
+.menu-lista-opis b { color: var(--granat); }
+.na-czerwono { color: var(--nie); font-weight: 650; }
+.wzor { margin-top: 26px; font-size: 24px; line-height: 1.4; padding: 16px 20px; border-radius: 18px; background: var(--mgla); color: var(--granat-2); }
+.menu-slajd { grid-template-columns: 540px 1fr; }
+/* logo na slajdzie tytułowym */
+.logo-tytul { display: flex; align-items: center; gap: 16px; margin-bottom: 44px; }
+.logo-tytul svg { width: 68px; height: 68px; overflow: visible; }
+.logo-tytul > span { font-size: 40px; font-weight: 860; letter-spacing: -.035em; color: #fff; }
+.logo-tytul > span span { color: #e9b872; }
+.lz-petla { stroke: #fff; } .lz-grot { fill: #fff; stroke: #fff; } .lz-k1 { fill: #c27a36; } .lz-k2 { fill: #e9b872; }
 
 /* 9. strefa wiedzy */
 .strefa-uklad { display: grid; grid-template-columns: 640px 1fr; gap: 70px; align-items: center; height: 100%; }
