@@ -65,8 +65,27 @@
 
       <section class="w produkty" aria-labelledby="produkty-tytul">
         <h2 id="produkty-tytul" class="ukryte">Produkty w dziale Zestawy</h2>
-        <ul class="siatka">
-        <li class="kafel" data-kat="zestawy" id="na-redukcje">
+        <div class="dzial-uklad" data-filtrowanie>
+          <aside class="filtry" id="filtry" aria-label="Filtry produktów">
+            <div class="filtry-glowa"><p class="filtry-tytul">Filtry</p><button type="button" class="link-przycisk" data-wyczysc>Wyczyść</button><button type="button" class="ikona filtry-zamknij" aria-label="Zamknij filtry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <form class="filtry-formularz"><fieldset class="filtr"><legend>Cel</legend><label><input type="checkbox" name="cele" value="redukcja" /> <span>Redukcja</span> <small>2</small></label><label><input type="checkbox" name="cele" value="masa" /> <span>Budowa masy</span> <small>2</small></label><label><input type="checkbox" name="cele" value="trening" /> <span>Trening</span> <small>2</small></label><label><input type="checkbox" name="cele" value="codziennie" /> <span>Na co dzień</span> <small>1</small></label><label><input type="checkbox" name="cele" value="rodzina" /> <span>Dla rodziny</span> <small>1</small></label></fieldset><fieldset class="filtr"><legend>Cena</legend><label><input type="radio" name="cena" value="" checked /> <span>Dowolna</span></label><label><input type="radio" name="cena" value="0-30" /> <span>do 30 zł</span> <small>1</small></label><label><input type="radio" name="cena" value="70-" /> <span>powyżej 70 zł</span> <small>4</small></label></fieldset></form>
+            <button type="button" class="pigulka pigulka--glowna filtry-pokaz">Pokaż produkty</button>
+          </aside>
+          <div class="dzial-lista">
+            <div class="lista-pasek">
+              <button class="filtry-otworz" type="button" aria-controls="filtry" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtry <span class="filtry-licznik" hidden></span></button>
+              <p class="lista-liczba" aria-live="polite"><b>5</b> produktów</p>
+              <label class="sortuj">Sortuj
+                <select name="sortuj">
+                  <option value="polecane">Polecane</option>
+                  <option value="cena-rosnaco">Cena: od najniższej</option>
+                  <option value="cena-malejaco">Cena: od najwyższej</option>
+                  <option value="nazwa">Nazwa: A–Z</option>
+                </select>
+              </label>
+            </div>
+            <ul class="siatka">
+            <li class="kafel" data-kat="zestawy" id="na-redukcje" data-cele="redukcja" data-forma="zestaw" data-dieta="" data-cena="159.00" data-wyprzedaz="0" data-nazwa="Zestaw na redukcję">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="11">REDUKCJA</text></svg></div>
           <div class="kafel-tresc">
             <h3>Zestaw na redukcję</h3>
@@ -75,7 +94,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="zestawy" id="na-mase">
+            <li class="kafel" data-kat="zestawy" id="na-mase" data-cele="masa" data-forma="zestaw" data-dieta="" data-cena="239.00" data-wyprzedaz="0" data-nazwa="Zestaw na masę">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="14">MASA</text></svg></div>
           <div class="kafel-tresc">
             <h3>Zestaw na masę</h3>
@@ -84,7 +103,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="zestawy" id="trening">
+            <li class="kafel" data-kat="zestawy" id="trening" data-cele="trening" data-forma="zestaw" data-dieta="" data-cena="159.00" data-wyprzedaz="0" data-nazwa="Zestaw „regularny trening”">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="11">TRENING</text></svg></div>
           <div class="kafel-tresc">
             <h3>Zestaw „regularny trening”</h3>
@@ -93,7 +112,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="zestawy" id="dla-rodziny">
+            <li class="kafel" data-kat="zestawy" id="dla-rodziny" data-cele="rodzina codziennie" data-forma="zestaw" data-dieta="" data-cena="109.00" data-wyprzedaz="0" data-nazwa="Zestaw dla rodziny">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="11">RODZINA</text></svg></div>
           <div class="kafel-tresc">
             <h3>Zestaw dla rodziny</h3>
@@ -102,7 +121,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="zestawy" id="zestaw-probny">
+            <li class="kafel" data-kat="zestawy" id="zestaw-probny" data-cele="redukcja masa trening" data-forma="zestaw" data-dieta="" data-cena="19.00" data-wyprzedaz="0" data-nazwa="Zestaw próbny białka, 5 × 30 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><path class="k-wieczko" d="M10 54l14-26h72l14 26z"/><rect class="k-korpus" x="10" y="52" width="100" height="92" rx="10"/><rect class="k-etykieta" x="20" y="76" width="80" height="44" rx="8"/><text class="k-tekst" x="60" y="103" text-anchor="middle" font-size="14">PRÓBKI</text></svg></div>
           <div class="kafel-tresc">
             <h3><a href="./produkt.html">Zestaw próbny białka, 5 × 30 g</a></h3>
@@ -111,8 +130,11 @@
             <p class="kafel-status kafel-status--gotowe">Zobacz kartę produktu →</p>
           </div>
         </li>
-        </ul>
-        <p class="przypis">Składy zestawów są przykładowe. W docelowym sklepie skład dobiera ankieta „Dobierz zestaw” (pytania opracowujemy razem z grupą).</p>
+            </ul>
+            <p class="lista-pusto" hidden>Żaden produkt nie pasuje do wybranych filtrów. <button type="button" class="link-przycisk" data-wyczysc>Wyczyść filtry</button></p>
+            <p class="przypis">Składy zestawów są przykładowe. W docelowym sklepie skład dobiera ankieta „Dobierz zestaw” (pytania opracowujemy razem z grupą).</p>
+          </div>
+        </div>
       </section>
 
       

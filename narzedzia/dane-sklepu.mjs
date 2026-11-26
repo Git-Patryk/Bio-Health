@@ -313,3 +313,37 @@ export const ARTYKULY = [
     polecane: ['witaminy#witamina-d3', 'witaminy#witaminy-dla-dzieci', 'suplementy#omega-3', 'zestawy#dla-rodziny'],
   },
 ];
+
+// ------------------------------------------------------------------ cechy produktów do filtrów w działach
+// cele: redukcja | masa | trening | codziennie | rodzina; forma: proszek | kapsulki | tabletki | plyn | zelki | baton | platki | saszetki | zestaw
+// dieta: weganskie | bez-laktozy (zaznaczamy tylko tam, gdzie wynika to ze składu produktu pokazowego)
+export const CECHY = {
+  'bialko-wpc-80': { cele: ['redukcja', 'masa', 'trening'], forma: 'proszek', dieta: [] },
+  'bialko-wpi-90': { cele: ['redukcja', 'masa', 'trening'], forma: 'proszek', dieta: [] },
+  'bialko-roslinne': { cele: ['redukcja', 'masa', 'trening'], forma: 'proszek', dieta: ['weganskie', 'bez-laktozy'] },
+  gainer: { cele: ['masa'], forma: 'proszek', dieta: [] },
+  'kreatyna-monohydrat': { cele: ['masa', 'trening'], forma: 'proszek', dieta: ['weganskie', 'bez-laktozy'] },
+  'kreatyna-kapsulki': { cele: ['masa', 'trening'], forma: 'kapsulki', dieta: [] },
+  przedtreningowka: { cele: ['trening'], forma: 'proszek', dieta: [] },
+  bcaa: { cele: ['trening'], forma: 'proszek', dieta: [] },
+  'omega-3': { cele: ['codziennie'], forma: 'kapsulki', dieta: [] },
+  'omega-3-plyn': { cele: ['codziennie', 'rodzina'], forma: 'plyn', dieta: [] },
+  kolagen: { cele: ['codziennie'], forma: 'proszek', dieta: [] },
+  'witamina-d3': { cele: ['codziennie', 'rodzina'], forma: 'kapsulki', dieta: [] },
+  'witamina-c': { cele: ['codziennie'], forma: 'tabletki', dieta: ['weganskie'] },
+  'witamina-b12': { cele: ['codziennie'], forma: 'tabletki', dieta: ['weganskie'] },
+  'kwas-foliowy': { cele: ['rodzina'], forma: 'tabletki', dieta: ['weganskie'] },
+  'witaminy-dla-dzieci': { cele: ['rodzina'], forma: 'zelki', dieta: [] },
+  magnez: { cele: ['codziennie', 'trening'], forma: 'tabletki', dieta: ['weganskie'] },
+  zelazo: { cele: ['codziennie'], forma: 'kapsulki', dieta: [] },
+  cynk: { cele: ['codziennie'], forma: 'tabletki', dieta: ['weganskie'] },
+  'baton-proteinowy': { cele: ['redukcja', 'trening'], forma: 'baton', dieta: [] },
+  musli: { cele: ['codziennie'], forma: 'platki', dieta: ['weganskie', 'bez-laktozy'] },
+  'musli-proteinowe': { cele: ['trening'], forma: 'platki', dieta: [] },
+  elektrolity: { cele: ['trening'], forma: 'saszetki', dieta: ['weganskie', 'bez-laktozy'] },
+  'na-redukcje': { cele: ['redukcja'], forma: 'zestaw', dieta: [] },
+  'na-mase': { cele: ['masa'], forma: 'zestaw', dieta: [] },
+  trening: { cele: ['trening'], forma: 'zestaw', dieta: [] },
+  'dla-rodziny': { cele: ['rodzina', 'codziennie'], forma: 'zestaw', dieta: [] },
+  'zestaw-probny': { cele: ['redukcja', 'masa', 'trening'], forma: 'zestaw', dieta: [] },
+};

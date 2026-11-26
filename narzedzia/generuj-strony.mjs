@@ -5,7 +5,7 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { ADRES, KATEGORIE, ARTYKULY } from './dane-sklepu.mjs';
+import { ADRES, KATEGORIE, ARTYKULY, CECHY } from './dane-sklepu.mjs';
 
 const KATALOG = resolve(import.meta.dirname, '..');
 const zl = (n) => n.toFixed(2).replace('.', ',') + ' zł';
@@ -117,7 +117,10 @@ function kafel(k, p, { zKotwica = true } = {}) {
     : p.link
       ? `<p class="kafel-status kafel-status--gotowe">Zobacz w dziale ${k.menuSklep || k.menu} →</p>`
       : '<p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>';
-  return `<li class="kafel" data-kat="${k.slug}"${zKotwica ? ` id="${p.id}"` : ''}>
+  const c = CECHY[p.id] || { cele: [], forma: '', dieta: [] };
+  const cenaEf = p.wyprzedaz ? p.cena * (1 - p.wyprzedaz / 100) : p.cena;
+  const dane = ` data-cele="${c.cele.join(' ')}" data-forma="${c.forma}" data-dieta="${c.dieta.join(' ')}" data-cena="${cenaEf.toFixed(2)}" data-wyprzedaz="${p.wyprzedaz || 0}" data-nazwa="${atrybut(p.nazwa)}"`;
+  return `<li class="kafel" data-kat="${k.slug}"${zKotwica ? ` id="${p.id}"` : ''}${dane}>
           <div class="kafel-obraz">${p.wyprzedaz ? `<span class="znaczek-wyp">−${p.wyprzedaz}%</span>` : ''}${opakowanie(p.ksztalt, p.etykieta)}</div>
           <div class="kafel-tresc">
             <h3>${tytul}</h3>
@@ -238,6 +241,43 @@ function zapisz(plik, html) {
   zapisane.push(plik);
 }
 
+// ------------------------------------------------------------------ filtry w działach (lewa kolumna)
+// Filtrujemy i sortujemy w przeglądarce, bez nowych adresów (np. ?forma=kapsulki): Google nie dostaje wtedy
+// dziesiątek prawie takich samych stron (duplikaty treści). Adres działu zostaje jeden.
+const NAZWY_CECH = {
+  cele: { tytul: 'Cel', wartosci: { redukcja: 'Redukcja', masa: 'Budowa masy', trening: 'Trening', codziennie: 'Na co dzień', rodzina: 'Dla rodziny' } },
+  forma: { tytul: 'Forma', wartosci: { proszek: 'Proszek', kapsulki: 'Kapsułki', tabletki: 'Tabletki', plyn: 'Płyn', zelki: 'Żelki', baton: 'Baton', platki: 'Płatki', saszetki: 'Saszetki', zestaw: 'Zestaw' } },
+  dieta: { tytul: 'Dieta', wartosci: { weganskie: 'Wegańskie', 'bez-laktozy': 'Bez laktozy' } },
+};
+const PRZEDZIALY = [['0-30', 'do 30 zł'], ['30-70', '30–70 zł'], ['70-', 'powyżej 70 zł']];
+const IKONA_FILTRY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
+const odmianaProdukt = (n) => (n === 1 ? 'produkt' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'produkty' : 'produktów');
+
+function filtryHTML(k) {
+  const cechy = k.produkty.map((p) => ({ p, c: CECHY[p.id] || { cele: [], forma: '', dieta: [] } }));
+  const grupy = Object.entries(NAZWY_CECH).map(([pole, { tytul, wartosci }]) => {
+    const liczby = {};
+    cechy.forEach(({ c }) => [].concat(c[pole]).filter(Boolean).forEach((w) => { liczby[w] = (liczby[w] || 0) + 1; }));
+    const klucze = Object.keys(wartosci).filter((w) => liczby[w]);
+    if (pole !== 'dieta' && klucze.length < 2) return '';
+    if (!klucze.length) return '';
+    return `<fieldset class="filtr"><legend>${tytul}</legend>${klucze.map((w) => `<label><input type="checkbox" name="${pole}" value="${w}" /> <span>${wartosci[w]}</span> <small>${liczby[w]}</small></label>`).join('')}</fieldset>`;
+  }).join('');
+  const ceny = cechy.map(({ p }) => (p.wyprzedaz ? p.cena * (1 - p.wyprzedaz / 100) : p.cena));
+  const wPrzedziale = ([od, d]) => ceny.filter((c) => c >= Number(od) && (d === '' || c < Number(d))).length;
+  const przedzialy = PRZEDZIALY.map(([w, n]) => [w, n, wPrzedziale(w.split('-'))]).filter(([, , ile]) => ile);
+  const cena = przedzialy.length > 1
+    ? `<fieldset class="filtr"><legend>Cena</legend><label><input type="radio" name="cena" value="" checked /> <span>Dowolna</span></label>${przedzialy.map(([w, n, ile]) => `<label><input type="radio" name="cena" value="${w}" /> <span>${n}</span> <small>${ile}</small></label>`).join('')}</fieldset>`
+    : '';
+  const ileWyp = k.produkty.filter((p) => p.wyprzedaz).length;
+  const wyprzedaz = ileWyp ? `<fieldset class="filtr"><legend>Oferta</legend><label><input type="checkbox" name="wyprzedaz" value="1" /> <span>Tylko przecenione</span> <small>${ileWyp}</small></label></fieldset>` : '';
+  return `<aside class="filtry" id="filtry" aria-label="Filtry produktów">
+            <div class="filtry-glowa"><p class="filtry-tytul">Filtry</p><button type="button" class="link-przycisk" data-wyczysc>Wyczyść</button><button type="button" class="ikona filtry-zamknij" aria-label="Zamknij filtry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <form class="filtry-formularz">${grupy}${cena}${wyprzedaz}</form>
+            <button type="button" class="pigulka pigulka--glowna filtry-pokaz">Pokaż produkty</button>
+          </aside>`;
+}
+
 for (const k of KATEGORIE) {
   const sciezka = [['Strona główna', './'], [k.menu, `./${k.slug}.html`]];
   const tresc = `<section class="dzial-glowa">
@@ -251,10 +291,28 @@ for (const k of KATEGORIE) {
 
       <section class="w produkty" aria-labelledby="produkty-tytul">
         <h2 id="produkty-tytul" class="ukryte">Produkty w dziale ${k.menu}</h2>
-        <ul class="siatka">
-        ${k.produkty.map((p) => kafel(k, p)).join('\n        ')}
-        </ul>
-        ${k.przypis ? `<p class="przypis">${k.przypis}</p>` : ''}
+        <div class="dzial-uklad" data-filtrowanie>
+          ${filtryHTML(k)}
+          <div class="dzial-lista">
+            <div class="lista-pasek">
+              <button class="filtry-otworz" type="button" aria-controls="filtry" aria-expanded="false">${IKONA_FILTRY}Filtry <span class="filtry-licznik" hidden></span></button>
+              <p class="lista-liczba" aria-live="polite"><b>${k.produkty.length}</b> ${odmianaProdukt(k.produkty.length)}</p>
+              <label class="sortuj">Sortuj
+                <select name="sortuj">
+                  <option value="polecane">Polecane</option>
+                  <option value="cena-rosnaco">Cena: od najniższej</option>
+                  <option value="cena-malejaco">Cena: od najwyższej</option>
+                  <option value="nazwa">Nazwa: A–Z</option>
+                </select>
+              </label>
+            </div>
+            <ul class="siatka">
+            ${k.produkty.map((p) => kafel(k, p)).join('\n            ')}
+            </ul>
+            <p class="lista-pusto" hidden>Żaden produkt nie pasuje do wybranych filtrów. <button type="button" class="link-przycisk" data-wyczysc>Wyczyść filtry</button></p>
+            ${k.przypis ? `<p class="przypis">${k.przypis}</p>` : ''}
+          </div>
+        </div>
       </section>
 
       ${k.pytania.length ? `<div class="w">${pytaniaHTML(k.pytania, `Najczęstsze pytania: ${k.menu.toLowerCase()}`)}</div>` : ''}
@@ -438,6 +496,25 @@ function miniProdukt(ref) {
 
 const liczbyHTML = (liczby) => `<ul class="liczby">${liczby.map((l) => `<li><b>${l.w}</b><span>${l.o}</span></li>`).join('')}</ul>`;
 
+const naId = (t) => bezTagow(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// nagłówki-pytania dostają id, żeby spis treści mógł do nich prowadzić
+const zIdNaglowkow = (html) => html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, t) => `<h2 id="${naId(t)}">${t}</h2>`);
+const naglowkiArtykulu = (a) => [...a.tresc.matchAll(/<h2>([\s\S]*?)<\/h2>/g)].map((m) => [naId(m[1]), bezTagow(m[1])])
+  .concat(a.pytania.length ? [['pytania-tytul', 'Pytania i odpowiedzi']] : [], [['zrodla-tytul', 'Źródła']]);
+function spisTresci(a) {
+  const lista = `<ol>${naglowkiArtykulu(a).map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol>`;
+  const inne = ARTYKULY.filter((x) => x.slug !== a.slug);
+  return {
+    boczny: `<nav class="spis" aria-label="Spis treści i inne artykuły">
+          <p class="spis-tytul">W tym artykule</p>
+          ${lista}
+          <p class="spis-tytul">Inne artykuły</p>
+          <ul class="spis-inne">${inne.map((x) => `<li><a href="./${x.slug}.html">${x.menu}</a></li>`).join('')}<li><a href="./strefa-wiedzy.html">Cała Strefa Wiedzy →</a></li></ul>
+        </nav>`,
+    mobilny: `<details class="spis-mobilny"><summary>Spis treści</summary>${lista}</details>`,
+  };
+}
+
 const wypelnij = (html) =>
   html
     .replace('<!--KALKULATOR-->', kalkulator())
@@ -473,6 +550,7 @@ const wypelnij = (html) =>
 // ------------------------------------------------------------------ strefa wiedzy: artykuły
 for (const a of ARTYKULY) {
   const sciezka = [['Strona główna', './'], ['Strefa Wiedzy', './strefa-wiedzy.html'], [a.krotki, `./${a.slug}.html`]];
+  const spis = spisTresci(a);
   const tresc = `<section class="artykul-glowa" data-kat="${a.kat}">
         <div class="w">
           ${okruszkiHTML(sciezka)}
@@ -482,10 +560,12 @@ for (const a of ARTYKULY) {
       </section>
 
       <div class="artykul-uklad">
+        ${spis.boczny}
         <article class="artykul" aria-labelledby="artykul-tytul">
           <h2 id="artykul-tytul" class="ukryte">${a.h1}</h2>
           <div class="w-skrocie" role="note"><h2>W skrócie</h2><p>${a.skrot}</p>${liczbyHTML(a.liczby)}</div>
-          ${wypelnij(a.tresc.trim())}
+          ${spis.mobilny}
+          ${wypelnij(zIdNaglowkow(a.tresc.trim()))}
           ${pytaniaHTML(a.pytania, 'Pytania i odpowiedzi')}
           <section class="zrodla" aria-labelledby="zrodla-tytul">
             <h2 id="zrodla-tytul">Źródła</h2>

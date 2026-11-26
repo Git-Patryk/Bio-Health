@@ -66,8 +66,27 @@
 
       <section class="w produkty" aria-labelledby="produkty-tytul">
         <h2 id="produkty-tytul" class="ukryte">Produkty w dziale Białko</h2>
-        <ul class="siatka">
-        <li class="kafel" data-kat="bialko" id="bialko-wpc-80">
+        <div class="dzial-uklad" data-filtrowanie>
+          <aside class="filtry" id="filtry" aria-label="Filtry produktów">
+            <div class="filtry-glowa"><p class="filtry-tytul">Filtry</p><button type="button" class="link-przycisk" data-wyczysc>Wyczyść</button><button type="button" class="ikona filtry-zamknij" aria-label="Zamknij filtry"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+            <form class="filtry-formularz"><fieldset class="filtr"><legend>Cel</legend><label><input type="checkbox" name="cele" value="redukcja" /> <span>Redukcja</span> <small>3</small></label><label><input type="checkbox" name="cele" value="masa" /> <span>Budowa masy</span> <small>4</small></label><label><input type="checkbox" name="cele" value="trening" /> <span>Trening</span> <small>3</small></label></fieldset><fieldset class="filtr"><legend>Dieta</legend><label><input type="checkbox" name="dieta" value="weganskie" /> <span>Wegańskie</span> <small>1</small></label><label><input type="checkbox" name="dieta" value="bez-laktozy" /> <span>Bez laktozy</span> <small>1</small></label></fieldset><fieldset class="filtr"><legend>Oferta</legend><label><input type="checkbox" name="wyprzedaz" value="1" /> <span>Tylko przecenione</span> <small>1</small></label></fieldset></form>
+            <button type="button" class="pigulka pigulka--glowna filtry-pokaz">Pokaż produkty</button>
+          </aside>
+          <div class="dzial-lista">
+            <div class="lista-pasek">
+              <button class="filtry-otworz" type="button" aria-controls="filtry" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtry <span class="filtry-licznik" hidden></span></button>
+              <p class="lista-liczba" aria-live="polite"><b>4</b> produkty</p>
+              <label class="sortuj">Sortuj
+                <select name="sortuj">
+                  <option value="polecane">Polecane</option>
+                  <option value="cena-rosnaco">Cena: od najniższej</option>
+                  <option value="cena-malejaco">Cena: od najwyższej</option>
+                  <option value="nazwa">Nazwa: A–Z</option>
+                </select>
+              </label>
+            </div>
+            <ul class="siatka">
+            <li class="kafel" data-kat="bialko" id="bialko-wpc-80" data-cele="redukcja masa trening" data-forma="proszek" data-dieta="" data-cena="109.00" data-wyprzedaz="0" data-nazwa="Białko serwatkowe WPC 80, 900 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="22" y="14" width="76" height="18" rx="6"/><rect class="k-korpus" x="16" y="28" width="88" height="120" rx="14"/><rect class="k-etykieta" x="24" y="60" width="72" height="56" rx="8"/><text class="k-tekst" x="60" y="93" text-anchor="middle" font-size="15">WPC 80</text></svg></div>
           <div class="kafel-tresc">
             <h3><a href="./produkt.html">Białko serwatkowe WPC 80, 900 g</a></h3>
@@ -76,7 +95,7 @@
             <p class="kafel-status kafel-status--gotowe">Zobacz kartę produktu →</p>
           </div>
         </li>
-        <li class="kafel" data-kat="bialko" id="bialko-wpi-90">
+            <li class="kafel" data-kat="bialko" id="bialko-wpi-90" data-cele="redukcja masa trening" data-forma="proszek" data-dieta="" data-cena="129.00" data-wyprzedaz="0" data-nazwa="Izolat białka WPI 90, 700 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="22" y="14" width="76" height="18" rx="6"/><rect class="k-korpus" x="16" y="28" width="88" height="120" rx="14"/><rect class="k-etykieta" x="24" y="60" width="72" height="56" rx="8"/><text class="k-tekst" x="60" y="93" text-anchor="middle" font-size="15">WPI 90</text></svg></div>
           <div class="kafel-tresc">
             <h3>Izolat białka WPI 90, 700 g</h3>
@@ -85,7 +104,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="bialko" id="bialko-roslinne">
+            <li class="kafel" data-kat="bialko" id="bialko-roslinne" data-cele="redukcja masa trening" data-forma="proszek" data-dieta="weganskie bez-laktozy" data-cena="99.00" data-wyprzedaz="0" data-nazwa="Białko roślinne z grochu i ryżu, 750 g">
           <div class="kafel-obraz"><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="22" y="14" width="76" height="18" rx="6"/><rect class="k-korpus" x="16" y="28" width="88" height="120" rx="14"/><rect class="k-etykieta" x="24" y="60" width="72" height="56" rx="8"/><text class="k-tekst" x="60" y="93" text-anchor="middle" font-size="15">VEGE</text></svg></div>
           <div class="kafel-tresc">
             <h3>Białko roślinne z grochu i ryżu, 750 g</h3>
@@ -94,7 +113,7 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        <li class="kafel" data-kat="bialko" id="gainer">
+            <li class="kafel" data-kat="bialko" id="gainer" data-cele="masa" data-forma="proszek" data-dieta="" data-cena="71.20" data-wyprzedaz="20" data-nazwa="Gainer węglowodanowo-białkowy, 1500 g">
           <div class="kafel-obraz"><span class="znaczek-wyp">−20%</span><svg viewBox="0 0 120 160" aria-hidden="true"><rect class="k-wieczko" x="22" y="14" width="76" height="18" rx="6"/><rect class="k-korpus" x="16" y="28" width="88" height="120" rx="14"/><rect class="k-etykieta" x="24" y="60" width="72" height="56" rx="8"/><text class="k-tekst" x="60" y="93" text-anchor="middle" font-size="15">GAINER</text></svg></div>
           <div class="kafel-tresc">
             <h3>Gainer węglowodanowo-białkowy, 1500 g</h3>
@@ -103,8 +122,11 @@
             <p class="kafel-status">Karta produktu w przygotowaniu (sklep pokazowy)</p>
           </div>
         </li>
-        </ul>
-        <p class="przypis">Białko przyczynia się do wzrostu masy mięśniowej i do utrzymania masy mięśniowej (oświadczenie zdrowotne z wykazu UE). Suplement diety nie zastąpi zróżnicowanej diety.</p>
+            </ul>
+            <p class="lista-pusto" hidden>Żaden produkt nie pasuje do wybranych filtrów. <button type="button" class="link-przycisk" data-wyczysc>Wyczyść filtry</button></p>
+            <p class="przypis">Białko przyczynia się do wzrostu masy mięśniowej i do utrzymania masy mięśniowej (oświadczenie zdrowotne z wykazu UE). Suplement diety nie zastąpi zróżnicowanej diety.</p>
+          </div>
+        </div>
       </section>
 
       <div class="w"><section class="pytania" aria-labelledby="pytania-tytul">
